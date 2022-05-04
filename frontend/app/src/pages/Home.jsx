@@ -1,6 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import TablaVehiculos from '../components/home/tablaVehiculos'
+
 function Home() {
     const [sesion, setSesion] = React.useState(false);
   
@@ -16,7 +18,10 @@ function Home() {
       }
     })
     return (
-      <div>Home</div>
+      <React.Fragment>
+        <div>Home</div>
+        <TablaVehiculos />
+      </React.Fragment>
     )
 }
 

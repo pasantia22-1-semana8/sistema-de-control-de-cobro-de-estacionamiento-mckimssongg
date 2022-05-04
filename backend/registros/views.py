@@ -11,10 +11,9 @@ class Registro_Entrada_ActivoViewSet(generics.ListAPIView):
 
     def get_queryset(self):
         estado = self.request.query_params.get('estado')
-        print(estado)
         if estado == 'true':
             queryset = Registro_Entrada.objects.filter(estado_de_salida=True)
-        if estado == 'false':
+        elif estado == 'false':
             queryset = Registro_Entrada.objects.filter(estado_de_salida=False)
         else:
             queryset = Registro_Entrada.objects.all()
