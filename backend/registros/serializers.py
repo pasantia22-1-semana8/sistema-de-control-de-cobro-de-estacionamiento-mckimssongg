@@ -9,6 +9,10 @@ class Registro_EntradaSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
+        representation['fecha_entrada'] = instance.fecha_entrada.strftime(
+            "%d/%m/%Y %H:%M:%S")
+        representation['fecha_salida'] = instance.fecha_salida.strftime(
+            "%d/%m/%Y %H:%M:%S")
         representation['vehiculo'] = instance.vehiculo.placa
         representation['estacionamiento'] = instance.estacionamiento.nombre
         representation['a_cargo_de'] = instance.a_cargo_de.username
@@ -22,6 +26,7 @@ class Registro_PagoSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
+        data['fecha_pago'] = instance.fecha_pago.strftime("%d/%m/%Y %H:%M:%S")
         data['registro_entrada'] = Registro_EntradaSerializer(
             instance.registro_entrada).data
         data['importe_total'] = round(float(tiempo_estacionado_en_minutos(

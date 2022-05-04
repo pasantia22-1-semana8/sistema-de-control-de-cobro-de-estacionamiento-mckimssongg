@@ -65,5 +65,4 @@ class UserListSerializer(serializers.ModelSerializer):
             'username': instance.username,
             'email': instance.email,
             'role': instance.role.name,
-            'password': instance.password
         }

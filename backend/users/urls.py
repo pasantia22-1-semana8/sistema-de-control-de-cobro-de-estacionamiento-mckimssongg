@@ -6,10 +6,13 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'roles', views.RolesViewSet)
+router.register(r'users', views.UsersViewSet)
 urlpatterns = router.urls
 
 
 urlpatterns += [
-    path('users', views.UsersViewSet.as_view({'get': 'list'}), name='users'),
+    path('userlist', views.UsersListViewSet.as_view(
+        {'get': 'list'}),
+        name='users'),
     path('login', views.LoginView.as_view(), name='login'),
 ]
