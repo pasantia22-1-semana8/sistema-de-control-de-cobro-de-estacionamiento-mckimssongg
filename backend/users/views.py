@@ -24,6 +24,11 @@ class LoginView(APIView):
         return Response(data, status=status.HTTP_201_CREATED)
 
 
+class UsersViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserListSerializer
+
+
 class RolesViewSet(viewsets.ModelViewSet):
     queryset = Roles.objects.all()
     serializer_class = RolesSerializer

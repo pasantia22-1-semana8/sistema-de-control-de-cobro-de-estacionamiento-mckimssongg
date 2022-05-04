@@ -3,12 +3,13 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 
 
 class UserManager(BaseUserManager):
-    def _create_user(self, username, email,  password, is_staff, is_superuser, **extra_fields):
+    def _create_user(self, username, email,  password,  is_superuser, is_staff, role, **extra_fields):
         user = self.model(
             username=username,
             email=email,
-            is_staff=is_staff,
             is_superuser=is_superuser,
+            is_staff=is_staff,
+            role=role,
             **extra_fields
         )
         user.set_password(password)
@@ -16,10 +17,10 @@ class UserManager(BaseUserManager):
         return user
 
     def create_user(self, username, email,  password=None, **extra_fields):
-        return self._create_user(username, email,  password, False, False, **extra_fields)
+        return self._create_user(username, email,  password, False, False,  None, **extra_fields)
 
     def create_superuser(self, username, email,  password=None, **extra_fields):
-        return self._create_user(username, email,  password, True, True, **extra_fields)
+        return self._create_user(username, email,  password, True, True, None, **extra_fields)
 
 
 class Roles(models.Model):
@@ -32,11 +33,18 @@ class Roles(models.Model):
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True)
+
     email = models.EmailField('Correo Electrónico',
                               max_length=255,
                               unique=True,)
+
+    is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    role = models.ForeignKey(Roles, on_delete=models.CASCADE)
+    role = models.ForeignKey(
+        Roles,
+        on_delete=models.CASCADE,
+        null=True, blank=True)
+
     objects = UserManager()
 
     class Meta:

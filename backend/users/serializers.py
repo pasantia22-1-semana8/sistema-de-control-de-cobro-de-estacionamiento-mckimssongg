@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.contrib.auth import authenticate, password_validation
+from django.contrib.auth import authenticate
 from .models import *
 from rest_framework.authtoken.models import Token
 from rest_framework.validators import UniqueValidator
@@ -18,7 +18,7 @@ class UserLoginSerializer(serializers.Serializer):
     def validate(self, data):
         user = authenticate(
             username=data['username'], password=data['password'])
-        if not user:
+        if user is None:
             raise serializers.ValidationError("El usuario no existe")
         self.context['user'] = user
         return data
@@ -34,7 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        user = super().create(validated_data)
+        user = User(**validated_data)
         user.set_password(validated_data['password'])
         user.save()
         return user
@@ -64,5 +64,6 @@ class UserListSerializer(serializers.ModelSerializer):
             'id': instance.id,
             'username': instance.username,
             'email': instance.email,
-            'role': RolesSerializer(instance.role).data
+            'role': instance.role.name,
+            'password': instance.password
         }
