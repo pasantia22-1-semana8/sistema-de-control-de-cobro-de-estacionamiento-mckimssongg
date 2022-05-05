@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Vehiculos from "./pages/Vehiculos";
 import Registros_Entradas from "./pages/Registros_Entradas";
+import RegistrosForm_Entradas from "./pages/RegistrosForm_Entradas";
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/vehiculos" element={<Vehiculos />} />
         <Route path="/registros_entradas" element={<Registros_Entradas />} />
+        <Route path="/registros_entradas/form" element={<RegistrosForm_Entradas />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>
