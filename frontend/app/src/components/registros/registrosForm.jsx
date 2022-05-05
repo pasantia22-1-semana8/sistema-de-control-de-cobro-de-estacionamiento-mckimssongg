@@ -94,7 +94,7 @@ function RegistrosForm() {
       <h1>Registro de Entrada</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="estacionamiento">Estacionamiento</label>
+          <label>Estacionamiento</label>
           <select
             className="form-control"
             name="estacionamiento"
@@ -110,7 +110,7 @@ function RegistrosForm() {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="vehiculo">Vehiculo</label>
+          <label>Vehiculo</label>
           <select
             className="form-control"
             name="vehiculo"
@@ -126,7 +126,7 @@ function RegistrosForm() {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="a_cargo_de">A Cargo de</label>
+          <label>A Cargo de</label>
           <select
             className="form-control"
             name="a_cargo_de"
@@ -142,7 +142,7 @@ function RegistrosForm() {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="estado_de_salida">Estado de Salida</label>
+          <label>Estado de Salida</label>
           <select
             className="form-control"
             name="estado_de_salida"
