@@ -5,11 +5,6 @@ import '../../css/bootstrap.min.css'
 
 function TablaVehiculos({ data }) {
     const [loading, setLoading] = React.useState(true);
-
-    // const getDataVehiculos = async () => {
-    //     const data = await fetch('http://127.0.0.1:8000/vehiculos/vehiculos/')
-    //     setData(await data.json())
-    // }
     
     React.useEffect(() => {
         if(data.length > 0){
