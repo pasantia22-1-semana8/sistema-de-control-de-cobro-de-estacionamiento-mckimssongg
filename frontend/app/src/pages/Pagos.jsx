@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PagosVista from "../components/pagos/PagosVista";
 import Search from "../components/home/Search";
 
@@ -43,11 +43,13 @@ function Pagos() {
     <div>
       Pagos
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-      <button>
+      <Link to={'/pagos/form'}>
           Hacer pago
+      </Link>
+      <button>
+        Pagos de mes
       </button>
       <PagosVista data={pagosSearch} />
-      
     </div>
   );
 }

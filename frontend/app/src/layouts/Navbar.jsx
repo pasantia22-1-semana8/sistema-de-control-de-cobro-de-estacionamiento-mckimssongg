@@ -11,12 +11,17 @@ const SidebarData = [
   },
   {
     title: "Vehiculos",
-    path: "/reports",
+    path: "/vehiculos",
     cName: "nav-text",
   },
   {
     title: "Registros de Entradas",
-    path: "/products",
+    path: "/registros_entradas",
+    cName: "nav-text",
+  },
+  {
+    title: "Registros de Entradas Formulario",
+    path: "/registros_entradas/form",
     cName: "nav-text",
   },
   {

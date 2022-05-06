@@ -9,7 +9,7 @@ import Registros_Entradas from "./pages/Registros_Entradas";
 import RegistrosForm_Entradas from "./pages/RegistrosForm_Entradas";
 import Pagos from "./pages/Pagos";
 import Layout from "./layouts/Layout";
-
+import FormPago from "./pages/Registro_Pago";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +24,7 @@ function App() {
             element={<RegistrosForm_Entradas />}
           />
           <Route path="/pagos" element={<Pagos />} />
+          <Route path="/pagos/form" element={<FormPago />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </Layout>
