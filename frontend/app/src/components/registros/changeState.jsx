@@ -3,7 +3,7 @@ import React from "react";
 function ChangeState({ item }) {
 
   const [dataPut, setDataPut] = React.useState({
-    estado_de_salida: true,
+    estado_de_salida: item,
     estacionamiento: 0,
     vehiculo: 0,
     a_cargo_de: 0,
