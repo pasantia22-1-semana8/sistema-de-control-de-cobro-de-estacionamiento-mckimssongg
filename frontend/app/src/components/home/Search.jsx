@@ -6,10 +6,13 @@ function Search({ searchValue , setSearchValue}){
         setSearchValue(event.target.value);
     };
     return (
-        <input
-        placeholder="Busqueda..."
-        value={searchValue}
-        onChange={onSearchValue}/>
+        <div className="d-flex justify-content-center p-4">
+            <input
+            className="w-50 p-2"
+            placeholder="Busqueda..."
+            value={searchValue}
+            onChange={onSearchValue}/>
+        </div>
     );
 }
 

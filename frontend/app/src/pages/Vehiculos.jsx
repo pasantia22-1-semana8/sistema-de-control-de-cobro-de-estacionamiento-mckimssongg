@@ -14,8 +14,8 @@ function Vehiculos() {
   });
 
   return(
-    <div>
-        <h1>Vehiculos</h1>
+    <div className="container">
+        <h3 className="text-center">Registro de vehiculos</h3>
         <FormVehiculos />
     </div>
   );

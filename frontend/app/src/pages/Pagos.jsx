@@ -41,14 +41,12 @@ function Pagos() {
 
   return (
     <div>
-      Pagos
+      <h3 className="text-center">Registro de pagos</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-      <Link to={'/pagos/form'}>
-          Hacer pago
-      </Link>
-      <button>
-        Pagos de mes
-      </button>
+      <div className="d-flex justify-content-evenly">
+        <Link to={"/pagos/form"}>Hacer pago</Link>
+        <Link to=''>Pagos de mes</Link>
+      </div>
       <PagosVista data={pagosSearch} />
     </div>
   );

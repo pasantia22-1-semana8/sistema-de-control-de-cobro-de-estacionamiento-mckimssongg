@@ -126,7 +126,6 @@ function RegistrosForm() {
 
   return (
     <div>
-      <h1>Registro de Entrada</h1>
       {error.state && (
         <div className="alert alert-danger" role="alert">
           {error.message}
@@ -181,7 +180,7 @@ function RegistrosForm() {
             ))}
           </select>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary btn-block">
           Registrar
         </button>
       </form>

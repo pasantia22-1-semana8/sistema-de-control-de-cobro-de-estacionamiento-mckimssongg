@@ -1,5 +1,6 @@
 import React from "react";
 import "./css/Navbar.css";
+import {RiLogoutBoxLine} from "react-icons/ri";
 
 import { Link } from "react-router-dom";
 
@@ -8,6 +9,7 @@ const SidebarData = [
     title: "Home",
     path: "/",
     cName: "nav-text",
+    icon: "fas fa-home",
   },
   {
     title: "Vehiculos",
@@ -34,14 +36,21 @@ const SidebarData = [
 function Navbar() {
   const [sidebar, setSidebar] = React.useState(false);
 
-  const showSidebar = () => setSidebar(!sidebar);
+  // borrar la sesion
+  const handleLogout = () => {
+    localStorage.removeItem("dataSesion");
+    window.location.reload();
+  };
 
+  const showSidebar = () => setSidebar(!sidebar);
+RiLogoutBoxLine
   return (
     <React.Fragment>
       <div className="navbar">
         <Link to="#" className="menu-bars">
           <div onClick={showSidebar}>Menu</div>
         </Link>
+        <button onClick={handleLogout} className="btn-logout"><RiLogoutBoxLine/>Logout</button>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>

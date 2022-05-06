@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import TablaVehiculos from '../components/home/tablaVehiculos'
 import  Search  from '../components/home/Search';
 
+import { BsFillHouseFill } from "react-icons/bs";
+
 
 function Home() {
     const navigate = useNavigate()
@@ -40,7 +42,14 @@ function Home() {
 
     return (
       <React.Fragment>
-        <h1>Home</h1>
+        <div className='d-flex justify-content-center'>
+          <h2 className='m-2'>
+            <BsFillHouseFill />
+          </h2>
+          <h1 className='m-2'>
+            Home
+          </h1>
+        </div>
         <Search searchValue={searchValue} setSearchValue={setSearchValue}/>
         <TablaVehiculos data={vehiculosSearch}/>
       </React.Fragment>

@@ -3,7 +3,7 @@ import React from "react";
 function ChangeState({ item }) {
 
   const [dataPut, setDataPut] = React.useState({
-    estado_de_salida: item,
+    estado_de_salida: true,
     estacionamiento: 0,
     vehiculo: 0,
     a_cargo_de: 0,
@@ -52,9 +52,9 @@ function ChangeState({ item }) {
   };
 
   return (
-    <button onClick={putRegistro}>
-      {dataPut.estado_de_salida && <p style={{ color: "red" }}>Falso</p>}
-      {!dataPut.estado_de_salida && <p style={{ color: "green" }}>True</p>}
+    <button onClick={putRegistro} className="btn">
+      {dataPut.estado_de_salida && <p style={{ color: "red" }}>Ocupado</p>}
+      {!dataPut.estado_de_salida && <p style={{ color: "green" }}>Desocupado</p>}
     </button>
   );
 }

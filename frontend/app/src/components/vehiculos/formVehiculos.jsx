@@ -1,4 +1,5 @@
 import React from "react";
+import { BsFillCaretRightFill } from "react-icons/bs";
 
 function FormVehiculos() {
   const [tipos, setTipos] = React.useState([]);
@@ -75,75 +76,91 @@ function FormVehiculos() {
 
   return (
     <React.Fragment>
-      <div className="vh form-bg d-flex flex-column align-items-center ">
-        <h3 className="title text-center m-4">Registro de Vehiculos</h3>
-        {error.state && <p style={{ color: "red" }}>{error.message}</p>}
-        <form onSubmit={sendData}>
-          <div className="form-group">
-            <label>Placa</label>
-            <input
-              type="text"
-              className="form-control"
-              id="placa"
-              name="placa"
-              onChange={handleChange}
-              value={form.placa}
-            />
+      <div className="d-flex justify-content-center">
+        <div className="w-50">
+          {error.state && <p style={{ color: "red" }}>{error.message}</p>}
+          <form onSubmit={sendData}>
+            <div className="form-group">
+              <label className="mt-4">
+                <BsFillCaretRightFill />
+                Placa{" "}
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="placa"
+                name="placa"
+                onChange={handleChange}
+                value={form.placa}
+              />
 
-            <label>Tipo de Vehiculo</label>
-            <input
-              type="text"
-              className="form-control"
-              id="tipo_vehiculo"
-              name="tipo_vehiculo"
-              onChange={handleChange}
-              value={form.tipo_vehiculo}
-            />
+              <label className="mt-4">
+                <BsFillCaretRightFill />
+                Tipo de Vehiculo
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="tipo_vehiculo"
+                name="tipo_vehiculo"
+                onChange={handleChange}
+                value={form.tipo_vehiculo}
+              />
 
-            <label>Descripcion</label>
-            <input
-              type="text"
-              className="form-control"
-              id="descripcion"
-              name="descripcion"
-              onChange={handleChange}
-              value={form.descripcion}
-            />
+              <label className="mt-4">
+                <BsFillCaretRightFill />
+                Descripcion
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="descripcion"
+                name="descripcion"
+                onChange={handleChange}
+                value={form.descripcion}
+              />
 
-            <label>Estado</label>
-            <select
-              className="form-control"
-              id="estado"
-              name="estado"
-              onChange={handleChange}
-              value={form.estado}
-            >
-              <option value="">Seleccione una opcion</option>
-              <option value={true}>Activo</option>
-              <option value={false}>Inactivo</option>
-            </select>
+              <label className="mt-4">
+                <BsFillCaretRightFill />
+                Estado
+              </label>
+              <select
+                className="form-control"
+                id="estado"
+                name="estado"
+                onChange={handleChange}
+                value={form.estado}
+              >
+                <option value="">Seleccione una opcion</option>
+                <option value={true}>Activo</option>
+                <option value={false}>Inactivo</option>
+              </select>
 
-            <label>Tipo de Residencia</label>
-            <select
-              className="form-control"
-              id="tipo_residencia"
-              name="tipo_residencia"
-              onChange={handleChange}
-              value={form.tipo_residencia}
-            >
-              <option value="">Seleccione una opcion</option>
-              {tipos.map((tipo) => (
-                <option key={tipo.id} value={tipo.id}>
-                  {tipo.nombre}
-                </option>
-              ))}
-            </select>
+              <label className="mt-4">
+                <BsFillCaretRightFill />
+                Tipo de Residencia
+              </label>
+              <select
+                className="form-control"
+                id="tipo_residencia"
+                name="tipo_residencia"
+                onChange={handleChange}
+                value={form.tipo_residencia}
+              >
+                <option value="">Seleccione una opcion</option>
+                {tipos.map((tipo) => (
+                  <option key={tipo.id} value={tipo.id}>
+                    {tipo.nombre}
+                  </option>
+                ))}
+              </select>
 
-            <button type="submit" className="btn btn-primary">
-              Registrar
-            </button>
-          </div>
-        </form>
+              <button type="submit" className="mt-4 btn btn-block btn-primary">
+                Registrar
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </React.Fragment>
   );

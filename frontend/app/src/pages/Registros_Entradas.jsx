@@ -37,7 +37,7 @@ function Registros_Entradas() {
 
   return (
     <div>
-      Registros_Entradas
+      <h3 className="text-center">Registro de entradas</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
       <Registros data={registros_entradaSearch} />
     </div>

@@ -94,10 +94,12 @@ function Form() {
   }, []);
 
   return (
-    <div>
+    <div className="">
+      <p className="m-2">
       Realizar Cobro
+      </p>
       <form onSubmit={onSubmit}>
-        <select name="registro_entrada" onChange={handleChange}>
+        <select name="registro_entrada" onChange={handleChange} className="p-2 w-50 m-2">
             <option value="">Seleccione un registro</option>
             {dataregistros.map((item) => (
                 <option key={item.id} value={item.id}>
@@ -105,7 +107,7 @@ function Form() {
                 </option>
             ))}
         </select>
-        <input type="submit" value="Cobrar" />
+        <button type="submit" className="p-2 m-2 btn btn-primary btn-block">Realizar cobro</button>
       </form>
       {error.state ? <p>{error.message}</p> : null}
     </div>
