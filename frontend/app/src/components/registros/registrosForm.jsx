@@ -59,7 +59,6 @@ function RegistrosForm() {
       .then(async (res) => {
 
         let data = await getDataRegistros();
-        console.table(data);
         res = res.filter((item) => {
           return item.placa != data.map((itemR) => itemR.vehiculo);
         });

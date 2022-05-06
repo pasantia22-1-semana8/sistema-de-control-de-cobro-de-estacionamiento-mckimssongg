@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets, generics
 
-from .serializers import Registro_EntradaSerializer, Registro_PagoSerializer
-from .models import Registro_Entrada, Registro_Pago
+from .serializers import *
+from .models import *
 
 
 class Registro_Entrada_ActivoViewSet(generics.ListAPIView):
@@ -18,6 +18,24 @@ class Registro_Entrada_ActivoViewSet(generics.ListAPIView):
         else:
             queryset = Registro_Entrada.objects.all()
         return queryset
+
+
+class Registro_EntradaKeysViewSet(viewsets.ModelViewSet):
+    queryset = Registro_Entrada.objects.all()
+    serializer_class = Registro_EntradaKeysSerializer
+
+    def update(self, request, *args, **kwargs):
+        registro = self.get_object()
+        registro_data = request.data
+        registro_serializer = Registro_EntradaSerializer(
+            instance=registro, data=registro_data)
+        if registro_serializer.is_valid():
+            registro_serializer.save()
+            return Response(registro_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(registro_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer_class.data)
 
 
 class Registro_EntradaViewSet(viewsets.ModelViewSet):

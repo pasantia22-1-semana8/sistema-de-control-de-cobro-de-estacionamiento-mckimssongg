@@ -19,6 +19,16 @@ class Registro_EntradaSerializer(ModelSerializer):
         return representation
 
 
+class Registro_EntradaKeysSerializer(ModelSerializer):
+    class Meta:
+        model = Registro_Entrada
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return representation
+
+
 class Registro_PagoSerializer(ModelSerializer):
     class Meta:
         model = Registro_Pago

@@ -7,6 +7,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'registro_entrada', views.Registro_EntradaViewSet)
 router.register(r'registro_pago', views.Registro_PagoViewSet)
+router.register(r'registro_entrada_put', views.Registro_EntradaKeysViewSet)
 urlpatterns = router.urls
 
 
