@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Vehiculos from "./pages/Vehiculos";
 import Registros_Entradas from "./pages/Registros_Entradas";
 import RegistrosForm_Entradas from "./pages/RegistrosForm_Entradas";
+
+
 function App() {
   return (
     <BrowserRouter>

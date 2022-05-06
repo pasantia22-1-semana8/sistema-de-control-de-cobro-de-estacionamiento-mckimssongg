@@ -9,6 +9,7 @@ class AreaSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         return {
+            'id': instance.id,
             'estacionamiento': instance.estacionamiento.nombre,
             'nombre': instance.nombre,
             'estado': instance.estado,

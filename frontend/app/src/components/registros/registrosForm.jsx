@@ -15,12 +15,30 @@ function RegistrosForm() {
     a_cargo_de: null,
   });
 
+  setTimeout(() => {
+    setError({
+      state: false,
+      message: "",
+    });
+  }, 3000);
+
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
+
+  const getDataRegistros = async () => {
+    const data = await fetch(
+      `http://127.0.0.1:8000/registros/registro_entrada?estado=false`,
+      {
+        method: "GET",
+      }
+    );
+    return await data.json();
+  };
+
   const getDataEmpleados = async () => {
     await fetch("http://127.0.0.1:8000/users/userlist", {
       method: "GET",
@@ -38,7 +56,14 @@ function RegistrosForm() {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((res) => {
+      .then(async (res) => {
+
+        let data = await getDataRegistros();
+        console.table(data);
+        res = res.filter((item) => {
+          return item.placa != data.map((itemR) => itemR.vehiculo);
+        });
+
         setVehiculos(res);
       })
       .catch((err) => {
@@ -50,7 +75,13 @@ function RegistrosForm() {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((res) => {
+      .then(async (res) => {
+        let data = await getDataRegistros();
+
+        res = res.filter((item) => {
+          return item.nombre != data.map((itemR) => itemR.estacionamiento);
+        });
+
         setEstacionamiento(res);
       })
       .catch((err) => {
@@ -68,7 +99,11 @@ function RegistrosForm() {
     });
     DATA.then((res) => res.json())
       .then((res) => {
-        if (!res.auth) {
+        console.log(res);
+        if (
+          typeof res.estacionamiento != "string" ||
+          typeof res.vehiculo != "string"
+        ) {
           return setError({
             state: true,
             message: "Invalid Credentials",
@@ -89,9 +124,15 @@ function RegistrosForm() {
     getDataVehiculos();
     getDataEstacionamiento();
   }, []);
+
   return (
     <div>
       <h1>Registro de Entrada</h1>
+      {error.state && (
+        <div className="alert alert-danger" role="alert">
+          {error.message}
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Estacionamiento</label>
@@ -139,19 +180,6 @@ function RegistrosForm() {
                 {empleado.username}
               </option>
             ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Estado de Salida</label>
-          <select
-            className="form-control"
-            name="estado_de_salida"
-            onChange={handleChange}
-            value={form.estado_de_salida}
-          >
-            <option value="">Seleccione un Estado</option>
-            <option value={false}>No Salida</option>
-            <option value={true}>Salida</option>
           </select>
         </div>
         <button type="submit" className="btn btn-primary">

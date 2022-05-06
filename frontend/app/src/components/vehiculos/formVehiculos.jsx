@@ -14,6 +14,12 @@ function FormVehiculos() {
     tipo_residencia: null,
   });
 
+  setTimeout(() => {
+    setError({
+      state: false,
+      message: "",
+    });
+  }, 3000);
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -22,7 +28,7 @@ function FormVehiculos() {
   };
 
   const getDataTipos = async () => {
-      await fetch("http://127.0.0.1:8000/vehiculos/tipos/", {
+    await fetch("http://127.0.0.1:8000/vehiculos/tipos/", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -49,7 +55,12 @@ function FormVehiculos() {
       body: JSON.stringify(form),
     });
     const data = await DATA.json();
-    if (!data.auth) {
+    if (
+      typeof data.descripcion != "string" ||
+      typeof data.placa != "string" ||
+      typeof data.tipo_residencia != "string" ||
+      typeof data.tipo_vehiculo != "string"
+    ) {
       return setError({
         state: true,
         message: "Invalid Credentials",

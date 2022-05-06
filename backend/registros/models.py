@@ -18,13 +18,18 @@ class Registro_Entrada(models.Model):
 
     estacionamiento = models.ForeignKey(
         Area, on_delete=models.CASCADE)
-    vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
+
+    vehiculo = models.ForeignKey(
+        Vehiculo, on_delete=models.CASCADE)
+
     a_cargo_de = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True)
 
-    estado_de_salida = models.BooleanField(default=False)
+    estado_de_salida = models.BooleanField(
+        default=False, blank=True, null=True)
 
     fecha_entrada = models.DateTimeField(auto_now_add=True)
+
     fecha_salida = models.DateTimeField(auto_now=True)
 
     def __str__(self):
