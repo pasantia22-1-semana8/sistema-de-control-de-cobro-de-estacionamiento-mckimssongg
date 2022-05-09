@@ -41,8 +41,16 @@ const OpAdmin = [
 ];
 
 function Navbar() {
+  // JSON.parse(localStorage.getItem("dataSesion")).user.role === "admin";
   const [sidebar, setSidebar] = React.useState(false);
-  const role = JSON.parse(localStorage.getItem("dataSesion")).user.role;
+  const role = () => {
+    if (JSON.parse(localStorage.getItem("dataSesion")).user.role === "admin") {
+      return JSON.parse(localStorage.getItem("dataSesion")).user.role;
+    } else {
+      return "";
+    }
+  }
+
   // borrar la sesion
   const handleLogout = () => {
     localStorage.removeItem("dataSesion");

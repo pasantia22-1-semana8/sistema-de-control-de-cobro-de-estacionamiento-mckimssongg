@@ -1,42 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import TablaVehiculos from "../components/home/TablaVehiculos";
 import Search from "../components/home/Search";
-
 import { BsFillHouseFill } from "react-icons/bs";
+import {ContextGlobal} from "../context/Context";
 
 function Home() {
   const navigate = useNavigate();
 
-  const [data, setData] = React.useState([]);
-  const [searchValue, setSearchValue] = React.useState("");
-
-  const vehiculosSearch = [];
-
-  if (searchValue !== "") {
-    data.map((item) => {
-      if (item.placa.toLowerCase().includes(searchValue.toLowerCase())) {
-        vehiculosSearch.push(item);
-      }
-    });
-  } else {
-    vehiculosSearch.push(...data);
-  }
-
-  const getDataVehiculos = async () => {
-    const data = await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/", {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        data.reverse();
-        setData(data);
-      });
-  };
+  const {searchValue, setSearchValue, vehiculosSearch} = React.useContext(ContextGlobal);
 
   React.useEffect(() => {
-    getDataVehiculos();
     if (!localStorage.getItem("dataSesion")) {
       return navigate("/Login");
     }
@@ -55,5 +29,4 @@ function Home() {
     </React.Fragment>
   );
 }
-
 export default Home;
