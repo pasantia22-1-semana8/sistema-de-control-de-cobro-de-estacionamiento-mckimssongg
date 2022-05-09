@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
 // pages
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -11,6 +10,7 @@ import RegistrosForm_Entradas from "./pages/RegistrosForm_Entradas";
 import Pagos from "./pages/Pagos";
 import Layout from "./layouts/Layout";
 import FormPago from "./pages/Registro_Pago";
+import Rregistro_Vehiculos from "./pages/Registro_Vehiculos";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/vehiculos" element={<Vehiculos />} />
+          <Route path="/registros_vehiculos" element={<Rregistro_Vehiculos />} />
           <Route path="/registros_entradas" element={<Registros_Entradas />} />
           <Route
             path="/registros_entradas/form"

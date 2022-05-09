@@ -11,22 +11,17 @@ const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "Vehiculos",
+    title: "Registros de vehiculos",
     path: "/vehiculos",
     cName: "nav-text",
   },
   {
-    title: "Registros de Entradas",
+    title: "Registros de entradas",
     path: "/registros_entradas",
     cName: "nav-text",
   },
   {
-    title: "Registros de Entradas Formulario",
-    path: "/registros_entradas/form",
-    cName: "nav-text",
-  },
-  {
-    title: "Registros de Pagos",
+    title: "Registros de pagos",
     path: "/pagos",
     cName: "nav-text",
   },
@@ -41,13 +36,16 @@ const OpAdmin = [
 ];
 
 function Navbar() {
-  // JSON.parse(localStorage.getItem("dataSesion")).user.role === "admin";
   const [sidebar, setSidebar] = React.useState(false);
   const role = () => {
-    if (JSON.parse(localStorage.getItem("dataSesion")).user.role === "admin") {
-      return JSON.parse(localStorage.getItem("dataSesion")).user.role;
+    if (JSON.parse(localStorage.getItem("dataSesion"))) {
+      if (JSON.parse(localStorage.getItem("dataSesion")).user.role === "admin") {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return "";
+      return false;
     }
   }
 
@@ -86,7 +84,7 @@ function Navbar() {
               </li>
             );
           })}
-          {role == 'admin' && OpAdmin.map((item, index) => {
+          {role() && OpAdmin.map((item, index) => {
             return (
               <li key={index} className={item.cName}>
                 <Link to={item.path}>

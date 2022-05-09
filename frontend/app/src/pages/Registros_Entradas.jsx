@@ -1,40 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RegistrosVista from "../components/registros/RegistrosVista";
-import Search from "../components/home/search";
+import Search from "../components/Search";
+import { ContextGlobal } from "../context/Context";
+
 function Registros_Entradas() {
+  const { searchValue, setSearchValue, registros_entradaSearch } =
+    React.useContext(ContextGlobal);
+
   const navigate = useNavigate();
-  const [data, setData] = React.useState([]);
-  const [searchValue, setSearchValue] = React.useState("");
-
-  const registros_entradaSearch = [];
-
-  if (searchValue !== "") {
-    data.map((item) => {
-      if (item.vehiculo.toLowerCase().includes(searchValue.toLowerCase())) {
-        registros_entradaSearch.push(item);
-      }
-    });
-  } else {
-    registros_entradaSearch.push(...data);
-  }
-  const getDataVehiculos = async () => {
-    const data = await fetch(
-      `http://127.0.0.1:8000/registros/registro_entrada?estado=`,
-      {
-        method: "GET",
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        data.reverse()
-        setData(data);
-      }
-      );
-  };
-
   React.useEffect(() => {
-    getDataVehiculos();
     if (!localStorage.getItem("dataSesion")) {
       return navigate("/Login");
     }
@@ -44,6 +19,9 @@ function Registros_Entradas() {
     <div>
       <h3 className="text-center">Registro de entradas</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+      <Link to="/registros_entradas/form">
+        <button className="btn btn-primary"> Nuevo registro </button>
+      </Link>
       <RegistrosVista data={registros_entradaSearch} />
     </div>
   );

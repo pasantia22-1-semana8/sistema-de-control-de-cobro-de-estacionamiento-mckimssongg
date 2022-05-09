@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PagosVista from "../components/pagos/PagosVista";
-import Search from "../components/home/Search";
+import Search from "../components/Search";
 
 function Pagos() {
   const [pagos, setPagos] = React.useState([]);

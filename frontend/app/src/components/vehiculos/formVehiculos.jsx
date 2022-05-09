@@ -1,89 +1,11 @@
 import React from "react";
 import { BsFillCaretRightFill } from "react-icons/bs";
-
-import swal from "sweetalert";
+import { ContextGlobal } from "../../context/Context";
+import { Link } from "react-router-dom";
 
 function FormVehiculos() {
-  const mostrarAlerta = () => {
-    swal({
-      title: "¡Registro exitoso!",
-      timer: 2000,
-    });
-  };
-  const [onChange, setOnChange] = React.useState(false);
-  const [tipos, setTipos] = React.useState([]);
-  const [error, setError] = React.useState({
-    state: false,
-    message: "",
-  });
-  const [form, setForm] = React.useState({
-    placa: "",
-    tipo_vehiculo: "",
-    descripcion: "",
-    estado: true,
-    tipo_residencia: null,
-  });
-
-  setTimeout(() => {
-    setError({
-      state: false,
-      message: "",
-    });
-  }, 3000);
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const getDataTipos = async () => {
-    await fetch("http://127.0.0.1:8000/vehiculos/tipos/", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setTipos(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const sendData = async (e) => {
-    e.preventDefault();
-
-    const DATA = await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-    const data = await DATA.json();
-    if (
-      typeof data.descripcion != "string" ||
-      typeof data.placa != "string" ||
-      typeof data.tipo_residencia != "string" ||
-      typeof data.tipo_vehiculo != "string"
-    ) {
-      return setError({
-        state: true,
-        message: "Invalid Credentials",
-      });
-    } else {
-      mostrarAlerta()
-      setOnChange(!onChange);
-      return setError({
-        state: false,
-        message: "",
-      });
-    }
-  };
-
-  React.useEffect(() => {
-    getDataTipos();
-  }, [onChange]);
+  const { error, form, sendData, handleChange, tipos } =
+    React.useContext(ContextGlobal);
 
   return (
     <React.Fragment>
@@ -96,7 +18,7 @@ function FormVehiculos() {
           )}
           <form onSubmit={sendData}>
             <div className="form-group">
-              <label >
+              <label>
                 <BsFillCaretRightFill />
                 Placa{" "}
               </label>
@@ -173,6 +95,12 @@ function FormVehiculos() {
               <button type="submit" className="mt-4 btn  w-100 btn-primary">
                 Registrar
               </button>
+
+              <Link to="/vehiculos">
+                <button className="btn btn-primary mt-4 w-100">
+                  Ver vehiculos
+                </button>
+              </Link>
             </div>
           </form>
         </div>
