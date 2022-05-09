@@ -15,7 +15,7 @@ class Registro_EntradaSerializer(ModelSerializer):
             "%d/%m/%Y %H:%M:%S")
         representation['vehiculo'] = instance.vehiculo.placa
         representation['estacionamiento'] = instance.estacionamiento.nombre
-        representation['a_cargo_de'] = instance.a_cargo_de.username
+        representation['a_cargo_de'] = instance.a_cargo_de.username if instance.a_cargo_de else 'No asignado'
         return representation
 
 

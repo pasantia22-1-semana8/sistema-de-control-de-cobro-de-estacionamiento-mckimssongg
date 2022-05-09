@@ -1,8 +1,8 @@
 import React from "react";
 import Loader from "../Loader";
-import ChangeState from "./changeState";
+import ChangeState from "./ChangeState";
 
-function Registros({ data }) {
+function RegistrosVista({ data }) {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -48,4 +48,4 @@ function Registros({ data }) {
     );
   }
 }
-export default Registros;
+export default RegistrosVista;

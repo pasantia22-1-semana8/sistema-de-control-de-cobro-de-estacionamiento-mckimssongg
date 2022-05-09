@@ -1,7 +1,6 @@
 import React from "react";
 
 function RegistrosForm() {
-  const [empleados, setEmpleados] = React.useState([]);
   const [vehiculos, setVehiculos] = React.useState([]);
   const [estacionamiento, setEstacionamiento] = React.useState([]);
   const [error, setError] = React.useState({
@@ -12,7 +11,7 @@ function RegistrosForm() {
     estado_de_salida: false,
     estacionamiento: null,
     vehiculo: null,
-    a_cargo_de: null,
+    a_cargo_de: JSON.parse(localStorage.getItem("dataSesion")).user.id,
   });
 
   setTimeout(() => {
@@ -38,29 +37,18 @@ function RegistrosForm() {
     );
     return await data.json();
   };
-
-  const getDataEmpleados = async () => {
-    await fetch("http://127.0.0.1:8000/users/userlist", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setEmpleados(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  
   const getDataVehiculos = async () => {
     await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/", {
       method: "GET",
     })
       .then((res) => res.json())
       .then(async (res) => {
-
         let data = await getDataRegistros();
+        data = data.map((itemR) => itemR.vehiculo);
+
         res = res.filter((item) => {
-          return item.placa != data.map((itemR) => itemR.vehiculo);
+          return !data.includes(item.placa);
         });
 
         setVehiculos(res);
@@ -77,8 +65,9 @@ function RegistrosForm() {
       .then(async (res) => {
         let data = await getDataRegistros();
 
+        data = data.map((itemR) => itemR.estacionamiento);
         res = res.filter((item) => {
-          return item.nombre != data.map((itemR) => itemR.estacionamiento);
+          return !data.includes(item.nombre);
         });
 
         setEstacionamiento(res);
@@ -98,7 +87,6 @@ function RegistrosForm() {
     });
     DATA.then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if (
           typeof res.estacionamiento != "string" ||
           typeof res.vehiculo != "string"
@@ -119,7 +107,6 @@ function RegistrosForm() {
       });
   };
   React.useEffect(() => {
-    getDataEmpleados();
     getDataVehiculos();
     getDataEstacionamiento();
   }, []);
@@ -166,19 +153,9 @@ function RegistrosForm() {
         </div>
         <div className="form-group">
           <label>A Cargo de</label>
-          <select
-            className="form-control"
-            name="a_cargo_de"
-            onChange={handleChange}
-            value={form.a_cargo_de}
-          >
-            <option value="">Seleccione un Empleado</option>
-            {empleados.map((empleado) => (
-              <option key={empleado.id} value={empleado.id}>
-                {empleado.username}
-              </option>
-            ))}
-          </select>
+          <ol class="breadcrumb">
+            {JSON.parse(localStorage.getItem("dataSesion")).user.username}
+          </ol>
         </div>
         <button type="submit" className="btn btn-primary btn-block">
           Registrar

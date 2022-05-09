@@ -42,18 +42,20 @@ function Form() {
       "http://127.0.0.1:8000/registros/registro_entrada?estado=true",
       {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }
     )
       .then((res) => res.json())
       .then(async (res) => {
+
         let data = await getPagos();
+
         data = data.map((item) => item.registro_entrada.id);
+
         res = res.filter((item) => {
-          return data.includes(item.id) == false;
-        });
+          return !data.includes(item.id);
+        }
+        );
+        
         setDataregistros(res);
       })
       .catch((err) => {
@@ -73,10 +75,11 @@ function Form() {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.state) {
+        console.log(res);
+        if (typeof res.registro_entrada != "string") {
           setError({
             state: true,
-            message: res.message,
+            message: 'El registro de entrada no existe',
           });
         } else {
           setError({
@@ -95,21 +98,21 @@ function Form() {
 
   return (
     <div className="">
-      <p className="m-2">
-      Realizar Cobro
-      </p>
+    {error.state ? <p className="text-center">{error.message}</p> : <p><br/></p>}
       <form onSubmit={onSubmit}>
-        <select name="registro_entrada" onChange={handleChange} className="p-2 w-50 m-2">
-            <option value="">Seleccione un registro</option>
-            {dataregistros.map((item) => (
-                <option key={item.id} value={item.id}>
-                    {item.vehiculo}
-                </option>
-            ))}
-        </select>
+        <div className="form-group">
+          <label className="m-2">Registro de entrada</label>
+          <select name="registro_entrada" onChange={handleChange} className="p-2 w-50 m-2">
+              <option value="">Seleccione un registro</option>
+              {dataregistros.map((item) => (
+                  <option key={item.id} value={item.id}>
+                      {item.vehiculo}
+                  </option>
+              ))}
+          </select>
+        </div>
         <button type="submit" className="p-2 m-2 btn btn-primary btn-block">Realizar cobro</button>
       </form>
-      {error.state ? <p>{error.message}</p> : null}
     </div>
   );
 }

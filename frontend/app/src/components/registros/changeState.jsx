@@ -1,9 +1,8 @@
 import React from "react";
 
 function ChangeState({ item }) {
-
   const [dataPut, setDataPut] = React.useState({
-    estado_de_salida: item,
+    estado_de_salida: true,
     estacionamiento: 0,
     vehiculo: 0,
     a_cargo_de: 0,
@@ -19,10 +18,10 @@ function ChangeState({ item }) {
       .then((res) => res.json())
       .then((res) => {
         setDataPut({
-            estado_de_salida: !res.estado_de_salida,
-            estacionamiento: res.estacionamiento,
-            vehiculo: res.vehiculo,
-            a_cargo_de: res.a_cargo_de,
+          estado_de_salida: !res.estado_de_salida,
+          estacionamiento: res.estacionamiento,
+          vehiculo: res.vehiculo,
+          a_cargo_de: res.a_cargo_de,
         });
         return res;
       })
@@ -30,10 +29,6 @@ function ChangeState({ item }) {
         console.log(err);
       });
   };
-
-  React.useEffect(() => {
-    RegistosForm();
-  }, []);
 
   const putRegistro = async () => {
     await fetch(
@@ -46,16 +41,27 @@ function ChangeState({ item }) {
         body: JSON.stringify(dataPut),
       }
     ).catch((err) => {
-        console.log(err);
-      });
-      window.location.reload();
+      console.log(err);
+    });
+    
+    RegistosForm()
   };
 
+  React.useEffect(() => {
+    RegistosForm();
+  }, []);
+
   return (
-    <button onClick={putRegistro} className="btn">
-      {dataPut.estado_de_salida && <p style={{ color: "red" }}>Ocupado</p>}
-      {!dataPut.estado_de_salida && <p style={{ color: "green" }}>Desocupado</p>}
-    </button>
+    <React.Fragment>
+      {dataPut.estado_de_salida && (
+        <button onClick={putRegistro} className="btn">
+          <p className="btn btn-danger">Ocupado</p>
+        </button>
+      )}
+      {!dataPut.estado_de_salida && (
+        <span class="badge bg-success fs-6">Success</span>
+      )}
+    </React.Fragment>
   );
 }
 

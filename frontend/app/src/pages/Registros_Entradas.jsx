@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Registros from "../components/registros/registrosvista";
+import RegistrosVista from "../components/registros/RegistrosVista";
 import Search from "../components/home/search";
 function Registros_Entradas() {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ function Registros_Entradas() {
     <div>
       <h3 className="text-center">Registro de entradas</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-      <Registros data={registros_entradaSearch} />
+      <RegistrosVista data={registros_entradaSearch} />
     </div>
   );
 }
