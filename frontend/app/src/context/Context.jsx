@@ -7,7 +7,8 @@ function ContextGlobalProvider(props) {
   const [searchValue, setSearchValue] = React.useState("");
   const [tipos, setTipos] = React.useState([]);
   const [onChange, setOnChange] = React.useState(false);
-
+  const [openModal, setOpenModal] = React.useState(false);
+  const [actualizarVehiculo, setActualizarVehiculo] = React.useState({});
   const vehiculosSearch = [];
 
   if (searchValue !== "") {
@@ -34,7 +35,6 @@ function ContextGlobalProvider(props) {
   };
 
   const cambiarEstado = async (item) => {
-
     await fetch(`http://127.0.0.1:8000/vehiculos/vehiculos/${item.id}/`, {
       method: "PUT",
       headers: {
@@ -45,7 +45,9 @@ function ContextGlobalProvider(props) {
         tipo_vehiculo: item.tipo_vehiculo,
         descripcion: item.descripcion,
         estado: false,
-        tipo_residencia: tipos.find((tipo) => tipo.nombre === item.tipo_residencia).id,
+        tipo_residencia: tipos.find(
+          (tipo) => tipo.nombre === item.tipo_residencia
+        ).id,
       }),
     }).then(() => {
       getDataVehiculos();
@@ -292,6 +294,8 @@ function ContextGlobalProvider(props) {
         onChange,
         setOnChange,
         cambiarEstado,
+        openModal,
+        setOpenModal,
         // form Vehiculos
         tipos,
         error,
@@ -300,11 +304,15 @@ function ContextGlobalProvider(props) {
         sendData,
         getDataTipos,
         registros_entradaSearch,
+        actualizarVehiculo,
+        setActualizarVehiculo,
 
         // Registros de entradas
         handleChangeEntrada,
         handleSubmit,
+        mostrarAlerta,
         estacionamiento,
+        sendData,
         vehiculos,
         formEntrada,
         user,

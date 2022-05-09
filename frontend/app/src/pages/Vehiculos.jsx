@@ -2,11 +2,18 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ContextGlobal } from "../context/Context";
 import TablaVehiculos from "../components/vehiculos/TablaVehiculos";
+import { Modal } from "../modal/index";
+import PutVehiculos from "../modal/PutVehiculo";
+
 import Search from "../components/Search";
 function Vehiculos() {
   const navigate = useNavigate();
-  const { searchValue, setSearchValue, vehiculosSearch } =
-    React.useContext(ContextGlobal);
+  const {
+    searchValue,
+    setSearchValue,
+    vehiculosSearch,
+    openModal,
+  } = React.useContext(ContextGlobal);
 
   React.useEffect(() => {
     if (!localStorage.getItem("dataSesion")) {
@@ -24,6 +31,11 @@ function Vehiculos() {
         </Link>
       </div>
       <TablaVehiculos data={vehiculosSearch} />
+      {!!openModal && (
+        <Modal>
+          <PutVehiculos />
+        </Modal>
+      )}
     </div>
   );
 }

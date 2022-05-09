@@ -84,7 +84,6 @@ function Form() {
         console.log(res);
         if (typeof res.registro_entrada.id === "number") {
           mostrarAlerta();
-          console.log('cambio');
           setOnChange(!onChange);
         }
         if (typeof res.registro_entrada[0] == "string") {
@@ -100,7 +99,6 @@ function Form() {
       
   };
   React.useEffect(() => {
-    console.log('rendeeeer')
     getRegistros();
   }, [onChange]);
 

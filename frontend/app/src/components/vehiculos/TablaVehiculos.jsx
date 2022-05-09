@@ -5,8 +5,7 @@ import { ContextGlobal } from "../../context/Context";
 
 function TablaVehiculos({ data }) {
   const [loading, setLoading] = React.useState(true);
-
-  const { cambiarEstado } = React.useContext(ContextGlobal);
+  const { cambiarEstado, setOpenModal, setActualizarVehiculo } = React.useContext(ContextGlobal);
 
   React.useEffect(() => {
     if (data.length > 0) {
@@ -45,7 +44,15 @@ function TablaVehiculos({ data }) {
                 <td>{item.tipo_residencia}</td>
                 <td>
                   <div className="d-flex justify-content-center">
-                    <button className="btn  btn-info fs-6">Editar</button>
+                    <button
+                      className="btn  btn-info fs-6"
+                      onClick={() => {
+                        setOpenModal((prevState) => !prevState)
+                        setActualizarVehiculo(item);
+                      }}
+                    >
+                      Editar
+                    </button>
                     <button
                       className="btn btn-danger fs-6"
                       onClick={() => {
