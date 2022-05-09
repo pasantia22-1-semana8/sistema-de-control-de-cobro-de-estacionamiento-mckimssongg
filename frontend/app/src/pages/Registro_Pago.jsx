@@ -16,7 +16,6 @@ function FormPago() {
     <div className="container p-2">
       <h3 className="text-center">Registro de Pagos</h3>
       <Form />
-      <Link to={"/pagos"} className="m-2">Volver a pagos</Link>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import Loader from "../Loader";
 import ChangeState from "./ChangeState";
+import Aviso from "../Aviso";
+
 
 function RegistrosVista({ data }) {
   const [loading, setLoading] = React.useState(true);
@@ -11,6 +13,9 @@ function RegistrosVista({ data }) {
     }
   });
 
+  if (data.length === 0) {
+    return <Aviso mensaje={"entrada"}/>;
+  }
   if (loading) {
     return <Loader />;
   } else {

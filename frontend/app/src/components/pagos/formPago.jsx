@@ -1,5 +1,6 @@
 import React from "react";
 import swal from "sweetalert";
+import {Link} from 'react-router-dom';
 
 function Form() {
   const mostrarAlerta = () => {
@@ -81,36 +82,36 @@ function Form() {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        if (typeof res.registro_entrada != "string") {
+        if (typeof res.registro_entrada.id === "number") {
+          mostrarAlerta();
+          console.log('cambio');
+          setOnChange(!onChange);
+        }
+        if (typeof res.registro_entrada[0] == "string") {
           setError({
             state: true,
             message: "El registro de entrada no existe",
-          });
-        } else {
-          mostrarAlerta();
-          setOnChange(!onChange);
-          setError({
-            state: false,
-            message: "",
           });
         }
       })
       .catch((err) => {
         console.log(err);
       });
+      
   };
   React.useEffect(() => {
+    console.log('rendeeeer')
     getRegistros();
   }, [onChange]);
 
   return (
-    <div className="">
+    <div className="d-flex justify-content-center align-items-center  flex-column">
       {error.state && (
         <div className="alert alert-danger text-center" role="alert">
           {error.message}
         </div>
       )}
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="w-50 d-flex align-items-center flex-column">
         <div className="form-group">
           <label className="m-2">Registro de entrada</label>
           <select
@@ -126,10 +127,11 @@ function Form() {
             ))}
           </select>
         </div>
-        <button type="submit" className="p-2 m-2 btn btn-primary btn-block">
+        <button type="submit" className="p-2 m-2 btn btn-primary w-100">
           Realizar cobro
         </button>
       </form>
+      <Link to={"/pagos"} className="m-2">Volver a pagos</Link>
     </div>
   );
 }

@@ -116,19 +116,18 @@ function RegistrosForm() {
       });
   };
   React.useEffect(() => {
-    console.log("render");
     getDataVehiculos();
     getDataEstacionamiento();
   }, [onChange]);
 
   return (
-    <div>
+    <div className="d-flex justify-conter-center w-100">
       {error.state && (
         <div className="alert alert-danger text-center" role="alert">
           {error.message}
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="w-50">
         <div className="form-group">
           <label>Estacionamiento</label>
           <select
@@ -167,7 +166,7 @@ function RegistrosForm() {
             {JSON.parse(localStorage.getItem("dataSesion")).user.username}
           </ol>
         </div>
-        <button type="submit" className="btn btn-primary btn-block">
+        <button type="submit" className="btn btn-primary  w-100">
           Registrar
         </button>
       </form>

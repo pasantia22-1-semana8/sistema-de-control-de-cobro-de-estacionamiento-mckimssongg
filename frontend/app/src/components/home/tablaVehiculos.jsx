@@ -1,5 +1,6 @@
 import React from "react";
 import Loader from "../Loader";
+import  Aviso from "../Aviso";
 import "../../css/bootstrap.min.css";
 
 function TablaVehiculos({ data }) {
@@ -11,6 +12,9 @@ function TablaVehiculos({ data }) {
     }
   });
 
+  if (data.length === 0) {
+    return <Aviso mensaje="vehiculos" />;
+  }
   if (loading) {
     return <Loader />;
   } else {

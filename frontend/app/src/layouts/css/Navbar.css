@@ -22,9 +22,11 @@
   top: 0;
   left: -100%;
   transition: 850ms;
+  z-index: 10;
 }
 
 .nav-menu.active {
+  z-index: 10;
   left: 0;
   transition: 350ms;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import Loader from "../Loader";
+import Aviso from "../Aviso";
 
 function PagosVista({ data }) {
   const [loading, setLoading] = React.useState(true);
@@ -10,6 +11,9 @@ function PagosVista({ data }) {
     }
   });
 
+  if (data.length === 0) {
+    return <Aviso mensaje={"pago"}/>;
+  }
   if (loading) {
     return <Loader />;
   } else {

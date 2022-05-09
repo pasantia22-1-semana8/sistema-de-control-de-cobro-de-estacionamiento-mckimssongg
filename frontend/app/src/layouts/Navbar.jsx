@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/Navbar.css";
-import {RiLogoutBoxLine} from "react-icons/ri";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,6 @@ const SidebarData = [
     title: "Home",
     path: "/",
     cName: "nav-text",
-    icon: "fas fa-home",
   },
   {
     title: "Vehiculos",
@@ -33,9 +32,17 @@ const SidebarData = [
   },
 ];
 
+const OpAdmin = [
+  {
+    title: "Configuraciones",
+    path: "/",
+    cName: "nav-text",
+  },
+];
+
 function Navbar() {
   const [sidebar, setSidebar] = React.useState(false);
-
+  const role = JSON.parse(localStorage.getItem("dataSesion")).user.role;
   // borrar la sesion
   const handleLogout = () => {
     localStorage.removeItem("dataSesion");
@@ -43,14 +50,17 @@ function Navbar() {
   };
 
   const showSidebar = () => setSidebar(!sidebar);
-RiLogoutBoxLine
+  RiLogoutBoxLine;
   return (
     <React.Fragment>
       <div className="navbar">
         <Link to="#" className="menu-bars">
           <div onClick={showSidebar}>Menu</div>
         </Link>
-        <button onClick={handleLogout} className="btn-logout"><RiLogoutBoxLine/>Logout</button>
+        <button onClick={handleLogout} className="btn-logout">
+          <RiLogoutBoxLine />
+          Logout
+        </button>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
@@ -60,6 +70,15 @@ RiLogoutBoxLine
             </Link>
           </li>
           {SidebarData.map((item, index) => {
+            return (
+              <li key={index} className={item.cName}>
+                <Link to={item.path}>
+                  <span>{item.title}</span>
+                </Link>
+              </li>
+            );
+          })}
+          {role == 'admin' && OpAdmin.map((item, index) => {
             return (
               <li key={index} className={item.cName}>
                 <Link to={item.path}>

@@ -1,7 +1,16 @@
 import React from "react";
 import { BsFillCaretRightFill } from "react-icons/bs";
 
+import swal from "sweetalert";
+
 function FormVehiculos() {
+  const mostrarAlerta = () => {
+    swal({
+      title: "¡Registro exitoso!",
+      timer: 2000,
+    });
+  };
+  const [onChange, setOnChange] = React.useState(false);
   const [tipos, setTipos] = React.useState([]);
   const [error, setError] = React.useState({
     state: false,
@@ -41,10 +50,6 @@ function FormVehiculos() {
       });
   };
 
-  React.useEffect(() => {
-    getDataTipos();
-  }, []);
-
   const sendData = async (e) => {
     e.preventDefault();
 
@@ -67,12 +72,18 @@ function FormVehiculos() {
         message: "Invalid Credentials",
       });
     } else {
+      mostrarAlerta()
+      setOnChange(!onChange);
       return setError({
         state: false,
         message: "",
       });
     }
   };
+
+  React.useEffect(() => {
+    getDataTipos();
+  }, [onChange]);
 
   return (
     <React.Fragment>
@@ -159,7 +170,7 @@ function FormVehiculos() {
                 ))}
               </select>
 
-              <button type="submit" className="mt-4 btn btn-block btn-primary">
+              <button type="submit" className="mt-4 btn  w-100 btn-primary">
                 Registrar
               </button>
             </div>
