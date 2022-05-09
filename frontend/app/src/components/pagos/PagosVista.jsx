@@ -1,9 +1,13 @@
 import React from "react";
 import Loader from "../Loader";
 import Aviso from "../Aviso";
+import { Link } from "react-router-dom";
+import {ContextGlobal} from "../../context/Context";
+
 
 function PagosVista({ data }) {
   const [loading, setLoading] = React.useState(true);
+  const {setActualizarVehiculo} = React.useContext(ContextGlobal);
 
   React.useEffect(() => {
     if (data.length > 0) {
@@ -45,7 +49,9 @@ function PagosVista({ data }) {
                 </td>
                 <td>
                   <div className="d-flex justify-content-center">
-                    <button className="btn  btn-info fs-6">Imprimir</button>
+                    <Link to="/facturacion">
+                      <button className="btn  btn-info fs-6" onClick={()=>{setActualizarVehiculo(item)}}>Imprimir</button>
+                    </Link>
                     <button
                       className="btn btn-danger fs-6"
                       onClick={() => {

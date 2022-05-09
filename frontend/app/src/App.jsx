@@ -11,6 +11,9 @@ import Pagos from "./pages/Pagos";
 import Layout from "./layouts/Layout";
 import FormPago from "./pages/Registro_Pago";
 import Rregistro_Vehiculos from "./pages/Registro_Vehiculos";
+import Facturacion from "./pages/Facturacion";
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +30,7 @@ function App() {
           />
           <Route path="/pagos" element={<Pagos />} />
           <Route path="/pagos/form" element={<FormPago />} />
+          <Route path="/facturacion" element={<Facturacion />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </Layout>
