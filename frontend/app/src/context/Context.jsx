@@ -29,6 +29,7 @@ function ContextGlobalProvider(props) {
   };
 
   // form Vehiculos
+  
   const [onChange, setOnChange] = React.useState(false);
   const [tipos, setTipos] = React.useState([]);
   const [error, setError] = React.useState({
@@ -108,6 +109,7 @@ function ContextGlobalProvider(props) {
   };
 
   // Registros de entradas y Formulario de entrada
+
   const [dataEntradas, setDataEntrada] = React.useState([]);
 
   const registros_entradaSearch = [];
@@ -247,6 +249,7 @@ function ContextGlobalProvider(props) {
       });
   };
 
+
   React.useEffect(() => {
     getDataVehiculosEntrada();
     getDataEstacionamiento();
@@ -261,7 +264,8 @@ function ContextGlobalProvider(props) {
         searchValue,
         setSearchValue,
         vehiculosSearch,
-
+        onChange,
+        setOnChange,
         // form Vehiculos
         tipos,
         error,

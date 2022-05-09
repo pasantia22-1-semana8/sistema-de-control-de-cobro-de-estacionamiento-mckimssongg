@@ -1,6 +1,10 @@
 import React from "react";
+import { ContextGlobal } from "../../context/Context";
 
 function ChangeState({ item }) {
+
+  const { onChange, setOnChange} = React.useContext(ContextGlobal);
+
   const [dataPut, setDataPut] = React.useState({
     estado_de_salida: true,
     estacionamiento: 0,
@@ -43,8 +47,8 @@ function ChangeState({ item }) {
     ).catch((err) => {
       console.log(err);
     });
-    
     RegistosForm()
+    setOnChange(!onChange);
   };
 
   React.useEffect(() => {
@@ -54,7 +58,7 @@ function ChangeState({ item }) {
   return (
     <React.Fragment>
       {dataPut.estado_de_salida && (
-        <button onClick={putRegistro} className="btn">
+        <button onClick={putRegistro} className="btn btn-block">
           <p className="btn btn-danger">Ocupado</p>
         </button>
       )}

@@ -35,7 +35,7 @@ function RegistrosForm() {
             onChange={handleChangeEntrada}
             value={formEntrada.estacionamiento}
           >
-            <option value="">Seleccione un Estacionamiento</option>
+            <option selected="selected" value="">Seleccione un Estacionamiento</option>
             {estacionamiento.map((estacionamiento) => (
               <option key={estacionamiento.id} value={estacionamiento.id}>
                 {estacionamiento.nombre}
@@ -51,7 +51,7 @@ function RegistrosForm() {
             onChange={handleChangeEntrada}
             value={formEntrada.vehiculo}
           >
-            <option value="">Seleccione un Vehiculo</option>
+            <option selected="selected" value="" >Seleccione un Vehiculo</option>
             {vehiculos.map((vehiculo) => (
               <option key={vehiculo.id} value={vehiculo.id}>
                 {vehiculo.placa}

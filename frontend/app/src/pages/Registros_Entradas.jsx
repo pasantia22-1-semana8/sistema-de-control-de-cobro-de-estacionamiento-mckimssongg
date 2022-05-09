@@ -19,9 +19,11 @@ function Registros_Entradas() {
     <div>
       <h3 className="text-center">Registro de entradas</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-      <Link to="/registros_entradas/form">
-        <button className="btn btn-primary"> Nuevo registro </button>
-      </Link>
+      <div className="d-flex justify-content-center">
+        <Link to="/registros_entradas/form">
+          <button className="btn btn-primary"> Nuevo registro </button>
+        </Link>
+      </div>
       <RegistrosVista data={registros_entradaSearch} />
     </div>
   );

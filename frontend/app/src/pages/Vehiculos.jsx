@@ -18,9 +18,11 @@ function Vehiculos() {
     <div className="container">
       <h3 className="text-center">Registro de vehiculos</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-      <Link to="/registros_vehiculos">
-        <button className="btn btn-primary mb-4">Agregar vehiculo</button>
-      </Link>
+      <div className="d-flex justify-content-center">
+        <Link to="/registros_vehiculos">
+          <button className="btn btn-primary mb-4">Agregar vehiculo</button>
+        </Link>
+      </div>
       <TablaVehiculos data={vehiculosSearch} />
     </div>
   );
