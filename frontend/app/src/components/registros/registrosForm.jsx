@@ -5,8 +5,7 @@ function RegistrosForm() {
   const mostrarAlerta = () => {
     swal({
       title: "¡Registro exitoso!",
-      icon: "success",
-      button: "Continuar",
+      timer: 2000,
     });
   };
   const [vehiculos, setVehiculos] = React.useState([]);
@@ -106,7 +105,7 @@ function RegistrosForm() {
         } else {
           mostrarAlerta()
           setOnChange(!onChange);
-          return setError({
+          setError({
             state: false,
             message: "",
           });
@@ -125,7 +124,7 @@ function RegistrosForm() {
   return (
     <div>
       {error.state && (
-        <div className="alert alert-danger" role="alert">
+        <div className="alert alert-danger text-center" role="alert">
           {error.message}
         </div>
       )}

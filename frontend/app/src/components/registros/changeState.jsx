@@ -59,7 +59,7 @@ function ChangeState({ item }) {
         </button>
       )}
       {!dataPut.estado_de_salida && (
-        <span class="badge bg-success fs-6">Success</span>
+        <span className="badge bg-success fs-6">Success</span>
       )}
     </React.Fragment>
   );

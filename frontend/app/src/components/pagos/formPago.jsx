@@ -1,7 +1,15 @@
 import React from "react";
+import swal from "sweetalert";
 
 function Form() {
+  const mostrarAlerta = () => {
+    swal({
+      title: "¡Registro exitoso!",
+      timer: 2000,
+    });
+  };
   const [dataregistros, setDataregistros] = React.useState([]);
+  const [onChange, setOnChange] = React.useState(false);
   const [form, setForm] = React.useState({
     registro_entrada: null,
   });
@@ -79,6 +87,8 @@ function Form() {
             message: "El registro de entrada no existe",
           });
         } else {
+          mostrarAlerta();
+          setOnChange(!onChange);
           setError({
             state: false,
             message: "",
@@ -91,16 +101,14 @@ function Form() {
   };
   React.useEffect(() => {
     getRegistros();
-  }, []);
+  }, [onChange]);
 
   return (
     <div className="">
-      {error.state ? (
-        <p className="text-center">{error.message}</p>
-      ) : (
-        <p>
-          <br />
-        </p>
+      {error.state && (
+        <div className="alert alert-danger text-center" role="alert">
+          {error.message}
+        </div>
       )}
       <form onSubmit={onSubmit}>
         <div className="form-group">
