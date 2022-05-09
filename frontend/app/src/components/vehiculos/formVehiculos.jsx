@@ -78,10 +78,14 @@ function FormVehiculos() {
     <React.Fragment>
       <div className="d-flex justify-content-center">
         <div className="w-50">
-          {error.state && <p style={{ color: "red" }}>{error.message}</p>}
+          {error.state && (
+            <div className="alert alert-danger" role="alert">
+              {error.message}
+            </div>
+          )}
           <form onSubmit={sendData}>
             <div className="form-group">
-              <label className="mt-4">
+              <label >
                 <BsFillCaretRightFill />
                 Placa{" "}
               </label>

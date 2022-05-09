@@ -3,7 +3,7 @@ import Loader from "../Loader";
 
 function PagosVista({ data }) {
   const [loading, setLoading] = React.useState(true);
-  
+
   React.useEffect(() => {
     if (data.length > 0) {
       setLoading(false);
@@ -30,7 +30,10 @@ function PagosVista({ data }) {
                 <td>{item.registro_entrada.vehiculo}</td>
                 <td>{item.fecha_pago}</td>
                 <td>{item.registro_entrada.a_cargo_de}</td>
-                <td>Q{item.importe_total}</td>
+                <td>
+                  {item.importe_total !== 0 && `Q${item.importe_total}`}
+                  {item.importe_total == 0 && "Es oficial"}
+                </td>
               </tr>
             ))}
           </tbody>

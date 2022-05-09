@@ -24,8 +24,13 @@ function Registros_Entradas() {
       {
         method: "GET",
       }
-    );
-    setData(await data.json());
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        data.reverse()
+        setData(data);
+      }
+      );
   };
 
   React.useEffect(() => {

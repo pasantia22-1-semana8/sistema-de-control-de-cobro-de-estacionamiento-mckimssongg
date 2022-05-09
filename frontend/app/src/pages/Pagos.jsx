@@ -29,6 +29,7 @@ function Pagos() {
       "http://127.0.0.1:8000/registros/registro_pago/"
     );
     const data = await response.json();
+    data.reverse();
     setPagos(data);
   };
 

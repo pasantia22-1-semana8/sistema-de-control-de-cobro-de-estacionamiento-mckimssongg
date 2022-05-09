@@ -1,8 +1,17 @@
 import React from "react";
+import swal from "sweetalert";
 
 function RegistrosForm() {
+  const mostrarAlerta = () => {
+    swal({
+      title: "¡Registro exitoso!",
+      icon: "success",
+      button: "Continuar",
+    });
+  };
   const [vehiculos, setVehiculos] = React.useState([]);
   const [estacionamiento, setEstacionamiento] = React.useState([]);
+  const [onChange, setOnChange] = React.useState(false);
   const [error, setError] = React.useState({
     state: false,
     message: "",
@@ -37,7 +46,7 @@ function RegistrosForm() {
     );
     return await data.json();
   };
-  
+
   const getDataVehiculos = async () => {
     await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/", {
       method: "GET",
@@ -69,7 +78,6 @@ function RegistrosForm() {
         res = res.filter((item) => {
           return !data.includes(item.nombre);
         });
-
         setEstacionamiento(res);
       })
       .catch((err) => {
@@ -96,6 +104,8 @@ function RegistrosForm() {
             message: "Invalid Credentials",
           });
         } else {
+          mostrarAlerta()
+          setOnChange(!onChange);
           return setError({
             state: false,
             message: "",
@@ -107,9 +117,10 @@ function RegistrosForm() {
       });
   };
   React.useEffect(() => {
+    console.log("render");
     getDataVehiculos();
     getDataEstacionamiento();
-  }, []);
+  }, [onChange]);
 
   return (
     <div>
@@ -153,7 +164,7 @@ function RegistrosForm() {
         </div>
         <div className="form-group">
           <label>A Cargo de</label>
-          <ol class="breadcrumb">
+          <ol className="breadcrumb">
             {JSON.parse(localStorage.getItem("dataSesion")).user.username}
           </ol>
         </div>
