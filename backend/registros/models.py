@@ -32,6 +32,8 @@ class Registro_Entrada(models.Model):
 
     fecha_salida = models.DateTimeField(auto_now=True)
 
+    is_active = models.BooleanField(default=True)
+
     def __str__(self):
         return self.vehiculo.placa
 
@@ -40,6 +42,7 @@ class Registro_Pago(models.Model):
     registro_entrada = models.OneToOneField(
         Registro_Entrada, on_delete=models.CASCADE)
     fecha_pago = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.registro_entrada.vehiculo.placa

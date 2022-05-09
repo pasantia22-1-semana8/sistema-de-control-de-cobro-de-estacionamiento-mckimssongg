@@ -3,7 +3,6 @@ import Loader from "../Loader";
 import ChangeState from "./ChangeState";
 import Aviso from "../Aviso";
 
-
 function RegistrosVista({ data }) {
   const [loading, setLoading] = React.useState(true);
 
@@ -14,7 +13,7 @@ function RegistrosVista({ data }) {
   });
 
   if (data.length === 0) {
-    return <Aviso mensaje={"entrada"}/>;
+    return <Aviso mensaje={"entrada"} />;
   }
   if (loading) {
     return <Loader />;
@@ -31,6 +30,9 @@ function RegistrosVista({ data }) {
               <th scope="col">estacionamiento</th>
               <th scope="col">placas del heviculo</th>
               <th scope="col">registrado por</th>
+              <th scope="col" className="text-center">
+                acciones
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -45,6 +47,26 @@ function RegistrosVista({ data }) {
                 <td>{item.estacionamiento}</td>
                 <td>{item.vehiculo}</td>
                 <td>{item.a_cargo_de}</td>
+                <td>
+                  <button
+                    className="btn btn-danger fs-6"
+                    onClick={() => {
+                      swal({
+                        title: "Estas seguro?",
+                        text: `Deseas eliminar el registro ${item.vehiculo}`,
+                        buttons: true,
+                      }).then((willDelete) => {
+                        if (willDelete) {
+                          swal("Eliminado!", "El registro ha sido eliminado");
+                        } else {
+                          swal("Cancelado", "El registro no ha sido eliminado");
+                        }
+                      });
+                    }}
+                  >
+                    Borrar
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

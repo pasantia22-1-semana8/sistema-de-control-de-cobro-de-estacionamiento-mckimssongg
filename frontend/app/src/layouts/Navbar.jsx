@@ -1,29 +1,40 @@
 import React from "react";
 import "./css/Navbar.css";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import  logo  from "../assets/img/logo.png";
+import {
+  AiFillHome,
+  AiFillCar,
+  AiOutlineMenuUnfold,
+  AiOutlineMenuFold,
+  AiFillSetting,
+} from "react-icons/ai";
+import { BsClipboardCheck, BsClipboardData} from "react-icons/bs";
+import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
-import { AiOutlineMenuUnfold, AiOutlineMenuFold} from "react-icons/ai";
 const SidebarData = [
   {
     title: "Home",
     path: "/",
     cName: "nav-text",
+    icon: <AiFillHome />,
   },
   {
     title: "Registros de vehiculos",
     path: "/vehiculos",
     cName: "nav-text",
+    icon: <AiFillCar />,
   },
   {
     title: "Registros de entradas",
     path: "/registros_entradas",
     cName: "nav-text",
+    icon: <BsClipboardCheck />,
   },
   {
     title: "Registros de pagos",
     path: "/pagos",
     cName: "nav-text",
+    icon: <BsClipboardData />,
   },
 ];
 
@@ -32,6 +43,7 @@ const OpAdmin = [
     title: "Configuraciones",
     path: "/",
     cName: "nav-text",
+    icon: <AiFillSetting />,
   },
 ];
 
@@ -39,7 +51,9 @@ function Navbar() {
   const [sidebar, setSidebar] = React.useState(false);
   const role = () => {
     if (JSON.parse(localStorage.getItem("dataSesion"))) {
-      if (JSON.parse(localStorage.getItem("dataSesion")).user.role === "admin") {
+      if (
+        JSON.parse(localStorage.getItem("dataSesion")).user.role === "admin"
+      ) {
         return true;
       } else {
         return false;
@@ -47,7 +61,7 @@ function Navbar() {
     } else {
       return false;
     }
-  }
+  };
 
   // borrar la sesion
   const handleLogout = () => {
@@ -56,19 +70,23 @@ function Navbar() {
   };
 
   const showSidebar = () => setSidebar(!sidebar);
-  RiLogoutBoxLine;
   return (
     <React.Fragment>
       <div className="navbar">
         <Link to="#" className="menu-bars">
-          <div onClick={showSidebar}><AiOutlineMenuUnfold/></div>
+          <div onClick={showSidebar}>
+            <AiOutlineMenuUnfold />
+          </div>
         </Link>
         <div className="logo">
           <Link to="/">
-            <img src={logo} alt="logo"/>
+            <img src={logo} alt="logo" />
           </Link>
         </div>
-        <button onClick={handleLogout} className="btn btn-lg btn-outline-light me-3">
+        <button
+          onClick={handleLogout}
+          className="btn btn-lg btn-outline-light me-3"
+        >
           <RiLogoutBoxLine />
           Logout
         </button>
@@ -84,20 +102,23 @@ function Navbar() {
             return (
               <li key={index} className={item.cName}>
                 <Link to={item.path}>
+                  {item.icon}
                   <span>{item.title}</span>
                 </Link>
               </li>
             );
           })}
-          {role() && OpAdmin.map((item, index) => {
-            return (
-              <li key={index} className={item.cName}>
-                <Link to={item.path}>
-                  <span>{item.title}</span>
-                </Link>
-              </li>
-            );
-          })}
+          {role() &&
+            OpAdmin.map((item, index) => {
+              return (
+                <li key={index} className={item.cName}>
+                  <Link to={item.path}>
+                    {item.icon}
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
         </ul>
       </nav>
     </React.Fragment>

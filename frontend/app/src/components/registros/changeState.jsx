@@ -2,8 +2,7 @@ import React from "react";
 import { ContextGlobal } from "../../context/Context";
 
 function ChangeState({ item }) {
-
-  const { onChange, setOnChange} = React.useContext(ContextGlobal);
+  const { onChange, setOnChange } = React.useContext(ContextGlobal);
 
   const [dataPut, setDataPut] = React.useState({
     estado_de_salida: true,
@@ -47,7 +46,7 @@ function ChangeState({ item }) {
     ).catch((err) => {
       console.log(err);
     });
-    RegistosForm()
+    RegistosForm();
     setOnChange(!onChange);
   };
 
@@ -58,7 +57,23 @@ function ChangeState({ item }) {
   return (
     <React.Fragment>
       {dataPut.estado_de_salida && (
-        <button onClick={putRegistro} className="btn btn-block">
+        <button
+          className="btn btn-block"
+          onClick={() => {
+            swal({
+              title: "Estas seguro?",
+              text: `Estas por darle salida a ${item.vehiculo}`,
+              buttons: true,
+            }).then((willDelete) => {
+              if (willDelete) {
+                swal("Hecho!", "El vehiculo ha sido dado de salida");
+                putRegistro();
+              } else {
+                swal("Cancelado", "El vehiculo no ha sido dado de salida");
+              }
+            });
+          }}
+        >
           <p className="btn btn-danger">Ocupado</p>
         </button>
       )}

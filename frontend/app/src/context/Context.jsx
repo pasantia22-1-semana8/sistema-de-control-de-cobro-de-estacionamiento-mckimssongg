@@ -5,6 +5,8 @@ const ContextGlobal = React.createContext();
 function ContextGlobalProvider(props) {
   const [data, setData] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState("");
+  const [tipos, setTipos] = React.useState([]);
+  const [onChange, setOnChange] = React.useState(false);
 
   const vehiculosSearch = [];
 
@@ -18,19 +20,41 @@ function ContextGlobalProvider(props) {
     vehiculosSearch.push(...data);
   }
   const getDataVehiculos = async () => {
-    await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True", {
-      method: "GET",
-    })
+    await fetch(
+      "http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True",
+      {
+        method: "GET",
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         data.reverse();
         setData(data);
       });
   };
+
+  const cambiarEstado = async (item) => {
+
+    await fetch(`http://127.0.0.1:8000/vehiculos/vehiculos/${item.id}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        placa: item.placa,
+        tipo_vehiculo: item.tipo_vehiculo,
+        descripcion: item.descripcion,
+        estado: false,
+        tipo_residencia: tipos.find((tipo) => tipo.nombre === item.tipo_residencia).id,
+      }),
+    }).then(() => {
+      getDataVehiculos();
+      setOnChange(!onChange);
+    });
+  };
+
   // form Vehiculos
-  
-  const [onChange, setOnChange] = React.useState(false);
-  const [tipos, setTipos] = React.useState([]);
+
   const [error, setError] = React.useState({
     state: false,
     message: "",
@@ -177,9 +201,12 @@ function ContextGlobalProvider(props) {
   };
 
   const getDataVehiculosEntrada = async () => {
-    await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True", {
-      method: "GET",
-    })
+    await fetch(
+      "http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True",
+      {
+        method: "GET",
+      }
+    )
       .then((res) => res.json())
       .then(async (res) => {
         let data = await getDataRegistros();
@@ -248,7 +275,6 @@ function ContextGlobalProvider(props) {
       });
   };
 
-
   React.useEffect(() => {
     getDataVehiculosEntrada();
     getDataEstacionamiento();
@@ -265,6 +291,7 @@ function ContextGlobalProvider(props) {
         vehiculosSearch,
         onChange,
         setOnChange,
+        cambiarEstado,
         // form Vehiculos
         tipos,
         error,
