@@ -121,13 +121,13 @@ function RegistrosForm() {
   }, [onChange]);
 
   return (
-    <div className="d-flex justify-conter-center w-100">
+    <div className="w-50">
       {error.state && (
         <div className="alert alert-danger text-center" role="alert">
           {error.message}
         </div>
       )}
-      <form onSubmit={handleSubmit} className="w-50">
+      <form onSubmit={handleSubmit} className="">
         <div className="form-group">
           <label>Estacionamiento</label>
           <select

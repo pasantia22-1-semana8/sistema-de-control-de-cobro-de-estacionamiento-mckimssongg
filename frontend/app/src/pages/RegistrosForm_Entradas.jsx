@@ -12,7 +12,7 @@ function RegistrosForm_Entradas() {
     }
   });
   return (
-    <div>
+    <div className='d-flex align-items-center flex-column'>
         <h3 className="text-center">Registro de Entradas</h3>
         <RegistrosForm />
     </div>
