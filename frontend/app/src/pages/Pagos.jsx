@@ -45,8 +45,10 @@ function Pagos() {
       <h3 className="text-center">Registro de pagos</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
       <div className="d-flex justify-content-evenly">
-        <Link to={"/pagos/form"}>Hacer pago</Link>
-        <Link to=''>Pagos de mes</Link>
+        <Link to={"/pagos/form"}>
+          <button className="btn btn-primary mb-4"> Hacer pago </button>
+        </Link>
+        <Link to=''><button className="btn btn-primary mb-4 ">Pagos de mes </button></Link>
       </div>
       <PagosVista data={pagosSearch} />
     </div>

@@ -1,11 +1,23 @@
 
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 
 
 from .models import Tipo_Residencia, Vehiculo
 from .serializers import Tipo_ResidenciaSerializer, VehiculoSerializer
+
+
+class Vehiculos_EstadoViewSet(generics.ListAPIView):
+    queryset = Vehiculo.objects.all()
+    serializer_class = VehiculoSerializer
+
+    def get_queryset(self):
+        queryset = Vehiculo.objects.all()
+        estado = self.request.query_params.get('estado', None)
+        if estado is not None:
+            queryset = queryset.filter(estado=estado)
+        return queryset
 
 
 class Tipo_ResidenciaViewSet(viewsets.ModelViewSet):

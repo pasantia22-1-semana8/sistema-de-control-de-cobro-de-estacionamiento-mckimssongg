@@ -35,7 +35,9 @@ function RegistrosForm() {
             onChange={handleChangeEntrada}
             value={formEntrada.estacionamiento}
           >
-            <option selected="selected" value="">Seleccione un Estacionamiento</option>
+            <option selected="selected" value="">
+              Seleccione un Estacionamiento
+            </option>
             {estacionamiento.map((estacionamiento) => (
               <option key={estacionamiento.id} value={estacionamiento.id}>
                 {estacionamiento.nombre}
@@ -45,19 +47,29 @@ function RegistrosForm() {
         </div>
         <div className="form-group">
           <label>Vehiculo</label>
-          <select
-            className="form-control"
-            name="vehiculo"
-            onChange={handleChangeEntrada}
-            value={formEntrada.vehiculo}
-          >
-            <option selected="selected" value="" >Seleccione un Vehiculo</option>
-            {vehiculos.map((vehiculo) => (
-              <option key={vehiculo.id} value={vehiculo.id}>
-                {vehiculo.placa}
+          <div className=" d-flex justify-content-center">
+            <select
+              className="form-control"
+              name="vehiculo"
+              onChange={handleChangeEntrada}
+              value={formEntrada.vehiculo}
+            >
+              <option selected="selected" value="">
+                Seleccione un Vehiculo
               </option>
-            ))}
-          </select>
+              {vehiculos.map((vehiculo) => (
+                <option key={vehiculo.id} value={vehiculo.id}>
+                  {vehiculo.placa}
+                </option>
+              ))}
+            </select>
+
+            <Link to="/registros_vehiculos">
+              <button className="btn btn-primary m-2">
+                Añadir otro vehiculo
+              </button>
+            </Link>
+          </div>
         </div>
         <div className="form-group">
           <label>A Cargo de</label>

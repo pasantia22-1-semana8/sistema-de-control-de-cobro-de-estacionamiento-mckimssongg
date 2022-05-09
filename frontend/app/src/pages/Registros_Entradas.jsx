@@ -21,7 +21,7 @@ function Registros_Entradas() {
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
       <div className="d-flex justify-content-center">
         <Link to="/registros_entradas/form">
-          <button className="btn btn-primary"> Nuevo registro </button>
+          <button className="btn btn-primary mb-4"> Nuevo registro </button>
         </Link>
       </div>
       <RegistrosVista data={registros_entradaSearch} />

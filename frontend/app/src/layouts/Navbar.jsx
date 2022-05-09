@@ -1,9 +1,9 @@
 import React from "react";
 import "./css/Navbar.css";
 import { RiLogoutBoxLine } from "react-icons/ri";
-
+import  logo  from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
-
+import { AiOutlineMenuUnfold, AiOutlineMenuFold} from "react-icons/ai";
 const SidebarData = [
   {
     title: "Home",
@@ -61,9 +61,14 @@ function Navbar() {
     <React.Fragment>
       <div className="navbar">
         <Link to="#" className="menu-bars">
-          <div onClick={showSidebar}>Menu</div>
+          <div onClick={showSidebar}><AiOutlineMenuUnfold/></div>
         </Link>
-        <button onClick={handleLogout} className="btn-logout">
+        <div className="logo">
+          <Link to="/">
+            <img src={logo} alt="logo"/>
+          </Link>
+        </div>
+        <button onClick={handleLogout} className="btn btn-lg btn-outline-light me-3">
           <RiLogoutBoxLine />
           Logout
         </button>
@@ -72,7 +77,7 @@ function Navbar() {
         <ul className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
             <Link to="#" className="menu-bars">
-              Menu
+              <AiOutlineMenuFold />
             </Link>
           </li>
           {SidebarData.map((item, index) => {

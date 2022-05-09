@@ -9,3 +9,8 @@ router.register(r'tipos', views.Tipo_ResidenciaViewSet)
 router.register(r'vehiculos', views.VehiculoViewSet)
 
 urlpatterns = router.urls
+
+
+urlpatterns += [
+    path('vehiculos/filter', views.Vehiculos_EstadoViewSet.as_view()),
+]

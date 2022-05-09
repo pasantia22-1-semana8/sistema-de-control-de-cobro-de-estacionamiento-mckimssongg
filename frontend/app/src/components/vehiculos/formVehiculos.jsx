@@ -96,11 +96,16 @@ function FormVehiculos() {
                 Registrar
               </button>
 
-              <Link to="/vehiculos">
-                <button className="btn btn-primary mt-4 w-100">
-                  Ver vehiculos
-                </button>
-              </Link>
+              <div className="d-flex justify-content-evenly ">
+                <Link to="/vehiculos">
+                  <button className="btn btn-info mt-4 ">Ver vehiculos</button>
+                </Link>
+                <Link to="/registros_entradas/form">
+                  <button className="btn btn-primary mt-4 ">
+                    Ir a regsitrar entrada de vehiculo
+                  </button>
+                </Link>
+              </div>
             </div>
           </form>
         </div>

@@ -18,7 +18,7 @@ function ContextGlobalProvider(props) {
     vehiculosSearch.push(...data);
   }
   const getDataVehiculos = async () => {
-    await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/", {
+    await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True", {
       method: "GET",
     })
       .then((response) => response.json())
@@ -27,7 +27,6 @@ function ContextGlobalProvider(props) {
         setData(data);
       });
   };
-
   // form Vehiculos
   
   const [onChange, setOnChange] = React.useState(false);
@@ -178,7 +177,7 @@ function ContextGlobalProvider(props) {
   };
 
   const getDataVehiculosEntrada = async () => {
-    await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/", {
+    await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True", {
       method: "GET",
     })
       .then((res) => res.json())
