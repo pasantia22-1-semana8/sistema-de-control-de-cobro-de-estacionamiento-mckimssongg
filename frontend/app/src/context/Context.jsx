@@ -161,6 +161,7 @@ function ContextGlobalProvider(props) {
       .then((response) => response.json())
       .then((data) => {
         data.reverse();
+
         setDataEntrada(data);
       });
   };
@@ -170,18 +171,27 @@ function ContextGlobalProvider(props) {
   const [vehiculos, setVehiculos] = React.useState([]);
   const [estacionamiento, setEstacionamiento] = React.useState([]);
 
+  const [User, setUser] = React.useState({
+    id: "",
+    username: "",
+    email: "",
+    role: "",
+  });
+
   const user = () => {
     if (JSON.parse(localStorage.getItem("dataSesion"))) {
-      return JSON.parse(localStorage.getItem("dataSesion")).user;
+      const UserData = JSON.parse(localStorage.getItem("dataSesion")).user;
+      return setUser(UserData);
     } else {
       return "";
     }
   };
+
   const [formEntrada, setFormEntrada] = React.useState({
     estado_de_salida: false,
     estacionamiento: null,
     vehiculo: null,
-    a_cargo_de: user().id,
+    a_cargo_de: null,
   });
 
   setTimeout(() => {
@@ -195,6 +205,7 @@ function ContextGlobalProvider(props) {
     setFormEntrada({
       ...formEntrada,
       [e.target.name]: e.target.value,
+      a_cargo_de: User.id,
     });
   };
 
@@ -319,11 +330,14 @@ function ContextGlobalProvider(props) {
     getDataRegistrosEntradas();
     getDataTipos();
     getDataVehiculos();
-  }, [onChange, setOnChange]);
+    user();
+  }, [onChange, setOnChange, formEntrada]);
 
   return (
     <ContextGlobal.Provider
       value={{
+        User,
+        setUser,
         searchValue,
         setSearchValue,
         vehiculosSearch,

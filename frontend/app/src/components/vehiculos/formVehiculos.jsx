@@ -7,12 +7,13 @@ function FormVehiculos() {
   const { error, form, sendData, handleChange, tipos } =
     React.useContext(ContextGlobal);
 
+  
   return (
     <React.Fragment>
       <div className="d-flex justify-content-center">
         <div className="w-50">
           {error.state && (
-            <div className="alert alert-danger" role="alert">
+            <div className="alert alert-danger text-center" role="alert">
               {error.message}
             </div>
           )}

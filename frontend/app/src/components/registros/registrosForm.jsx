@@ -10,14 +10,13 @@ function RegistrosForm() {
     vehiculos,
     formEntrada,
     error,
-    user,
   } = React.useContext(ContextGlobal);
   const navigate = useNavigate();
   React.useEffect(() => {
     if (!localStorage.getItem("dataSesion")) {
       return navigate("/Login");
     }
-  });
+  }, []);
 
   return (
     <div className="w-50">
@@ -71,11 +70,7 @@ function RegistrosForm() {
             </Link>
           </div>
         </div>
-        <div className="form-group">
-          <label>A Cargo de</label>
-          <ol className="breadcrumb">{user().username}</ol>
-        </div>
-        <button type="submit" className="btn btn-primary  w-100">
+        <button type="submit" className="btn btn-primary mt-4 w-100">
           Registrar
         </button>
         <Link to="/registros_entradas">

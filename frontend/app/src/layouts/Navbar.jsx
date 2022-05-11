@@ -8,7 +8,7 @@ import {
   AiOutlineMenuFold,
   AiFillSetting,
 } from "react-icons/ai";
-import { BsClipboardCheck, BsClipboardData} from "react-icons/bs";
+import { BsClipboardCheck, BsClipboardData } from "react-icons/bs";
 import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
 const SidebarData = [
@@ -83,13 +83,20 @@ function Navbar() {
             <img src={logo} alt="logo" />
           </Link>
         </div>
-        <button
-          onClick={handleLogout}
-          className="btn btn-lg btn-outline-light me-3"
-        >
-          <RiLogoutBoxLine />
-          Logout
-        </button>
+        <div className="me-2">
+          {JSON.parse(localStorage.getItem("dataSesion")) && (
+            <span className="badge bg-success fs-6">
+              {JSON.parse(localStorage.getItem("dataSesion")).user.username}
+            </span>
+          )}
+          <button
+            onClick={handleLogout}
+            className="btn btn-lg btn-outline-light"
+          >
+            <RiLogoutBoxLine />
+            Logout
+          </button>
+        </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
