@@ -6,7 +6,7 @@ const Fac = React.forwardRef(({ onPrint }, ref) => {
       <div className="container border border-primary" ref={ref}>
         <div className="row border border-primary">
           <div className="col-12 border border-primary">
-            <h1 className="text-center">Factura de pago</h1>
+            <h1 className="text-center">Recibo de pago</h1>
           </div>
         </div>
         <div className="row border border-primary">

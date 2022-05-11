@@ -1,13 +1,30 @@
 import React from "react";
 import Loader from "../Loader";
-import {Aviso} from "../Aviso";
+import { Aviso } from "../Aviso";
 import { ContextGlobal } from "../../context/Context";
 import { Link } from "react-router-dom";
 
 function PagosVista({ data }) {
   const [loading, setLoading] = React.useState(true);
 
-  const { setOnPrint } = React.useContext(ContextGlobal);
+  const { setOnPrint, onChange, setOnChange } = React.useContext(ContextGlobal);
+
+  const put_is_activate = async (item) => {
+    await fetch(`http://127.0.0.1:8000/registros/registro_pago/${item.id}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        is_active: !item.is_active,
+        registro_entrada: item.registro_entrada.id,
+      }),
+    }).catch((err) => {
+      console.log(err);
+    });
+    setOnChange(!onChange);
+  };
+
   React.useEffect(() => {
     if (data.length > 0) {
       setLoading(false);
@@ -64,6 +81,7 @@ function PagosVista({ data }) {
                           text: `Deseas eliminar el pago ${item.registro_entrada.vehiculo}`,
                           buttons: true,
                         }).then((willDelete) => {
+                          put_is_activate(item);
                           if (willDelete) {
                             swal("Eliminado!", "El pago ha sido eliminado");
                           } else {

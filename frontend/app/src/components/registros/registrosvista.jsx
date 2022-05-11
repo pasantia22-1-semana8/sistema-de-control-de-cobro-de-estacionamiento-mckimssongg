@@ -21,7 +21,6 @@ function RegistrosVista({ data }) {
 
   const putRegistro = async (item) => {
     const dataRegistro = await RegistosForm(item);
-    console.log(dataRegistro);
     dataRegistro["is_active"] = !dataRegistro["is_active"];
     console.log(dataRegistro);
     await fetch(
@@ -86,7 +85,7 @@ function RegistrosVista({ data }) {
                 <td>{item.a_cargo_de}</td>
                 <td>
                   <button
-                    className="btn btn-danger fs-6"
+                    className="btn btn-danger fs-6 m-2"
                     onClick={() => {
                       swal({
                         title: "Estas seguro?",
