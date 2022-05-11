@@ -41,7 +41,7 @@ const SidebarData = [
 const OpAdmin = [
   {
     title: "Configuraciones",
-    path: "/",
+    path: "/settings",
     cName: "nav-text",
     icon: <AiFillSetting />,
   },

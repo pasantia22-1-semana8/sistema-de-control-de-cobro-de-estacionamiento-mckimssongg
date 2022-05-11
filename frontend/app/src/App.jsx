@@ -11,6 +11,7 @@ import Pagos from "./pages/Pagos";
 import Layout from "./layouts/Layout";
 import Rregistro_Vehiculos from "./pages/Registro_Vehiculos";
 import Page_Fac from "./pages/Page_Fac";
+import Settings from "./pages/Settings";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           />
           <Route path="/pagos" element={<Pagos />} />
           <Route path="/pagos/:id/" element={<Page_Fac />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </Layout>

@@ -5,3 +5,8 @@
 .swal-footer {
   text-align:center !important;
 }
+
+.HoverStandar:hover {
+  outline: auto 1px rgb(155, 178, 255);
+  box-shadow: 0 0 15px rgb(163, 184, 253);
+}
