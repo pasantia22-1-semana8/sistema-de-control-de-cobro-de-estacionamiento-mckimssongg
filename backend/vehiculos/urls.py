@@ -12,5 +12,6 @@ urlpatterns = router.urls
 
 
 urlpatterns += [
+    path('vehiculos/entrada', views.VehiculosEntradaView.as_view()),
     path('vehiculos/filter', views.Vehiculos_EstadoViewSet.as_view()),
 ]

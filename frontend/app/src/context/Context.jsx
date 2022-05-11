@@ -26,6 +26,30 @@ function ContextGlobalProvider(props) {
   } else {
     vehiculosSearch.push(...data);
   }
+
+  const [vehiculosActivos, setVehiculosActivos] = React.useState([]);
+
+  const vehiculosActivosSearch = [];
+
+  if (searchValue !== "") {
+    vehiculosActivos.map((item) => {
+      if (item.placa.toLowerCase().includes(searchValue.toLowerCase())) {
+        vehiculosActivosSearch.push(item);
+      }
+    });
+  } else {
+    vehiculosActivosSearch.push(...vehiculosActivos);
+  }
+
+  const getDataVehiculosActivos = async () => {
+    const response = await fetch(
+      "http://localhost:8000/vehiculos/vehiculos/entrada"
+    );
+    const data = await response.json();
+    data.reverse();
+    setVehiculosActivos(data);
+  };
+
   const getDataVehiculos = async () => {
     await fetch(
       "http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True",
@@ -324,6 +348,7 @@ function ContextGlobalProvider(props) {
   };
 
   React.useEffect(() => {
+    getDataVehiculosActivos();
     getPagos();
     getDataVehiculosEntrada();
     getDataEstacionamiento();
@@ -337,6 +362,7 @@ function ContextGlobalProvider(props) {
     <ContextGlobal.Provider
       value={{
         User,
+        vehiculosActivosSearch,
         setUser,
         searchValue,
         setSearchValue,
