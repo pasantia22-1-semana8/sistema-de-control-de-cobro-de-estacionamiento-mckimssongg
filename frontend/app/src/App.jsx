@@ -9,7 +9,6 @@ import Registros_Entradas from "./pages/Registros_Entradas";
 import RegistrosForm_Entradas from "./pages/RegistrosForm_Entradas";
 import Pagos from "./pages/Pagos";
 import Layout from "./layouts/Layout";
-import FormPago from "./pages/Registro_Pago";
 import Rregistro_Vehiculos from "./pages/Registro_Vehiculos";
 import Page_Fac from "./pages/Page_Fac";
 
@@ -30,7 +29,6 @@ function App() {
           />
           <Route path="/pagos" element={<Pagos />} />
           <Route path="/pagos/:id/" element={<Page_Fac />} />
-          <Route path="/pagos/form" element={<FormPago />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </Layout>

@@ -352,6 +352,20 @@ function ContextGlobalProvider(props) {
     setPagos(data);
   };
 
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
   React.useEffect(() => {
     getDataVehiculosActivos();
     getPagos();
