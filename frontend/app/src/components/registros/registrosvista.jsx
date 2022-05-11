@@ -1,10 +1,43 @@
 import React from "react";
 import Loader from "../Loader";
 import ChangeState from "./ChangeState";
-import Aviso from "../Aviso";
+import { Aviso } from "../Aviso";
+import { ContextGlobal } from "../../context/Context";
 
 function RegistrosVista({ data }) {
   const [loading, setLoading] = React.useState(true);
+  const { onChange, setOnChange } = React.useContext(ContextGlobal);
+
+  const RegistosForm = async (item) => {
+    const dataReg = await fetch(
+      `http://127.0.0.1:8000/registros/registro_entrada_put/${item.id}/`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await dataReg.json();
+    return data;
+  };
+
+  const putRegistro = async (item) => {
+    const dataRegistro = await RegistosForm(item);
+    console.log(dataRegistro);
+    dataRegistro["is_active"] = !dataRegistro["is_active"];
+    console.log(dataRegistro);
+    await fetch(
+      `http://127.0.0.1:8000/registros/registro_entrada_put/${dataRegistro.id}/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataRegistro),
+      }
+    ).catch((err) => {
+      console.log(err);
+    });
+    setOnChange(!onChange);
+  };
 
   React.useEffect(() => {
     if (data.length > 0) {
@@ -61,6 +94,7 @@ function RegistrosVista({ data }) {
                         buttons: true,
                       }).then((willDelete) => {
                         if (willDelete) {
+                          putRegistro(item);
                           swal("Eliminado!", "El registro ha sido eliminado");
                         } else {
                           swal("Cancelado", "El registro no ha sido eliminado");

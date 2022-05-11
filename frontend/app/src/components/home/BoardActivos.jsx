@@ -1,5 +1,5 @@
 import React from "react";
-import Aviso from "../Aviso";
+import {AvisoHome} from "../Aviso";
 import Loader from "../Loader";
 function BoardActivos({ data }) {
   const [loading, setLoading] = React.useState(true);
@@ -10,7 +10,7 @@ function BoardActivos({ data }) {
   });
 
   if (data.length === 0) {
-    return <Aviso mensaje="vehiculos" />;
+    return <AvisoHome />;
   }
   if (loading) {
     return <Loader />;

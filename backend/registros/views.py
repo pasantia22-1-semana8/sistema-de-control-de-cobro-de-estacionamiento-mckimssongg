@@ -6,6 +6,11 @@ from .serializers import *
 from .models import *
 
 
+class Registro_Entrada_D_ActivoViewSet(generics.ListAPIView):
+    queryset = Registro_Entrada.objects.filter(is_active=True)
+    serializer_class = Registro_EntradaSerializer
+
+
 class Registro_Pago_ActivoViewSet(generics.ListAPIView):
     queryset = Registro_Pago.objects.filter(is_active=True)
     serializer_class = Registro_PagoSerializer

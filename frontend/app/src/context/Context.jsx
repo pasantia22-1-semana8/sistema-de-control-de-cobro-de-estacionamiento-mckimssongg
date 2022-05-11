@@ -50,6 +50,8 @@ function ContextGlobalProvider(props) {
     setVehiculosActivos(data);
   };
 
+  //Fetch de los vehiculos, pasar a service
+
   const getDataVehiculos = async () => {
     await fetch(
       "http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True",
@@ -179,9 +181,12 @@ function ContextGlobalProvider(props) {
     registros_entradaSearch.push(...dataEntradas);
   }
   const getDataRegistrosEntradas = async () => {
-    await fetch(`http://127.0.0.1:8000/registros/registro_entrada?estado=`, {
-      method: "GET",
-    })
+    await fetch(
+      `http://127.0.0.1:8000/registros/registro_is_activate`,
+      {
+        method: "GET",
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         data.reverse();

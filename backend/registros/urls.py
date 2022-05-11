@@ -14,4 +14,5 @@ urlpatterns = router.urls
 urlpatterns += [
     path('registro_entrada_activos', views.Registro_Pago_ActivoViewSet.as_view()),
     path('registro_entrada', views.Registro_Entrada_ActivoViewSet.as_view()),
+    path('registro_is_activate', views.Registro_Entrada_D_ActivoViewSet.as_view()),
 ]

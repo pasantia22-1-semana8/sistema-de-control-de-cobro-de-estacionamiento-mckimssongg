@@ -1,6 +1,6 @@
 import React from "react";
 import Loader from "../Loader";
-import Aviso from "../Aviso";
+import {Aviso} from "../Aviso";
 import { ContextGlobal } from "../../context/Context";
 
 function TablaVehiculos({ data }) {

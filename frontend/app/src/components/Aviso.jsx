@@ -16,4 +16,15 @@ function Aviso({ mensaje }) {
   )
 }
 
-export default Aviso
+function AvisoHome() {
+  return (
+    <div className="alert alert-warning text-center" role="alert">
+        <h4 className="alert-heading">Aviso</h4>
+        <p >
+            No tienes registros de vehiculos en el estacionamiento
+        </p>
+    </div>
+  )
+}
+
+export  {Aviso, AvisoHome}
