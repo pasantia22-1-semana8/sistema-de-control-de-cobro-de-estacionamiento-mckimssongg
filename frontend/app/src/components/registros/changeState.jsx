@@ -2,7 +2,7 @@ import React from "react";
 import { ContextGlobal } from "../../context/Context";
 
 function ChangeState({ item }) {
-  const { onChange, setOnChange } = React.useContext(ContextGlobal);
+  const { onChange, setOnChange, mostrarAlerta} = React.useContext(ContextGlobal);
 
   const [dataPut, setDataPut] = React.useState({
     estado_de_salida: true,
@@ -50,10 +50,40 @@ function ChangeState({ item }) {
     setOnChange(!onChange);
   };
 
+
+  // Resgistro de pago
+
+  const onSubmit = async () => {
+    await fetch(`http://127.0.0.1:8000/registros/registro_pago/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        registro_entrada: item.id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (typeof res.registro_entrada.id === "number") {
+          mostrarAlerta();
+          setOnChange(!onChange);
+        }
+        if (typeof res.registro_entrada[0] == "string") {
+          setError({
+            state: true,
+            message: "El registro de entrada no existe",
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   React.useEffect(() => {
     RegistosForm();
   }, []);
-
   return (
     <React.Fragment>
       {dataPut.estado_de_salida && (
@@ -68,6 +98,7 @@ function ChangeState({ item }) {
               if (willDelete) {
                 swal("Hecho!", "El vehiculo ha sido dado de salida");
                 putRegistro();
+                onSubmit();
               } else {
                 swal("Cancelado", "El vehiculo no ha sido dado de salida");
               }

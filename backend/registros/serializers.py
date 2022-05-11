@@ -41,5 +41,6 @@ class Registro_PagoSerializer(ModelSerializer):
             instance.registro_entrada).data
         data['importe_total'] = round(float(tiempo_estacionado_en_minutos(
             instance.registro_entrada.fecha_salida, instance.registro_entrada.fecha_entrada)) * float(instance.registro_entrada.vehiculo.tipo_residencia.tarifa), 2)
-
+        data['tiempo_estacionado'] = (tiempo_estacionado_en_minutos(
+            instance.registro_entrada.fecha_salida, instance.registro_entrada.fecha_entrada))
         return data

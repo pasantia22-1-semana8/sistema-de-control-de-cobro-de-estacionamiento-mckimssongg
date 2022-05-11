@@ -2,6 +2,10 @@ import React from "react";
 import swal from "sweetalert";
 import {Link} from 'react-router-dom';
 
+
+///Posiblemente no se necesite
+
+
 function Form() {
   const mostrarAlerta = () => {
     swal({
@@ -98,9 +102,9 @@ function Form() {
       });
       
   };
-  React.useEffect(() => {
-    getRegistros();
-  }, [onChange]);
+  // React.useEffect(() => {
+  //   getRegistros();
+  // }, [onChange]);
 
   return (
     <div className="d-flex justify-content-center align-items-center  flex-column">

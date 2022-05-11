@@ -8,6 +8,12 @@ function ContextGlobalProvider(props) {
   const [tipos, setTipos] = React.useState([]);
   const [onChange, setOnChange] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
+  const [onPrint, setOnPrint] = React.useState({
+    id: null,
+    fecha_pago: "",
+    importe_total: 0,
+    registro_entrada: {},
+  });
   const [actualizarVehiculo, setActualizarVehiculo] = React.useState({});
   const vehiculosSearch = [];
 
@@ -277,7 +283,37 @@ function ContextGlobalProvider(props) {
       });
   };
 
+  //Tabla de pagos
+
+  const [pagos, setPagos] = React.useState([]);
+
+  const pagosSearch = [];
+
+  if (searchValue !== "") {
+    pagos.map((item) => {
+      if (
+        item.registro_entrada.vehiculo
+          .toLowerCase()
+          .includes(searchValue.toLowerCase())
+      ) {
+        pagosSearch.push(item);
+      }
+    });
+  } else {
+    pagosSearch.push(...pagos);
+  }
+
+  const getPagos = async () => {
+    const response = await fetch(
+      "http://localhost:8000/registros/registro_entrada_activos"
+    );
+    const data = await response.json();
+    data.reverse();
+    setPagos(data);
+  };
+
   React.useEffect(() => {
+    getPagos();
     getDataVehiculosEntrada();
     getDataEstacionamiento();
     getDataRegistrosEntradas();
@@ -299,6 +335,7 @@ function ContextGlobalProvider(props) {
         // form Vehiculos
         tipos,
         error,
+        setError,
         form,
         handleChange,
         sendData,
@@ -312,10 +349,14 @@ function ContextGlobalProvider(props) {
         handleSubmit,
         mostrarAlerta,
         estacionamiento,
-        sendData,
         vehiculos,
         formEntrada,
         user,
+
+        // Tabla de pagos
+        pagosSearch,
+        setOnPrint,
+        onPrint,
       }}
     >
       {props.children}

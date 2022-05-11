@@ -11,7 +11,7 @@ import Pagos from "./pages/Pagos";
 import Layout from "./layouts/Layout";
 import FormPago from "./pages/Registro_Pago";
 import Rregistro_Vehiculos from "./pages/Registro_Vehiculos";
-import Facturacion from "./pages/Facturacion";
+import Page_Fac from "./pages/Page_Fac";
 
 
 function App() {
@@ -29,8 +29,8 @@ function App() {
             element={<RegistrosForm_Entradas />}
           />
           <Route path="/pagos" element={<Pagos />} />
+          <Route path="/pagos/:id/" element={<Page_Fac />} />
           <Route path="/pagos/form" element={<FormPago />} />
-          <Route path="/facturacion" element={<Facturacion />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </Layout>

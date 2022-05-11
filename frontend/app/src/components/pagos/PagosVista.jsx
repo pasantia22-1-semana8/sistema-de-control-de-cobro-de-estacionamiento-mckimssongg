@@ -1,14 +1,13 @@
 import React from "react";
 import Loader from "../Loader";
 import Aviso from "../Aviso";
+import { ContextGlobal } from "../../context/Context";
 import { Link } from "react-router-dom";
-import {ContextGlobal} from "../../context/Context";
-
 
 function PagosVista({ data }) {
   const [loading, setLoading] = React.useState(true);
-  const {setActualizarVehiculo} = React.useContext(ContextGlobal);
 
+  const { setOnPrint } = React.useContext(ContextGlobal);
   React.useEffect(() => {
     if (data.length > 0) {
       setLoading(false);
@@ -29,7 +28,6 @@ function PagosVista({ data }) {
               <th scope="col">id</th>
               <th scope="col">Vehiculo</th>
               <th scope="col">Fecha de pago</th>
-              <th scope="col">Realizado por</th>
               <th scope="col">Total</th>
               <th scope="col" className="text-center">
                 Acciones
@@ -42,15 +40,21 @@ function PagosVista({ data }) {
                 <th scope="row">{item.id}</th>
                 <td>{item.registro_entrada.vehiculo}</td>
                 <td>{item.fecha_pago}</td>
-                <td>{item.registro_entrada.a_cargo_de}</td>
                 <td>
                   {item.importe_total !== 0 && `Q${item.importe_total}`}
                   {item.importe_total == 0 && "Es oficial"}
                 </td>
                 <td>
                   <div className="d-flex justify-content-center">
-                    <Link to="/facturacion">
-                      <button className="btn  btn-info fs-6" onClick={()=>{setActualizarVehiculo(item)}}>Imprimir</button>
+                    <Link to={`/pagos/${item.id}/`}>
+                      <button
+                        className="btn btn-info fs-6"
+                        onClick={() => {
+                          setOnPrint(item);
+                        }}
+                      >
+                        Ir a imprimir
+                      </button>
                     </Link>
                     <button
                       className="btn btn-danger fs-6"

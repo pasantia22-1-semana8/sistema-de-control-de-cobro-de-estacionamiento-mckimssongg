@@ -43,7 +43,11 @@ function RegistrosVista({ data }) {
                   <ChangeState item={item} />
                 </td>
                 <td>{item.fecha_entrada}</td>
-                <td>{item.fecha_salida}</td>
+                <td>
+                  {item.fecha_salida !== item.fecha_entrada &&
+                    item.fecha_salida}
+                  {item.fecha_salida == item.fecha_entrada && "sin salida"}
+                </td>
                 <td>{item.estacionamiento}</td>
                 <td>{item.vehiculo}</td>
                 <td>{item.a_cargo_de}</td>
