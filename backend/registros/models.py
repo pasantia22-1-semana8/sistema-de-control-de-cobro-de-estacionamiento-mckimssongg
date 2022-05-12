@@ -46,3 +46,11 @@ class Registro_Pago(models.Model):
 
     def __str__(self):
         return self.registro_entrada.vehiculo.placa
+
+
+class Cobro_Mes(models.Model):
+    descripcion = models.CharField(max_length=100)
+    fecha_cobro = models.DateTimeField(auto_now_add=True)
+    tiempo_estacionado = models.IntegerField()
+    total = models.FloatField()
+    is_active = models.BooleanField(default=True)

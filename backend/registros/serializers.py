@@ -1,5 +1,5 @@
-from rest_framework.serializers import ModelSerializer
-from .models import Registro_Entrada, Registro_Pago, tiempo_estacionado_en_minutos
+from rest_framework.serializers import ModelSerializer, Serializer
+from .models import Registro_Entrada, Registro_Pago, tiempo_estacionado_en_minutos, Cobro_Mes
 
 
 class Registro_EntradaSerializer(ModelSerializer):
@@ -44,3 +44,13 @@ class Registro_PagoSerializer(ModelSerializer):
         data['tiempo_estacionado'] = (tiempo_estacionado_en_minutos(
             instance.registro_entrada.fecha_salida, instance.registro_entrada.fecha_entrada))
         return data
+
+
+class Cobro_MesSerializer(ModelSerializer):
+    class Meta:
+        model = Cobro_Mes
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['fecha_cobro'] = instance.fecha_pago.strftime("%d/%m/%Y %H:%M:%S")

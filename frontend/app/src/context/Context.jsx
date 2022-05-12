@@ -389,6 +389,7 @@ function ContextGlobalProvider(props) {
         openModal3,
         setOpenModal3,
         role,
+        data,
         // form Vehiculos
         tipos,
         error,

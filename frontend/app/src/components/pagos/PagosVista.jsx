@@ -3,11 +3,40 @@ import Loader from "../Loader";
 import { Aviso } from "../Aviso";
 import { ContextGlobal } from "../../context/Context";
 import { Link } from "react-router-dom";
+import { Modal } from "../../modal/index";
 
-function PagosVista({ data }) {
+import Fac_Mes from "./Fac_Mes";
+import ReactToPrint from "react-to-print";
+
+function PagosVista({ dataPagos }) {
   const [loading, setLoading] = React.useState(true);
 
-  const { setOnPrint, onChange, setOnChange } = React.useContext(ContextGlobal);
+  const componetRef = React.useRef();
+
+  const { setOnPrint, onChange, setOnChange, data, openModal, setOpenModal } =
+    React.useContext(ContextGlobal);
+
+  const yanose = (algo) => {
+    const algooo = data.map((item) => {
+      if (item.tipo_residencia === "Residente") {
+        return item.placa;
+      }
+    });
+    return algooo.includes(algo);
+  };
+
+  const [total, setTotal] = React.useState(0);
+
+  const Cobro_Mes = async (item) => {
+    const pagosData = await fetch(
+      `http://localhost:8000/registros/cobro_mes?placa=${item.registro_entrada.vehiculo}`
+    );
+    const pagos = await pagosData.json();
+    const sumall = pagos
+      .map((item) => item.importe_total)
+      .reduce((prev, curr) => prev + curr, 0);
+    setTotal(sumall);
+  };
 
   const put_is_activate = async (item) => {
     await fetch(`http://127.0.0.1:8000/registros/registro_pago/${item.id}/`, {
@@ -26,12 +55,12 @@ function PagosVista({ data }) {
   };
 
   React.useEffect(() => {
-    if (data.length > 0) {
+    if (dataPagos.length > 0) {
       setLoading(false);
     }
   });
 
-  if (data.length === 0) {
+  if (dataPagos.length === 0) {
     return <Aviso mensaje={"pago"} />;
   }
   if (loading) {
@@ -52,7 +81,7 @@ function PagosVista({ data }) {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {dataPagos.map((item) => (
               <tr key={item.id}>
                 <th scope="row">{item.id}</th>
                 <td>{item.registro_entrada.vehiculo}</td>
@@ -81,8 +110,8 @@ function PagosVista({ data }) {
                           text: `Deseas eliminar el pago ${item.registro_entrada.vehiculo}`,
                           buttons: true,
                         }).then((willDelete) => {
-                          put_is_activate(item);
                           if (willDelete) {
+                            put_is_activate(item);
                             swal("Eliminado!", "El pago ha sido eliminado");
                           } else {
                             swal("Cancelado", "El pago no ha sido eliminado");
@@ -92,6 +121,44 @@ function PagosVista({ data }) {
                     >
                       Borrar
                     </button>
+                    {yanose(item.registro_entrada.vehiculo) && (
+                      <button
+                        className="btn btn-success fs-6 m-1"
+                        onClick={async () => {
+                          setOpenModal((prevState) => !prevState);
+                          await Cobro_Mes(item);
+                        }}
+                      >
+                        Inicio mes
+                      </button>
+                    )}
+                    {!!openModal && (
+                      <Modal>
+                        <div className="container d-flex flex-column">
+                          <ReactToPrint
+                            trigger={() => (
+                              <button className="btn btn-info m-4">
+                                Imprimir ahora
+                              </button>
+                            )}
+                            content={() => componetRef.current}
+                          />
+                          <Fac_Mes
+                            ref={componetRef}
+                            placa={item.registro_entrada.vehiculo}
+                            cobroTotal={total}
+                          />
+                          <button
+                            className="btn btn-danger fs-6 m-4"
+                            onClick={() => {
+                              setOpenModal(false);
+                            }}
+                          >
+                            Regresar
+                          </button>                       5
+                        </div>
+                      </Modal>
+                    )}
                   </div>
                 </td>
               </tr>

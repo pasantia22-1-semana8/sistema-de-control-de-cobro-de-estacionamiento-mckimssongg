@@ -19,7 +19,7 @@ function Pagos() {
     <div>
       <h3 className="text-center">Registro de pagos</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-      <PagosVista data={pagosSearch} />
+      <PagosVista dataPagos={pagosSearch} />
     </div>
   );
 }
