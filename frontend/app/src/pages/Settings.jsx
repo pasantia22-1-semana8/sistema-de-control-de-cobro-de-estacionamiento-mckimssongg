@@ -7,6 +7,7 @@ import roles from "../assets/img/roles.png";
 import usuarios from "../assets/img/verificar.png";
 import ModalUsuarios from "../components/settings/modalUsuarios";
 import ModalRoles from "../components/settings/modalRoles";
+import ModalParqueos from "../components/settings/modalParqueos";
 function Settings() {
   const navigate = useNavigate();
 
@@ -78,18 +79,7 @@ function Settings() {
           />
           {!!openModal3 && (
             <Modal>
-              <div className="w-50 bg-primary container">
-                <h3 className="text-center">Estacionamientos y areas</h3>
-                <div className="row">
-                  <div className="col-6">
-                    <button className="btn btn-primary">Estacionamiento</button>
-                  </div>
-
-                  <div className="col-6">
-                    <button className="btn btn-primary">Areas</button>
-                  </div>
-                </div>
-              </div>
+              <ModalParqueos />
             </Modal>
           )}
         </div>

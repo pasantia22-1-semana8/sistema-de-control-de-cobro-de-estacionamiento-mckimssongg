@@ -352,6 +352,12 @@ function ContextGlobalProvider(props) {
   const [openModal2, setOpenModal2] = React.useState(false);
   const [openModal3, setOpenModal3] = React.useState(false);
 
+  const [role, setRole] = React.useState([]);
+  const getRole = async () => {
+    const response = await fetch("http://localhost:8000/users/roles/");
+    const data = await response.json();
+    setRole(data);
+  };
   React.useEffect(() => {
     getDataVehiculosActivos();
     getPagos();
@@ -361,6 +367,7 @@ function ContextGlobalProvider(props) {
     getDataTipos();
     getDataVehiculos();
     user();
+    getRole();
   }, [onChange, setOnChange, formEntrada]);
 
   return (
@@ -381,6 +388,7 @@ function ContextGlobalProvider(props) {
         setOpenModal2,
         openModal3,
         setOpenModal3,
+        role,
         // form Vehiculos
         tipos,
         error,

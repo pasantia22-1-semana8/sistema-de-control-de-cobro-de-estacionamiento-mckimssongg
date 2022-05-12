@@ -2,7 +2,7 @@ import React from "react";
 import { ContextGlobal } from "../../context/Context";
 
 function ModalUsuarios() {
-  const { setOpenModal, setOnChange, onChange, mostrarAlerta } =
+  const { setOpenModal, setOnChange, onChange, mostrarAlerta, role} =
     React.useContext(ContextGlobal);
 
   const [error, setError] = React.useState({
@@ -24,12 +24,6 @@ function ModalUsuarios() {
     });
   };
 
-  const [role, setRole] = React.useState([]);
-  const getRole = async () => {
-    const response = await fetch("http://localhost:8000/users/roles/");
-    const data = await response.json();
-    setRole(data);
-  };
 
   const sendData = async (e) => {
     e.preventDefault();
@@ -69,7 +63,6 @@ function ModalUsuarios() {
 
   React.useEffect(() => {
     users();
-    getRole();
   }, [onChange]);
 
   return (
