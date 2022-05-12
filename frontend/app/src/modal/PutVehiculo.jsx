@@ -67,7 +67,7 @@ function PutVehiculos() {
 
   return (
     <React.Fragment>
-      <div className="d-flex flex-column align-items-center bg-primary w-100 p-4">
+      <div className=" form-bg bg-primary d-flex flex-column align-items-center w-50 p-4">
         <h3>Actualizar data del vehiculo: {actualizarVehiculo.placa}</h3>
         <div className="w-50">
           {error.state && (
@@ -137,7 +137,7 @@ function PutVehiculos() {
               </select>
 
               <div className="d-flex justify-content-evenly ">
-                <button type="submit" className="mt-4 btn  w-100 btn-success">
+                <button type="submit" className="m-3 btn  w-100 btn-success">
                   Actualizar
                 </button>
                 <button
@@ -145,7 +145,7 @@ function PutVehiculos() {
                     setOpenModal(false);
                   }}
                   type="button"
-                  className="mt-4 btn  w-100 btn-danger"
+                  className="m-3 btn  w-100 btn-danger"
                 >
                   Cancelar
                 </button>

@@ -51,8 +51,8 @@ function RegistrosVista({ data }) {
     return <Loader />;
   } else {
     return (
-      <div className="table-responsive">
-        <table className="table table-striped">
+      <div className="table-responsive ">
+        <table className="table table-striped ">
           <thead>
             <tr>
               <th scope="col">id</th>

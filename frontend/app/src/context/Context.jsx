@@ -181,12 +181,9 @@ function ContextGlobalProvider(props) {
     registros_entradaSearch.push(...dataEntradas);
   }
   const getDataRegistrosEntradas = async () => {
-    await fetch(
-      `http://127.0.0.1:8000/registros/registro_is_activate`,
-      {
-        method: "GET",
-      }
-    )
+    await fetch(`http://127.0.0.1:8000/registros/registro_is_activate`, {
+      method: "GET",
+    })
       .then((response) => response.json())
       .then((data) => {
         data.reverse();
@@ -352,19 +349,8 @@ function ContextGlobalProvider(props) {
     setPagos(data);
   };
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
+  const [openModal2, setOpenModal2] = React.useState(false);
+  const [openModal3, setOpenModal3] = React.useState(false);
 
   React.useEffect(() => {
     getDataVehiculosActivos();
@@ -391,6 +377,10 @@ function ContextGlobalProvider(props) {
         cambiarEstado,
         openModal,
         setOpenModal,
+        openModal2,
+        setOpenModal2,
+        openModal3,
+        setOpenModal3,
         // form Vehiculos
         tipos,
         error,

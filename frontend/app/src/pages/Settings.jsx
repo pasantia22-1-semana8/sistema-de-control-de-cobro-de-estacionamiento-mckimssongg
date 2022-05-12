@@ -1,17 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../modal/index";
-// import { ContextGlobal } from "../context/Context";
+import { ContextGlobal } from "../context/Context";
 import Estacionamiento from "../assets/img/estacionamiento.png";
 import roles from "../assets/img/roles.png";
 import usuarios from "../assets/img/verificar.png";
-
+import ModalUsuarios from "../components/settings/modalUsuarios";
+import ModalRoles from "../components/settings/modalRoles";
 function Settings() {
   const navigate = useNavigate();
 
-  const [openModal, setOpenModal] = React.useState(false);
-  const [openModal2, setOpenModal2] = React.useState(false);
-  const [openModal3, setOpenModal3] = React.useState(false);
+  const {
+    openModal,
+    setOpenModal,
+
+    openModal2,
+    setOpenModal2,
+
+    openModal3,
+    setOpenModal3,
+  } = React.useContext(ContextGlobal);
 
   React.useEffect(() => {
     if (!localStorage.getItem("dataSesion")) {
@@ -27,47 +35,61 @@ function Settings() {
 
   return (
     <div className="container">
-      <h3 className="text-center mt-2">Configuración</h3>
-      <div className="row text-center justify-content-evenly align-items-center mt-5">
-        <div
-          className="col col-lg-2  HoverStandar p-4"
-          onClick={() => {
-            setOpenModal((prevState) => !prevState);
-          }}
-        >
+      <h3 className="text-center mt-5">Configuración</h3>
+      <div className="row text-center justify-content-evenly align-items-center  mt-5">
+        <div className="col col-lg-2  HoverStandar p-4">
           Registrar usuarios
-          <img src={usuarios} className="img-fluid" />
+          <img
+            src={usuarios}
+            className="img-fluid"
+            onClick={() => {
+              setOpenModal((prevState) => !prevState);
+            }}
+          />
           {!!openModal && (
             <Modal>
-              <button onClick={() => {}}>Regresar</button>
+              <ModalUsuarios />
             </Modal>
           )}
         </div>
-        <div
-          className="col col-lg-2   HoverStandar  p-4"
-          onClick={() => {
-            setOpenModal2((prevState) => !prevState);
-          }}
-        >
+        <div className="col col-lg-2   HoverStandar  p-4">
           Administrar Roles
-          <img src={roles} className="img-fluid" />
+          <img
+            src={roles}
+            className="img-fluid"
+            onClick={() => {
+              setOpenModal2((prevState) => !prevState);
+            }}
+          />
           {!!openModal2 && (
             <Modal>
-              <button onClick={() => {}}>Regresar2</button>
+              <ModalRoles />
             </Modal>
           )}
         </div>
-        <div
-          className="col-7 col-sm-4 col-lg-2  HoverStandar p-4"
-          onClick={() => {
-            setOpenModal3((prevState) => !prevState);
-          }}
-        >
+        <div className="col-7 col-sm-4 col-lg-2  HoverStandar p-4">
           Administrar Estacionamientos y areas
-          <img src={Estacionamiento} className="img-fluid" />
+          <img
+            src={Estacionamiento}
+            className="img-fluid"
+            onClick={() => {
+              setOpenModal3((prevState) => !prevState);
+            }}
+          />
           {!!openModal3 && (
             <Modal>
-              <button onClick={() => {}}>Regresar3</button>
+              <div className="w-50 bg-primary container">
+                <h3 className="text-center">Estacionamientos y areas</h3>
+                <div className="row">
+                  <div className="col-6">
+                    <button className="btn btn-primary">Estacionamiento</button>
+                  </div>
+
+                  <div className="col-6">
+                    <button className="btn btn-primary">Areas</button>
+                  </div>
+                </div>
+              </div>
             </Modal>
           )}
         </div>

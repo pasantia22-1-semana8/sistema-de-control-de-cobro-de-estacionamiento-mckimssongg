@@ -65,7 +65,7 @@ function PagosVista({ data }) {
                   <div className="d-flex justify-content-center">
                     <Link to={`/pagos/${item.id}/`}>
                       <button
-                        className="btn btn-info fs-6"
+                        className="btn btn-info fs-6 m-1"
                         onClick={() => {
                           setOnPrint(item);
                         }}
@@ -74,7 +74,7 @@ function PagosVista({ data }) {
                       </button>
                     </Link>
                     <button
-                      className="btn btn-danger fs-6"
+                      className="btn btn-danger fs-6 m-1"
                       onClick={() => {
                         swal({
                           title: "Estas seguro?",

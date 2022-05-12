@@ -45,7 +45,7 @@ function TablaVehiculos({ data }) {
                 <td>
                   <div className="d-flex justify-content-center">
                     <button
-                      className="btn  btn-info fs-6"
+                      className="btn  btn-info fs-6 m-1"
                       onClick={() => {
                         setOpenModal((prevState) => !prevState)
                         setActualizarVehiculo(item);
@@ -54,7 +54,7 @@ function TablaVehiculos({ data }) {
                       Editar
                     </button>
                     <button
-                      className="btn btn-danger fs-6"
+                      className="btn btn-danger fs-6 m-1"
                       onClick={() => {
                         swal({
                           title: "Estas seguro?",
