@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ContextGlobal } from "../context/Context";
 import TablaVehiculos from "../components/vehiculos/TablaVehiculos";
 import { Modal } from "../modal/index";
-import PutVehiculos from "../modal/PutVehiculo";
+import PutVehiculos from "../components/vehiculos//PutVehiculo";
 
 import Search from "../components/Search";
 function Vehiculos() {

@@ -1,6 +1,11 @@
 import React from "react";
-import swal from "sweetalert";
 const ContextGlobal = React.createContext();
+import {
+  getDataVehiculosActivos,
+  getDataVehiculos,
+  mostrarAlerta,
+  getDataTipos,
+} from "../services/Api";
 
 function ContextGlobalProvider(props) {
   const [data, setData] = React.useState([]);
@@ -8,12 +13,14 @@ function ContextGlobalProvider(props) {
   const [tipos, setTipos] = React.useState([]);
   const [onChange, setOnChange] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
+
   const [onPrint, setOnPrint] = React.useState({
     id: null,
     fecha_pago: "",
     importe_total: 0,
     registro_entrada: {},
   });
+
   const [actualizarVehiculo, setActualizarVehiculo] = React.useState({});
   const vehiculosSearch = [];
 
@@ -41,30 +48,28 @@ function ContextGlobalProvider(props) {
     vehiculosActivosSearch.push(...vehiculosActivos);
   }
 
-  const getDataVehiculosActivos = async () => {
-    const response = await fetch(
-      "http://localhost:8000/vehiculos/vehiculos/entrada"
-    );
-    const data = await response.json();
-    data.reverse();
-    setVehiculosActivos(data);
-  };
+  // const getDataVehiculosActivos = async () => {
+  //   const response = await fetch(
+  //     "http://localhost:8000/vehiculos/vehiculos/entrada"
+  //   );
+  //   const data = await response.json();
+  //   data.reverse();
+  //   setVehiculosActivos(data);
+  // };
 
-  //Fetch de los vehiculos, pasar a service
-
-  const getDataVehiculos = async () => {
-    await fetch(
-      "http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True",
-      {
-        method: "GET",
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        data.reverse();
-        setData(data);
-      });
-  };
+  // const getDataVehiculos = async () => {
+  //   await fetch(
+  //     "http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True",
+  //     {
+  //       method: "GET",
+  //     }
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       data.reverse();
+  //       setData(data);
+  //     });
+  // };
 
   const cambiarEstado = async (item) => {
     await fetch(`http://127.0.0.1:8000/vehiculos/vehiculos/${item.id}/`, {
@@ -82,7 +87,7 @@ function ContextGlobalProvider(props) {
         ).id,
       }),
     }).then(() => {
-      getDataVehiculos();
+      getDataVehiculos(setData);
       setOnChange(!onChange);
     });
   };
@@ -112,26 +117,6 @@ function ContextGlobalProvider(props) {
       ...form,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const mostrarAlerta = () => {
-    swal({
-      title: "¡Registro exitoso!",
-      timer: 2000,
-    });
-  };
-
-  const getDataTipos = async () => {
-    await fetch("http://127.0.0.1:8000/vehiculos/tipos/", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setTipos(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const sendData = async (e) => {
@@ -359,13 +344,13 @@ function ContextGlobalProvider(props) {
     setRole(data);
   };
   React.useEffect(() => {
-    getDataVehiculosActivos();
+    getDataVehiculosActivos(setVehiculosActivos);
     getPagos();
     getDataVehiculosEntrada();
     getDataEstacionamiento();
     getDataRegistrosEntradas();
-    getDataTipos();
-    getDataVehiculos();
+    getDataTipos(setTipos);
+    getDataVehiculos(setData);
     user();
     getRole();
   }, [onChange, setOnChange, formEntrada]);
@@ -390,7 +375,7 @@ function ContextGlobalProvider(props) {
         setOpenModal3,
         role,
         data,
-        
+
         // form Vehiculos
         tipos,
         error,
@@ -398,7 +383,7 @@ function ContextGlobalProvider(props) {
         form,
         handleChange,
         sendData,
-        getDataTipos,
+        // getDataTipos,
         registros_entradaSearch,
         actualizarVehiculo,
         setActualizarVehiculo,

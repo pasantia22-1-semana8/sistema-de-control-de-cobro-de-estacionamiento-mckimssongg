@@ -1,5 +1,5 @@
 import React from "react";
-import { ContextGlobal } from "../context/Context";
+import { ContextGlobal } from "../../context/Context";
 
 function PutVehiculos() {
   const [error, setError] = React.useState({
