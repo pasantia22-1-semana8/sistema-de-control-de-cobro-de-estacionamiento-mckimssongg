@@ -1,5 +1,7 @@
 // Metodos GET
 
+const URL = "http://localhost:8000/";
+
 import swal from "sweetalert";
 
 export const mostrarAlerta = () => {
@@ -9,10 +11,10 @@ export const mostrarAlerta = () => {
   });
 };
 
-export const getDataVehiculosActivos = async (setData) => {
-  const response = await fetch(
-    "http://localhost:8000/vehiculos/vehiculos/entrada"
-  );
+/**
+ * @param {function} setData - Funcion para setear los datos en el state
+ */ export const getDataVehiculosActivos = async (setData) => {
+  const response = await fetch(`${URL}vehiculos/vehiculos/entrada`);
   const data = await response.json();
   data.reverse();
   setData(data);
@@ -30,14 +32,14 @@ export const getDataVehiculos = async (setData) => {
 };
 
 export const getDataTipos = async (setData) => {
-    await fetch("http://127.0.0.1:8000/vehiculos/tipos/", {
-      method: "GET",
+  await fetch("http://127.0.0.1:8000/vehiculos/tipos/", {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      setData(res);
     })
-      .then((res) => res.json())
-      .then((res) => {
-        setData(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    .catch((err) => {
+      console.log(err);
+    });
+};

@@ -1,5 +1,6 @@
 import React from "react";
 const ContextGlobal = React.createContext();
+
 import {
   getDataVehiculosActivos,
   getDataVehiculos,
@@ -13,6 +14,8 @@ function ContextGlobalProvider(props) {
   const [tipos, setTipos] = React.useState([]);
   const [onChange, setOnChange] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
+  const [openModal2, setOpenModal2] = React.useState(false);
+  const [openModal3, setOpenModal3] = React.useState(false);
 
   const [onPrint, setOnPrint] = React.useState({
     id: null,
@@ -334,8 +337,6 @@ function ContextGlobalProvider(props) {
     setPagos(data);
   };
 
-  const [openModal2, setOpenModal2] = React.useState(false);
-  const [openModal3, setOpenModal3] = React.useState(false);
 
   const [role, setRole] = React.useState([]);
   const getRole = async () => {
@@ -383,7 +384,6 @@ function ContextGlobalProvider(props) {
         form,
         handleChange,
         sendData,
-        // getDataTipos,
         registros_entradaSearch,
         actualizarVehiculo,
         setActualizarVehiculo,
