@@ -7,6 +7,7 @@ import {
   mostrarAlerta,
   getDataTipos,
   getDataRegistrosEntradas,
+  getDataRegistros,
 } from "../services/Api";
 
 function ContextGlobalProvider(props) {
@@ -148,6 +149,7 @@ function ContextGlobalProvider(props) {
   const [estacionamiento, setEstacionamiento] = React.useState([]);
 
   const [User, setUser] = React.useState({
+    // de momento no me acuerdo para que hice esto
     id: "",
     username: "",
     email: "",
@@ -170,29 +172,12 @@ function ContextGlobalProvider(props) {
     a_cargo_de: null,
   });
 
-  setTimeout(() => {
-    setError({
-      state: false,
-      message: "",
-    });
-  }, 3000);
-
   const handleChangeEntrada = (e) => {
     setFormEntrada({
       ...formEntrada,
       [e.target.name]: e.target.value,
       a_cargo_de: User.id,
     });
-  };
-
-  const getDataRegistros = async () => {
-    const data = await fetch(
-      `http://127.0.0.1:8000/registros/registro_entrada?estado=false`,
-      {
-        method: "GET",
-      }
-    );
-    return await data.json();
   };
 
   const getDataVehiculosEntrada = async () => {
@@ -218,6 +203,8 @@ function ContextGlobalProvider(props) {
         console.log(err);
       });
   };
+
+  
   const getDataEstacionamiento = async () => {
     await fetch("http://127.0.0.1:8000/estacionamiento/areas/", {
       method: "GET",

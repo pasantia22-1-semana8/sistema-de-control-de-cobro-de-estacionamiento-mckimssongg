@@ -43,3 +43,12 @@ export const mostrarAlerta = () => {
   const response = await fetch(`${URL}registros/registro_is_activate`);
   setData((await response.json()).reverse());
 };
+
+/**
+ * @description Función que permite obtener todos los registros de entrada
+ * que tengan un estado de salida falso para que no se muestren
+ * en el sistema de registro los datos que tengan relacion
+ */ export const getDataRegistros = async () => {
+  const data = await fetch(`${URL}registros/registro_entrada?estado=false`);
+  return await data.json();
+};
