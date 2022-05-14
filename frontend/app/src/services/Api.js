@@ -44,6 +44,8 @@ export const mostrarAlerta = () => {
   setData((await response.json()).reverse());
 };
 
+// refactorizar desde el backend
+
 /**
  * @description Función que permite obtener todos los registros de entrada
  * que tengan un estado de salida falso para que no se muestren
@@ -51,4 +53,50 @@ export const mostrarAlerta = () => {
  */ export const getDataRegistros = async () => {
   const data = await fetch(`${URL}registros/registro_entrada?estado=false`);
   return await data.json();
+};
+
+/**
+ * @description Función que permite obtener todos los los vehiculos
+ * que no tengan un registro de entrada sin salida
+ */ export const getDataVehiculosEntrada = async (setData) => {
+  const response = await fetch(`${URL}vehiculos/vehiculos/filter?estado=True`);
+  const res = await response.json();
+  let data = await getDataRegistros();
+  data = data.map((itemR) => itemR.vehiculo);
+  data = res.filter((item) => {
+    return !data.includes(item.placa);
+  });
+  data.reverse();
+  setData(data);
+};
+
+/**
+ * @description Función que permite obtener todas las areas de
+ * estacionamiento que no tengan un registro de entrada sin salida
+ */ export const getDataEstacionamiento = async (setData) => {
+  const respose = await fetch(`${URL}estacionamiento/areas/`);
+  const res = await respose.json();
+  let data = await getDataRegistros();
+  data = data.map((itemR) => itemR.estacionamiento);
+  data = res.filter((item) => {
+    return !data.includes(item.nombre);
+  });
+  data.reverse();
+  setData(data);
+};
+
+/**
+ * @description Función que permite obtener todos los registros de pagos activos en el sistema
+ * @param {function} setData - Funcion para setear los datos en el state
+ */ export const getPagos = async (setData) => {
+  const response = await fetch(`${URL}registros/registro_entrada_activos`);
+  setData((await response.json()).reverse());
+};
+
+/**
+ * @description Función que permite obtener todos los roles del sistema
+ * @param {function} setData - Funcion para setear los datos en el state
+ */ export const getRole = async (setData) => {
+  const response = await fetch(`${URL}users/roles/`);
+  setData(await response.json());
 };
