@@ -1,5 +1,3 @@
-// Metodos GET
-
 const URL = "http://localhost:8000/";
 
 import swal from "sweetalert";
@@ -11,35 +9,26 @@ export const mostrarAlerta = () => {
   });
 };
 
+// Metodos GET
+
 /**
+ * @description Función que permite obtener todos los vehiculos que tengan
+ * un registro de entrada activo en el sistema
  * @param {function} setData - Funcion para setear los datos en el state
  */ export const getDataVehiculosActivos = async (setData) => {
   const response = await fetch(`${URL}vehiculos/vehiculos/entrada`);
-  const data = await response.json();
-  data.reverse();
-  setData(data);
+  setData((await response.json()).reverse());
 };
 
-export const getDataVehiculos = async (setData) => {
-  await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True", {
-    method: "GET",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      data.reverse();
-      setData(data);
-    });
+/**
+ * @description Función que permite obtener todos los vehiculos que tengan un estado true
+ * @param {function} setData - Funcion para setear los datos en el state
+ */ export const getDataVehiculos = async (setData) => {
+  const response = await fetch(`${URL}vehiculos/vehiculos/filter?estado=True`);
+  setData((await response.json()).reverse());
 };
 
 export const getDataTipos = async (setData) => {
-  await fetch("http://127.0.0.1:8000/vehiculos/tipos/", {
-    method: "GET",
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      setData(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  const res = await fetch(`${URL}vehiculos/tipos/`);
+  setData(await res.json());
 };
