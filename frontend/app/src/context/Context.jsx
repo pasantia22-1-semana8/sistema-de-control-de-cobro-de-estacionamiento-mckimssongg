@@ -7,7 +7,10 @@ import {
   mostrarAlerta,
   getDataTipos,
   getDataRegistrosEntradas,
-  getDataRegistros,
+  getDataEstacionamiento,
+  getDataVehiculosEntrada,
+  getPagos,
+  getRole,
 } from "../services/Api";
 
 function ContextGlobalProvider(props) {
@@ -180,50 +183,6 @@ function ContextGlobalProvider(props) {
     });
   };
 
-  const getDataVehiculosEntrada = async () => {
-    await fetch(
-      "http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True",
-      {
-        method: "GET",
-      }
-    )
-      .then((res) => res.json())
-      .then(async (res) => {
-        let data = await getDataRegistros();
-        data = data.map((itemR) => itemR.vehiculo);
-
-        res = res.filter((item) => {
-          return !data.includes(item.placa);
-        });
-
-        res.reverse();
-        setVehiculos(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  
-  const getDataEstacionamiento = async () => {
-    await fetch("http://127.0.0.1:8000/estacionamiento/areas/", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then(async (res) => {
-        let data = await getDataRegistros();
-
-        data = data.map((itemR) => itemR.estacionamiento);
-        res = res.filter((item) => {
-          return !data.includes(item.nombre);
-        });
-        setEstacionamiento(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const DATA = fetch("http://127.0.0.1:8000/registros/registro_entrada/", {
@@ -277,31 +236,18 @@ function ContextGlobalProvider(props) {
     pagosSearch.push(...pagos);
   }
 
-  const getPagos = async () => {
-    const response = await fetch(
-      "http://localhost:8000/registros/registro_entrada_activos"
-    );
-    const data = await response.json();
-    data.reverse();
-    setPagos(data);
-  };
-
   const [role, setRole] = React.useState([]);
-  const getRole = async () => {
-    const response = await fetch("http://localhost:8000/users/roles/");
-    const data = await response.json();
-    setRole(data);
-  };
+
   React.useEffect(() => {
     getDataVehiculosActivos(setVehiculosActivos);
-    getPagos();
-    getDataVehiculosEntrada();
-    getDataEstacionamiento();
+    getPagos(setPagos);
+    getDataVehiculosEntrada(setVehiculos);
+    getDataEstacionamiento(setEstacionamiento);
     getDataRegistrosEntradas(setDataEntrada);
     getDataTipos(setTipos);
     getDataVehiculos(setData);
     user();
-    getRole();
+    getRole(setRole);
   }, [onChange, setOnChange, formEntrada]);
 
   return (
