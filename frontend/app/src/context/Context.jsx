@@ -6,6 +6,7 @@ import {
   getDataVehiculos,
   mostrarAlerta,
   getDataTipos,
+  getDataRegistrosEntradas,
 } from "../services/Api";
 
 function ContextGlobalProvider(props) {
@@ -16,7 +17,6 @@ function ContextGlobalProvider(props) {
   const [openModal, setOpenModal] = React.useState(false);
   const [openModal2, setOpenModal2] = React.useState(false);
   const [openModal3, setOpenModal3] = React.useState(false);
-
   const [onPrint, setOnPrint] = React.useState({
     id: null,
     fecha_pago: "",
@@ -26,7 +26,6 @@ function ContextGlobalProvider(props) {
 
   const [actualizarVehiculo, setActualizarVehiculo] = React.useState({});
   const vehiculosSearch = [];
-
   if (searchValue !== "") {
     data.map((item) => {
       if (item.placa.toLowerCase().includes(searchValue.toLowerCase())) {
@@ -38,7 +37,6 @@ function ContextGlobalProvider(props) {
   }
 
   const [vehiculosActivos, setVehiculosActivos] = React.useState([]);
-
   const vehiculosActivosSearch = [];
 
   if (searchValue !== "") {
@@ -51,30 +49,8 @@ function ContextGlobalProvider(props) {
     vehiculosActivosSearch.push(...vehiculosActivos);
   }
 
-  // const getDataVehiculosActivos = async () => {
-  //   const response = await fetch(
-  //     "http://localhost:8000/vehiculos/vehiculos/entrada"
-  //   );
-  //   const data = await response.json();
-  //   data.reverse();
-  //   setVehiculosActivos(data);
-  // };
-
-  // const getDataVehiculos = async () => {
-  //   await fetch(
-  //     "http://127.0.0.1:8000/vehiculos/vehiculos/filter?estado=True",
-  //     {
-  //       method: "GET",
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       data.reverse();
-  //       setData(data);
-  //     });
-  // };
-
   const cambiarEstado = async (item) => {
+    // cambiar estado de un vehiculo para borrarlo
     await fetch(`http://127.0.0.1:8000/vehiculos/vehiculos/${item.id}/`, {
       method: "PUT",
       headers: {
@@ -95,12 +71,7 @@ function ContextGlobalProvider(props) {
     });
   };
 
-  // form Vehiculos
-
-  const [error, setError] = React.useState({
-    state: false,
-    message: "",
-  });
+  // Formulario para registrar vehiculos ( estados )
   const [form, setForm] = React.useState({
     placa: "",
     tipo_vehiculo: "",
@@ -109,12 +80,18 @@ function ContextGlobalProvider(props) {
     tipo_residencia: null,
   });
 
+  const [error, setError] = React.useState({
+    state: false,
+    message: "",
+  });
+
   setTimeout(() => {
     setError({
       state: false,
       message: "",
     });
   }, 3000);
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -123,8 +100,8 @@ function ContextGlobalProvider(props) {
   };
 
   const sendData = async (e) => {
+    // enviar datos del formulario de registro de nuevo vehiculo
     e.preventDefault();
-
     const DATA = await fetch("http://127.0.0.1:8000/vehiculos/vehiculos/", {
       method: "POST",
       headers: {
@@ -153,12 +130,9 @@ function ContextGlobalProvider(props) {
     }
   };
 
-  // Registros de entradas y Formulario de entrada
-
+  // Registros de entradas y Formulario de entrada ( estados )
   const [dataEntradas, setDataEntrada] = React.useState([]);
-
   const registros_entradaSearch = [];
-
   if (searchValue !== "") {
     dataEntradas.map((item) => {
       if (item.vehiculo.toLowerCase().includes(searchValue.toLowerCase())) {
@@ -168,20 +142,8 @@ function ContextGlobalProvider(props) {
   } else {
     registros_entradaSearch.push(...dataEntradas);
   }
-  const getDataRegistrosEntradas = async () => {
-    await fetch(`http://127.0.0.1:8000/registros/registro_is_activate`, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        data.reverse();
 
-        setDataEntrada(data);
-      });
-  };
-
-  // form Registros de entradas
-
+  // Formulario Registros de entradas ( estados )
   const [vehiculos, setVehiculos] = React.useState([]);
   const [estacionamiento, setEstacionamiento] = React.useState([]);
 
@@ -337,7 +299,6 @@ function ContextGlobalProvider(props) {
     setPagos(data);
   };
 
-
   const [role, setRole] = React.useState([]);
   const getRole = async () => {
     const response = await fetch("http://localhost:8000/users/roles/");
@@ -349,7 +310,7 @@ function ContextGlobalProvider(props) {
     getPagos();
     getDataVehiculosEntrada();
     getDataEstacionamiento();
-    getDataRegistrosEntradas();
+    getDataRegistrosEntradas(setDataEntrada);
     getDataTipos(setTipos);
     getDataVehiculos(setData);
     user();

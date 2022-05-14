@@ -28,7 +28,18 @@ export const mostrarAlerta = () => {
   setData((await response.json()).reverse());
 };
 
-export const getDataTipos = async (setData) => {
+/**
+ * @description Función que permite obtener todos tipos de residencia
+ * @param {function} setData - Funcion para setear los datos en el state
+ */ export const getDataTipos = async (setData) => {
   const res = await fetch(`${URL}vehiculos/tipos/`);
   setData(await res.json());
+};
+
+/**
+ * @description Función que permite obtener todos los registros de entrada activos
+ * @param {function} setData - Funcion para setear los datos en el state
+ */ export const getDataRegistrosEntradas = async (setData) => {
+  const response = await fetch(`${URL}registros/registro_is_activate`);
+  setData((await response.json()).reverse());
 };
