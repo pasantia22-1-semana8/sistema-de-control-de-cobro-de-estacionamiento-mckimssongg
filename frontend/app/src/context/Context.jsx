@@ -11,6 +11,7 @@ import {
   getDataVehiculosEntrada,
   getPagos,
   getRole,
+  user,
 } from "../services/Api";
 
 function ContextGlobalProvider(props) {
@@ -159,15 +160,6 @@ function ContextGlobalProvider(props) {
     role: "",
   });
 
-  const user = () => {
-    if (JSON.parse(localStorage.getItem("dataSesion"))) {
-      const UserData = JSON.parse(localStorage.getItem("dataSesion")).user;
-      return setUser(UserData);
-    } else {
-      return "";
-    }
-  };
-
   const [formEntrada, setFormEntrada] = React.useState({
     estado_de_salida: false,
     estacionamiento: null,
@@ -246,55 +238,47 @@ function ContextGlobalProvider(props) {
     getDataRegistrosEntradas(setDataEntrada);
     getDataTipos(setTipos);
     getDataVehiculos(setData);
-    user();
+    user(setUser);
     getRole(setRole);
   }, [onChange, setOnChange, formEntrada]);
 
   return (
     <ContextGlobal.Provider
       value={{
-        User,
-        vehiculosActivosSearch,
-        setUser,
+        mostrarAlerta,
         searchValue,
         setSearchValue,
+        vehiculosActivosSearch,
         vehiculosSearch,
-        onChange,
-        setOnChange,
-        cambiarEstado,
+        registros_entradaSearch,
+        pagosSearch,
+        setOnPrint,
+        onPrint,
         openModal,
         setOpenModal,
         openModal2,
         setOpenModal2,
         openModal3,
         setOpenModal3,
-        role,
-        data,
-
-        // form Vehiculos
-        tipos,
+        onChange,
+        setOnChange,
         error,
         setError,
-        form,
-        handleChange,
-        sendData,
-        registros_entradaSearch,
-        actualizarVehiculo,
-        setActualizarVehiculo,
-
-        // Registros de entradas
-        handleChangeEntrada,
-        handleSubmit,
-        mostrarAlerta,
+        data,
+        role,
+        tipos,
         estacionamiento,
         vehiculos,
+        form,
+        sendData,
+        handleChange,cambiarEstado,
+        // Registros de entradas
         formEntrada,
-        user,
-
-        // Tabla de pagos
-        pagosSearch,
-        setOnPrint,
-        onPrint,
+        handleChangeEntrada,
+        handleSubmit,
+        // Update
+        actualizarVehiculo,
+        setActualizarVehiculo,
       }}
     >
       {props.children}

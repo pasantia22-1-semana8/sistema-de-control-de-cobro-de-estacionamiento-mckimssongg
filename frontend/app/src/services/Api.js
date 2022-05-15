@@ -9,6 +9,18 @@ export const mostrarAlerta = () => {
   });
 };
 
+/**
+ * @description Función que permite obtener el usuario autenticado actualmente
+ * @param {function} setData - Funcion para setear los datos en el state
+ */ export const user = (setData) => {
+  if (JSON.parse(localStorage.getItem("dataSesion"))) {
+    const UserData = JSON.parse(localStorage.getItem("dataSesion")).user;
+    return setData(UserData);
+  } else {
+    return "";
+  }
+};
+
 // Metodos GET
 
 /**
