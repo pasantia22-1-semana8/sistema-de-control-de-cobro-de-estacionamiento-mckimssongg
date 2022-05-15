@@ -22,6 +22,7 @@ function ContextGlobalProvider(props) {
   const [openModal, setOpenModal] = React.useState(false);
   const [openModal2, setOpenModal2] = React.useState(false);
   const [openModal3, setOpenModal3] = React.useState(false);
+  const [openModal4, setOpenModal4] = React.useState(false);
   const [onPrint, setOnPrint] = React.useState({
     id: null,
     fecha_pago: "",
@@ -260,6 +261,8 @@ function ContextGlobalProvider(props) {
         setOpenModal2,
         openModal3,
         setOpenModal3,
+        openModal4,
+        setOpenModal4,
         onChange,
         setOnChange,
         error,
@@ -271,7 +274,8 @@ function ContextGlobalProvider(props) {
         vehiculos,
         form,
         sendData,
-        handleChange,cambiarEstado,
+        handleChange,
+        cambiarEstado,
         // Registros de entradas
         formEntrada,
         handleChangeEntrada,

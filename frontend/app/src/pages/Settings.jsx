@@ -9,6 +9,7 @@ import tarifas from "../assets/img/tarifa.png";
 import ModalUsuarios from "../components/settings/modalUsuarios";
 import ModalRoles from "../components/settings/modalRoles";
 import ModalParqueos from "../components/settings/modalParqueos";
+import ModalTarifas from "../components/settings/modalTarifas";
 function Settings() {
   const navigate = useNavigate();
 
@@ -21,6 +22,9 @@ function Settings() {
 
     openModal3,
     setOpenModal3,
+
+    openModal4,
+    setOpenModal4,
   } = React.useContext(ContextGlobal);
 
   React.useEffect(() => {
@@ -90,12 +94,12 @@ function Settings() {
             src={tarifas}
             className="img-fluid"
             onClick={() => {
-              setOpenModal2((prevState) => !prevState);
+              setOpenModal4((prevState) => !prevState);
             }}
           />
-          {!!openModal2 && (
+          {!!openModal4 && (
             <Modal>
-              <ModalRoles />
+              <ModalTarifas />
             </Modal>
           )}
         </div>

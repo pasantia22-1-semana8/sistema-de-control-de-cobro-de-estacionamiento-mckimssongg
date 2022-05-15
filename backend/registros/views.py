@@ -38,16 +38,6 @@ class Registro_Entrada_D_ActivoViewSet(generics.ListAPIView):
     serializer_class = Registro_EntradaSerializer
 
 
-class Registro_Pago_ActivoViewSet(generics.ListAPIView):
-    '''
-    Para recuperar solo los registros de pago activos
-    (que no han sido cancelados)
-    '''
-    queryset = Registro_Pago.objects.filter(
-        is_active=True, registro_entrada__is_active=True, registro_entrada__vehiculo__tipo_residencia__nombre='Residente')
-    serializer_class = Registro_PagoSerializer
-
-
 class Registro_Entrada_ActivoViewSet(generics.ListAPIView):
     '''
     Para obtener los registros de entrada
@@ -65,6 +55,16 @@ class Registro_Entrada_ActivoViewSet(generics.ListAPIView):
         else:
             queryset = Registro_Entrada.objects.all()
         return queryset
+
+
+class Registro_Pago_ActivoViewSet(generics.ListAPIView):
+    '''
+    Para recuperar solo los registros de pago activos
+    (que no han sido cancelados)
+    '''
+    queryset = Registro_Pago.objects.filter(
+        is_active=True, registro_entrada__is_active=True,)
+    serializer_class = Registro_PagoSerializer
 
 
 class Registro_EntradaKeysViewSet(viewsets.ModelViewSet):

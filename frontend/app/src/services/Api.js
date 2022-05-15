@@ -41,14 +41,6 @@ export const mostrarAlerta = () => {
 };
 
 /**
- * @description Función que permite obtener todos tipos de residencia
- * @param {function} setData - Funcion para setear los datos en el state
- */ export const getDataTipos = async (setData) => {
-  const res = await fetch(`${URL}vehiculos/tipos/`);
-  setData(await res.json());
-};
-
-/**
  * @description Función que permite obtener todos los registros de entrada activos
  * @param {function} setData - Funcion para setear los datos en el state
  */ export const getDataRegistrosEntradas = async (setData) => {
@@ -98,6 +90,14 @@ export const mostrarAlerta = () => {
 };
 
 /**
+ * @description Función que permite obtener todos tipos de residencia
+ * @param {function} setData - Funcion para setear los datos en el state
+ */ export const getDataTipos = async (setData) => {
+  const res = await fetch(`${URL}vehiculos/tipos/`);
+  setData(await res.json());
+};
+
+/**
  * @description Función que permite obtener todos los registros de pagos activos en el sistema
  * @param {function} setData - Funcion para setear los datos en el state
  */ export const getPagos = async (setData) => {
@@ -114,7 +114,9 @@ export const mostrarAlerta = () => {
 };
 
 export const Cobro_Mes = async (item, setData) => {
-  const pagosData = await fetch(`${URL}registros/cobro_mes?placa=${item.registro_entrada.vehiculo}`);
+  const pagosData = await fetch(
+    `${URL}registros/cobro_mes?placa=${item.registro_entrada.vehiculo}`
+  );
   const pagos = await pagosData.json();
   const sumall = pagos
     .map((item) => item.importe_total)

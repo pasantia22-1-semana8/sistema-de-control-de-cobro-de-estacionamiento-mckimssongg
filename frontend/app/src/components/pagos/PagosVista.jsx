@@ -65,6 +65,7 @@ function PagosVista({ dataPagos }) {
               <th scope="col">Vehiculo</th>
               <th scope="col">Fecha de pago</th>
               <th scope="col">Total</th>
+              <th scope="col">Tipo de residencia</th>
               <th scope="col" className="text-center">
                 Acciones
               </th>
@@ -80,6 +81,7 @@ function PagosVista({ dataPagos }) {
                   {item.importe_total !== 0 && `Q${item.importe_total}`}
                   {item.importe_total == 0 && "Es oficial"}
                 </td>
+                <td>{item.registro_entrada.tipo_residencia}</td>
                 <td>
                   <div className="d-flex justify-content-center">
                     <Link to={`/pagos/${item.id}/`}>
@@ -145,7 +147,7 @@ function PagosVista({ dataPagos }) {
                             }}
                           >
                             Regresar
-                          </button>                      
+                          </button>
                         </div>
                       </Modal>
                     )}
