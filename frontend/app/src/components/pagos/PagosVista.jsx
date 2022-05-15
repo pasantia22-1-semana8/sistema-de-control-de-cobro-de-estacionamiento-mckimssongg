@@ -4,6 +4,7 @@ import { Aviso } from "../Aviso";
 import { ContextGlobal } from "../../context/Context";
 import { Link } from "react-router-dom";
 import { Modal } from "../../modal/index";
+import { Cobro_Mes } from "../../services/Api";
 
 import Fac_Mes from "./Fac_Mes";
 import ReactToPrint from "react-to-print";
@@ -26,17 +27,6 @@ function PagosVista({ dataPagos }) {
   };
 
   const [total, setTotal] = React.useState(0);
-
-  const Cobro_Mes = async (item) => {
-    const pagosData = await fetch(
-      `http://localhost:8000/registros/cobro_mes?placa=${item.registro_entrada.vehiculo}`
-    );
-    const pagos = await pagosData.json();
-    const sumall = pagos
-      .map((item) => item.importe_total)
-      .reduce((prev, curr) => prev + curr, 0);
-    setTotal(sumall);
-  };
 
   const put_is_activate = async (item) => {
     await fetch(`http://127.0.0.1:8000/registros/registro_pago/${item.id}/`, {
@@ -126,7 +116,7 @@ function PagosVista({ dataPagos }) {
                         className="btn btn-success fs-6 m-1"
                         onClick={async () => {
                           setOpenModal((prevState) => !prevState);
-                          await Cobro_Mes(item);
+                          await Cobro_Mes(item, setTotal);
                         }}
                       >
                         Inicio mes
@@ -155,7 +145,7 @@ function PagosVista({ dataPagos }) {
                             }}
                           >
                             Regresar
-                          </button>                       5
+                          </button>                      
                         </div>
                       </Modal>
                     )}

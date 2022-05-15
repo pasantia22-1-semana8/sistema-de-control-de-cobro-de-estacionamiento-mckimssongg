@@ -12,7 +12,9 @@ class Cobro_MesViewSet(generics.ListAPIView):
     si su tipo de residencia es de tipo residente
     '''
     queryset = Registro_Pago.objects.filter(
-        registro_entrada__vehiculo__tipo_residencia__nombre='Residente'
+        is_active=True,
+        registro_entrada__vehiculo__tipo_residencia__nombre='Residente',
+        registro_entrada__is_active=True
     )
 
     serializer_class = Registro_PagoSerializer
@@ -41,7 +43,8 @@ class Registro_Pago_ActivoViewSet(generics.ListAPIView):
     Para recuperar solo los registros de pago activos
     (que no han sido cancelados)
     '''
-    queryset = Registro_Pago.objects.filter(is_active=True)
+    queryset = Registro_Pago.objects.filter(
+        is_active=True, registro_entrada__is_active=True, registro_entrada__vehiculo__tipo_residencia__nombre='Residente')
     serializer_class = Registro_PagoSerializer
 
 

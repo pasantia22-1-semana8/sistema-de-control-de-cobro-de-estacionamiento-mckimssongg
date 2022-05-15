@@ -5,6 +5,7 @@ import { ContextGlobal } from "../context/Context";
 import Estacionamiento from "../assets/img/estacionamiento.png";
 import roles from "../assets/img/roles.png";
 import usuarios from "../assets/img/verificar.png";
+import tarifas from "../assets/img/tarifa.png";
 import ModalUsuarios from "../components/settings/modalUsuarios";
 import ModalRoles from "../components/settings/modalRoles";
 import ModalParqueos from "../components/settings/modalParqueos";
@@ -68,7 +69,7 @@ function Settings() {
             </Modal>
           )}
         </div>
-        <div className="col-7 col-sm-4 col-lg-2  HoverStandar p-4">
+        <div className="col  col-lg-2  HoverStandar p-4">
           Administrar Estacionamientos y areas
           <img
             src={Estacionamiento}
@@ -80,6 +81,21 @@ function Settings() {
           {!!openModal3 && (
             <Modal>
               <ModalParqueos />
+            </Modal>
+          )}
+        </div>
+        <div className="col col-lg-2   HoverStandar  p-4">
+          Tarifas de residencias
+          <img
+            src={tarifas}
+            className="img-fluid"
+            onClick={() => {
+              setOpenModal2((prevState) => !prevState);
+            }}
+          />
+          {!!openModal2 && (
+            <Modal>
+              <ModalRoles />
             </Modal>
           )}
         </div>
