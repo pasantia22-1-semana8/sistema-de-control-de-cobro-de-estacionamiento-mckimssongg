@@ -22,6 +22,7 @@ function RegistrosVista({ data }) {
   const putRegistro = async (item) => {
     const dataRegistro = await RegistosForm(item);
     dataRegistro["is_active"] = !dataRegistro["is_active"];
+    dataRegistro["estado_de_salida"] = true;
     await fetch(
       `http://127.0.0.1:8000/registros/registro_entrada_put/${dataRegistro.id}/`,
       {
