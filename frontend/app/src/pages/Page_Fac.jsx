@@ -11,7 +11,7 @@ function Pag_Fac() {
 
   React.useEffect(() => {
     if (onPrint.id === null) {
-      return navigate("/pagos");
+      return navigate("/registros_entradas");
     }
     if (!localStorage.getItem("dataSesion")) {
       return navigate("/Login");
@@ -27,7 +27,7 @@ function Pag_Fac() {
         />
         
         <Fac ref={componetRef} onPrint={onPrint} />
-        <Link to="/pagos" className="btn btn-info fs-6 mt-4">
+        <Link to="/registros_entradas" className="btn btn-info fs-6 mt-4">
           Volver
         </Link>
       </div>

@@ -77,11 +77,7 @@ function PagosVista({ dataPagos }) {
                 <th scope="row">{item.id}</th>
                 <td>{item.registro_entrada.vehiculo}</td>
                 <td>{item.fecha_pago}</td>
-                {/* <td>
-                  {item.importe_total !== 0 && `Q${item.importe_total}`}
-                  {item.importe_total == 0 && "Es oficial"}
-                </td> */}
-                <td>{item.importe_total}</td>
+                <td>Q{item.importe_total}</td>
                 <td>{item.registro_entrada.tipo_residencia}</td>
                 <td>
                   <div className="d-flex justify-content-center">

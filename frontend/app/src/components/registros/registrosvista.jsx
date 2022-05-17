@@ -51,20 +51,21 @@ function RegistrosVista({ data }) {
     return <Loader />;
   } else {
     return (
-      <div className="table-responsive ">
-        <table className="table table-striped ">
-          <thead>
+      <div className="table-responsive overflow-auto heigthTableStandar">
+        <table className="table table-striped text-center">
+          <thead className="sticky-top table-dark menorZindex">
             <tr>
-              <th scope="col">id</th>
-              <th scope="col">estado de salida</th>
-              <th scope="col">fecha de entrada</th>
-              <th scope="col">fecha de salida</th>
-              <th scope="col">estacionamiento</th>
-              <th scope="col">placas del heviculo</th>
-              <th scope="col">registrado por</th>
-              <th scope="col" className="text-center">
-                acciones
-              </th>
+              <th className="">Id</th>
+              <th>estado de salida</th>
+              <th>fecha de entrada</th>
+              <th>fecha de salida</th>
+              <th className="px-4">Total</th>
+              <th>Tipo de residencia</th>
+              <th>estacionamiento</th>
+              <th>tiempo estacionado</th>
+              <th>placas del heviculo</th>
+              <th>registrado por</th>
+              <th className="text-center">acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -80,7 +81,17 @@ function RegistrosVista({ data }) {
                     item.fecha_salida}
                   {item.fecha_salida == item.fecha_entrada && "sin salida"}
                 </td>
+                <td>
+                  {item.importe_total > 0 && `Q ${item.importe_total}`}
+                  {item.importe_total <= 0 && `Sin pago`}
+                </td>
+                <td>{item.tipo_residencia}</td>
                 <td>{item.estacionamiento}</td>
+                <td>
+                  {item.tiempo_estacionado &&
+                    item.tiempo_estacionado.toFixed(2)}{" "}
+                  min
+                </td>
                 <td>{item.vehiculo}</td>
                 <td>{item.a_cargo_de}</td>
                 <td>

@@ -1,8 +1,10 @@
 import React from "react";
 import { ContextGlobal } from "../../context/Context";
+import { Link } from "react-router-dom";
 
 function ChangeState({ item }) {
-  const { onChange, setOnChange, mostrarAlerta} = React.useContext(ContextGlobal);
+  const { onChange, setOnChange, mostrarAlerta, setOnPrint } =
+    React.useContext(ContextGlobal);
 
   const [dataPut, setDataPut] = React.useState({
     estado_de_salida: true,
@@ -49,7 +51,6 @@ function ChangeState({ item }) {
     RegistosForm();
     setOnChange(!onChange);
   };
-
 
   // Resgistro de pago
 
@@ -105,11 +106,21 @@ function ChangeState({ item }) {
             });
           }}
         >
-          <p className="btn btn-danger">Ocupado</p>
+          <p className=" badge btn btn-success fs-6 m-2">Ocupado</p>
         </button>
       )}
       {!dataPut.estado_de_salida && (
-        <span className="badge bg-success fs-6">Success</span>
+        <Link to={`/pagos/${item.id}/`}>
+          <button
+            className="badge btn btn-info fs-6 m-2"
+            onClick={() => {
+              console.log(item)
+              setOnPrint(item);
+            }}
+          >
+            Ir a imprimir
+          </button>
+        </Link>
       )}
     </React.Fragment>
   );

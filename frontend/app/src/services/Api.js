@@ -123,3 +123,4 @@ export const Cobro_Mes = async (item, setData) => {
     .reduce((prev, curr) => prev + curr, 0);
   setData(sumall);
 };
+

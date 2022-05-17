@@ -17,7 +17,7 @@ function Registros_Entradas() {
 
   return (
     <div>
-      <h3 className="text-center">Registro de entradas</h3>
+      <h3 className="text-center ">Registro de entradas</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
       <div className="d-flex justify-content-center">
         <Link to="/registros_entradas/form">

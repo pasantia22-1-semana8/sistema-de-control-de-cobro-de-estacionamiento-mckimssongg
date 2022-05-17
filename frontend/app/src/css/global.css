@@ -10,3 +10,11 @@
   outline: auto 1px rgb(155, 178, 255);
   box-shadow: 0 0 15px rgb(163, 184, 253);
 }
+
+.heigthTableStandar {
+  height: 66vh;
+}
+
+.menorZindex {
+  z-index: 5 !important;
+}

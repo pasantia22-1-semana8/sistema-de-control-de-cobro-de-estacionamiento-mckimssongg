@@ -17,6 +17,10 @@ class Registro_EntradaSerializer(ModelSerializer):
         representation['tipo_residencia'] = instance.vehiculo.tipo_residencia.nombre
         representation['estacionamiento'] = instance.estacionamiento.nombre
         representation['a_cargo_de'] = instance.a_cargo_de.username if instance.a_cargo_de else 'No asignado'
+        representation['importe_total'] = round(float(tiempo_estacionado_en_minutos(
+            instance.fecha_salida, instance.fecha_entrada)) * float(instance.vehiculo.tipo_residencia.tarifa), 2)
+        representation['tiempo_estacionado'] = (tiempo_estacionado_en_minutos(
+            instance.fecha_salida, instance.fecha_entrada))
         return representation
 
 

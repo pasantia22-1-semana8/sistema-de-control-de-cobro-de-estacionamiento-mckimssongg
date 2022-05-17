@@ -168,6 +168,7 @@ function ContextGlobalProvider(props) {
     a_cargo_de: null,
   });
 
+  
   const handleChangeEntrada = (e) => {
     setFormEntrada({
       ...formEntrada,
@@ -243,6 +244,7 @@ function ContextGlobalProvider(props) {
     getRole(setRole);
   }, [onChange, setOnChange, formEntrada]);
 
+  
   return (
     <ContextGlobal.Provider
       value={{
