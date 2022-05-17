@@ -69,6 +69,7 @@ function Navbar() {
     window.location.reload();
   };
 
+
   const rute = (path) => {
     if (path === "/") {
       return "Home";
@@ -83,9 +84,8 @@ function Navbar() {
       return "Registros de pagos";
     } else if (path === "/settings") {
       return "Configuraciones";
-    }
-    else {
-      return "";
+    } else {
+      return null;
     }
   };
 
@@ -96,9 +96,13 @@ function Navbar() {
         <Link to="#" className="menu-bars">
           <div onClick={showSidebar}>
             <AiOutlineMenuUnfold />
-            <span className="YesBadge badge bg-info fs-6 ">
-              {rute(window.location.pathname)}
-            </span>
+            {rute(window.location.pathname) === null ? (
+              ""
+            ) : (
+              <span className="YesBadge badge bg-info fs-6 ">
+                {rute(window.location.pathname)}
+              </span>
+            )}
           </div>
         </Link>
         <div className="logo ">

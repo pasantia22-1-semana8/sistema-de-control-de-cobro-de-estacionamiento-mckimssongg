@@ -91,12 +91,12 @@ function ContextGlobalProvider(props) {
     message: "",
   });
 
-  setTimeout(() => {
-    setError({
-      state: false,
-      message: "",
-    });
-  }, 3000);
+  // setTimeout(() => {
+  //   setError({
+  //     state: false,
+  //     message: "",
+  //   });
+  // }, 3000);
 
   const handleChange = (e) => {
     setForm({
@@ -168,7 +168,6 @@ function ContextGlobalProvider(props) {
     a_cargo_de: null,
   });
 
-  
   const handleChangeEntrada = (e) => {
     setFormEntrada({
       ...formEntrada,
@@ -218,11 +217,7 @@ function ContextGlobalProvider(props) {
 
   if (searchValue !== "") {
     pagos.map((item) => {
-      if (
-        item.registro_entrada.vehiculo
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
-      ) {
+      if (item.vehiculo.toLowerCase().includes(searchValue.toLowerCase())) {
         pagosSearch.push(item);
       }
     });
@@ -231,6 +226,8 @@ function ContextGlobalProvider(props) {
   }
 
   const [role, setRole] = React.useState([]);
+
+  const [infoPago, setInfoPago] = React.useState([]);
 
   React.useEffect(() => {
     getDataVehiculosActivos(setVehiculosActivos);
@@ -244,7 +241,6 @@ function ContextGlobalProvider(props) {
     getRole(setRole);
   }, [onChange, setOnChange, formEntrada]);
 
-  
   return (
     <ContextGlobal.Provider
       value={{
@@ -257,6 +253,8 @@ function ContextGlobalProvider(props) {
         pagosSearch,
         setOnPrint,
         onPrint,
+        infoPago,
+        setInfoPago,
         openModal,
         setOpenModal,
         openModal2,

@@ -67,7 +67,7 @@ function PutVehiculos() {
 
   return (
     <React.Fragment>
-      <div className=" form-bg bg-primary d-flex flex-column align-items-center w-50 p-4">
+      <div className=" form-bg d-flex flex-column align-items-center bg-primary  w-50 p-4">
         <h3>Actualizar data del vehiculo: {actualizarVehiculo.placa}</h3>
         <div className="w-50">
           {error.state && (

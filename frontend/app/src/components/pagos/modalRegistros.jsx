@@ -1,0 +1,48 @@
+import React from "react";
+import { ContextGlobal } from "../../context/Context";
+
+function ModalRegistros() {
+  const { infoPago } = React.useContext(ContextGlobal);
+  return (
+    <div className="table-responsive  bg-primary p-4">
+      <h4 className="text-center">Registros de :{infoPago[0].vehiculo}</h4>
+      <table className="table table-striped text-white text-center">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">fecha de salida</th>
+            <th scope="col">importe total</th>
+            <th scope="col">tiempo estacionado</th>
+            <th scope="col">accioness</th>
+          </tr>
+        </thead>
+        <tbody>
+          {infoPago.map((item) => (
+            <tr key={item.id}>
+              <th scope="row" className="text-center text-white ">
+                {item.id}
+              </th>
+              <td className="text-center text-white ">{item.fecha_salida}</td>
+              <td className="text-center text-white ">Q{item.importe}</td>
+              <td className="text-center text-white ">
+                {item.tiempo_estacionado}
+              </td>
+              <td className="text-center text-white ">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => {
+                    console.log("eliminar");
+                  }}
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default ModalRegistros;
