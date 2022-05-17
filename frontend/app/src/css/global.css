@@ -20,7 +20,7 @@
 }
 
 .NotTitle {
-  display: none !important;
+  display: block !important;
 }
 .YesBadge {
   display: none !important;

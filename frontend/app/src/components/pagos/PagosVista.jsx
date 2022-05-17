@@ -81,7 +81,7 @@ function PagosVista({ dataPagos }) {
                 <td>{item.registro_entrada.tipo_residencia}</td>
                 <td>
                   <div className="d-flex justify-content-center">
-                    <Link to={`/pagos/${item.id}/`}>
+                    {/* <Link to={`/pagos/${item.id}/`}>
                       <button
                         className="btn btn-info fs-6 m-1"
                         onClick={() => {
@@ -90,7 +90,7 @@ function PagosVista({ dataPagos }) {
                       >
                         Ir a imprimir
                       </button>
-                    </Link>
+                    </Link> */}
                     <button
                       className="btn btn-danger fs-6 m-1"
                       onClick={() => {
