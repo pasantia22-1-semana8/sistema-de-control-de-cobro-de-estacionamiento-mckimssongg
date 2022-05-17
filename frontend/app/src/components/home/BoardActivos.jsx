@@ -1,5 +1,5 @@
 import React from "react";
-import {AvisoHome} from "../Aviso";
+import { AvisoHome } from "../Aviso";
 import Loader from "../Loader";
 function BoardActivos({ data }) {
   const [loading, setLoading] = React.useState(true);
@@ -16,9 +16,9 @@ function BoardActivos({ data }) {
     return <Loader />;
   } else {
     return (
-      <div className="table-responsive">
-        <table className="table table-striped">
-          <thead>
+      <div className="table-responsive overflow-auto heigthTableStandar">
+        <table className="table table-striped text-center">
+          <thead className="sticky-top table-dark menorZindex">
             <tr>
               <th scope="col">id</th>
               <th scope="col">placa</th>

@@ -4,6 +4,7 @@ import { BsFillHouseFill } from "react-icons/bs";
 import BoardActivos from "../components/home/BoardActivos";
 import { ContextGlobal } from "../context/Context";
 import Search from "../components/Search";
+import '../css/global.css'
 
 function Home() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function Home() {
 
   return (
     <React.Fragment>
-      <div className="d-flex justify-content-center">
+      <div className=" NotTitle d-flex justify-content-center ">
         <h2 className="m-2">
           <BsFillHouseFill />
         </h2>

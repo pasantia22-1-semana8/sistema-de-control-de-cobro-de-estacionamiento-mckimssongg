@@ -12,8 +12,8 @@ function Rregistro_Vehiculos() {
   });
 
   return (
-    <div className="container">
-      <h3 className="text-center">Registro de vehiculos</h3>
+    <div className="container ">
+      <h3 className="text-center ">Registro de vehiculos</h3>
       <FormVehiculos />
     </div>
   );

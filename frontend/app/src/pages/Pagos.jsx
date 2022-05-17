@@ -17,7 +17,7 @@ function Pagos() {
   
   return (
     <div>
-      <h3 className="text-center">Registro de pagos</h3>
+      <h3 className="text-center NotTitle">Registro de pagos</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
       <PagosVista dataPagos={pagosSearch} />
     </div>

@@ -1,11 +1,12 @@
 import React from "react";
 import Loader from "../Loader";
-import {Aviso} from "../Aviso";
+import { Aviso } from "../Aviso";
 import { ContextGlobal } from "../../context/Context";
 
 function TablaVehiculos({ data }) {
   const [loading, setLoading] = React.useState(true);
-  const { cambiarEstado, setOpenModal, setActualizarVehiculo } = React.useContext(ContextGlobal);
+  const { cambiarEstado, setOpenModal, setActualizarVehiculo } =
+    React.useContext(ContextGlobal);
 
   React.useEffect(() => {
     if (data.length > 0) {
@@ -20,18 +21,16 @@ function TablaVehiculos({ data }) {
     return <Loader />;
   } else {
     return (
-      <div className="table-responsive">
-        <table className="table table-striped">
-          <thead>
+      <div className="table-responsive overflow-auto heigthTableStandar">
+        <table className="table table-striped text-center">
+          <thead className="sticky-top table-dark menorZindex">
             <tr>
               <th scope="col">id</th>
               <th scope="col">placa</th>
               <th scope="col">tipo de vehiculo</th>
               <th scope="col">descripcion</th>
               <th scope="col">tipo de residencia</th>
-              <th scope="col" className="text-center">
-                acciones
-              </th>
+              <th scope="col">acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -47,7 +46,7 @@ function TablaVehiculos({ data }) {
                     <button
                       className="btn  btn-info fs-6 m-1"
                       onClick={() => {
-                        setOpenModal((prevState) => !prevState)
+                        setOpenModal((prevState) => !prevState);
                         setActualizarVehiculo(item);
                       }}
                     >

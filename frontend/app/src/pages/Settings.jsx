@@ -41,7 +41,7 @@ function Settings() {
 
   return (
     <div className="container">
-      <h3 className="text-center mt-5">Configuración</h3>
+      <h3 className="text-center mt-5 NotTitle">Configuración</h3>
       <div className="row text-center justify-content-evenly align-items-center  mt-5">
         <div className="col col-lg-2  HoverStandar p-4">
           Registrar usuarios

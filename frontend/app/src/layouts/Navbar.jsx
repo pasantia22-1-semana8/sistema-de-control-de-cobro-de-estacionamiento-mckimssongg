@@ -9,7 +9,7 @@ import {
   AiFillSetting,
 } from "react-icons/ai";
 import { BsClipboardCheck, BsClipboardData } from "react-icons/bs";
-import logo from "../assets/img/logo.png";
+// import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
 const SidebarData = [
   {
@@ -69,6 +69,26 @@ function Navbar() {
     window.location.reload();
   };
 
+  const rute = (path) => {
+    if (path === "/") {
+      return "Home";
+    } else if (path === "/vehiculos" || path === "/registros_vehiculos") {
+      return "Registros de vehiculos";
+    } else if (
+      path === "/registros_entradas" ||
+      path === "/registros_entradas/form"
+    ) {
+      return "Registros de entradas";
+    } else if (path === "/pagos") {
+      return "Registros de pagos";
+    } else if (path === "/settings") {
+      return "Configuraciones";
+    }
+    else {
+      return "";
+    }
+  };
+
   const showSidebar = () => setSidebar(!sidebar);
   return (
     <React.Fragment>
@@ -76,12 +96,15 @@ function Navbar() {
         <Link to="#" className="menu-bars">
           <div onClick={showSidebar}>
             <AiOutlineMenuUnfold />
+            <span className="YesBadge badge bg-info fs-6 ">
+              {rute(window.location.pathname)}
+            </span>
           </div>
         </Link>
-        <div className="logo">
-          <Link to="/">
+        <div className="logo ">
+          {/* <Link to="/">
             <img src={logo} alt="logo" />
-          </Link>
+          </Link> */}
         </div>
         <div className="me-2">
           {JSON.parse(localStorage.getItem("dataSesion")) && (

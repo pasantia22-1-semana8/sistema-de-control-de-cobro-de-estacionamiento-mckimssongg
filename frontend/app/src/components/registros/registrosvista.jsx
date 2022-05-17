@@ -65,7 +65,7 @@ function RegistrosVista({ data }) {
               <th>tiempo estacionado</th>
               <th>placas del heviculo</th>
               <th>registrado por</th>
-              <th className="text-center">acciones</th>
+              <th>acciones</th>
             </tr>
           </thead>
           <tbody>

@@ -23,7 +23,7 @@ function Vehiculos() {
 
   return (
     <div className="container">
-      <h3 className="text-center">Registro de vehiculos</h3>
+      <h3 className="text-center NotTitle">Registro de vehiculos</h3>
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
       <div className="d-flex justify-content-center">
         <Link to="/registros_vehiculos">
