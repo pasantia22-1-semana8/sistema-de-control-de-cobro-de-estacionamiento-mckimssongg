@@ -120,18 +120,18 @@ function PagosVista({ dataPagos }) {
                       listado de registros
                     </button>
                     {!item.fin_mes && (
-                      <Link to={`/pagos/mes/${item.id}`}>
+                      // <Link to={`/pagos/mes/${item.id}`}>
                         <button
                           className="btn btn-success fs-6 m-1"
                           onClick={() => {
                             fin_mes(item);
-                            setOnPrintMes(item);
+                            // setOnPrintMes(item);
                             creatCuenta(item.vehiculo);
                           }}
                         >
                           Inicio mes
                         </button>
-                      </Link>
+                      // </Link>
                     )}
                     {item.fin_mes && (
                       <Link to={`/pagos/mes/${item.id}`}>
