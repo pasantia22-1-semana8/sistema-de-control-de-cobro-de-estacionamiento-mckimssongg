@@ -11,15 +11,13 @@ function ChangeState({ item }) {
     estacionamiento: 0,
     vehiculo: 0,
     a_cargo_de: 0,
+    cuenta_por_cobrar: null,
   });
 
   const RegistosForm = async () => {
-    await fetch(
-      `http://127.0.0.1:8000/registros/registro_entrada_put/${item.id}/`,
-      {
-        method: "GET",
-      }
-    )
+    await fetch(`http://127.0.0.1:8000/registros/registro_entrada_put/${item.id}/`, {
+      method: "GET",
+    })
       .then((res) => res.json())
       .then((res) => {
         setDataPut({
@@ -27,12 +25,10 @@ function ChangeState({ item }) {
           estacionamiento: res.estacionamiento,
           vehiculo: res.vehiculo,
           a_cargo_de: res.a_cargo_de,
+          cuenta_por_cobrar: res.cuenta_por_cobrar,
         });
         return res;
       })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const putRegistro = async () => {
@@ -49,38 +45,9 @@ function ChangeState({ item }) {
       console.log(err);
     });
     RegistosForm();
+    mostrarAlerta();
     setOnChange(!onChange);
   };
-
-  // Resgistro de pago
-
-  // const onSubmit = async () => {
-  //   await fetch(`http://127.0.0.1:8000/registros/registro_pago/`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       registro_entrada: item.id,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (typeof res.registro_entrada.id === "number") {
-  //         mostrarAlerta();
-  //         setOnChange(!onChange);
-  //       }
-  //       if (typeof res.registro_entrada[0] == "string") {
-  //         setError({
-  //           state: true,
-  //           message: "El registro de entrada no existe",
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   React.useEffect(() => {
     RegistosForm();
@@ -109,21 +76,21 @@ function ChangeState({ item }) {
           <p className=" badge btn btn-warning fs-6 m-2">Ocupado</p>
         </button>
       )}
-      {!dataPut.estado_de_salida &&(
-        item.tipo_residencia !== "residente" ? (
-        <Link to={`/pagos/${item.id}/`}>
-          <button
-            className="badge btn btn-info fs-6 m-2"
-            onClick={() => {
-              setOnPrint(item);
-            }}
-          >
-            Ir a imprimir
-          </button> 
-        </Link>): (
-        <span className="badge btn btn-success fs-6 m-2">success</span>
-      )
-      )}
+      {!dataPut.estado_de_salida &&
+        (item.tipo_residencia !== "residente" ? (
+          <Link to={`/pagos/${item.id}/`}>
+            <button
+              className="badge btn btn-info fs-6 m-2"
+              onClick={() => {
+                setOnPrint(item);
+              }}
+            >
+              Ir a imprimir
+            </button>
+          </Link>
+        ) : (
+          <span className="badge btn btn-success fs-6 m-2">success</span>
+        ))}
     </React.Fragment>
   );
 }

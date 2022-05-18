@@ -9,6 +9,7 @@ import {
   getDataRegistrosEntradas,
   getDataEstacionamiento,
   getDataVehiculosEntrada,
+  GetCuentaPorPlaca,
   getPagos,
   getRole,
   user,
@@ -174,6 +175,8 @@ function ContextGlobalProvider(props) {
     role: "",
   });
 
+  const [cuentaId, setCuentaId] = React.useState(null);
+
   const [formEntrada, setFormEntrada] = React.useState({
     estado_de_salida: false,
     estacionamiento: null,
@@ -182,43 +185,47 @@ function ContextGlobalProvider(props) {
     cuenta_por_cobrar: null,
   });
 
-  const handleChangeEntrada = (e) => {
+  const handleChangeEntrada = async (e) => {
     setFormEntrada({
       ...formEntrada,
       [e.target.name]: e.target.value,
       a_cargo_de: User.id,
+      cuenta_por_cobrar: cuentaId,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://127.0.0.1:8000/registros/registro_entrada/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formEntrada),
-    });
-    const response = await res.json()
-        if (
-          typeof response.estacionamiento != "string" ||
-          typeof response.vehiculo != "string"
-        ) {
-          console.log(response);
-          return setError({
-            state: true,
-            message: "Invalid Credentials",
-          });
-        } else {
-          mostrarAlerta();
-          setOnChange(!onChange);
-          setError({
-            state: false,
-            message: "",
-          });
-        }
+    const res = await fetch(
+      "http://127.0.0.1:8000/registros/registro_entrada/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formEntrada),
+      }
+    );
+    const response = await res.json();
+    if (
+      typeof response.estacionamiento != "string" ||
+      typeof response.vehiculo != "string"
+    ) {
+      console.log(response);
+      return setError({
+        state: true,
+        message: "Invalid Credentials",
+      });
+    } else {
+      mostrarAlerta();
+      setOnChange(!onChange);
+      setError({
+        state: false,
+        message: "",
+      });
+    }
   };
-  
+
   //Tabla de pagos
 
   const [pagos, setPagos] = React.useState([]);
@@ -246,6 +253,8 @@ function ContextGlobalProvider(props) {
     getDataEstacionamiento(setEstacionamiento);
     getDataRegistrosEntradas(setDataEntrada);
     getDataTipos(setTipos);
+
+    GetCuentaPorPlaca(formEntrada.vehiculo, setCuentaId);
     getDataVehiculos(setData);
     user(setUser);
     getRole(setRole);

@@ -124,3 +124,25 @@ export const Cobro_Mes = async (item, setData) => {
   setData(sumall);
 };
 
+const getVehiculo = async (id) => {
+  try{
+    
+  const response = await fetch(`${URL}vehiculos/vehiculos/${id}/`);
+  const res = await response.json();
+  return res.placa;
+  }
+  catch(err){
+    console.log(err);
+  }
+};
+
+export const GetCuentaPorPlaca = async (id, setData) => {
+  const placa = await getVehiculo(id);
+  const response = await fetch(`${URL}registros/cuenta_pago?placa=${placa}`);
+  const res = await response.json();
+  if (res.length > 0) {
+    return setData(res[0].id);
+  } else {
+    return null;
+  }
+};

@@ -6,27 +6,13 @@ from .serializers import *
 from .models import *
 
 
-class Cobro_MesViewSet(generics.ListAPIView):
-    '''
-    Para realizar el cobro de mes de un vehiculo
-    si su tipo de residencia es de tipo residente
-    '''
-    queryset = Registro_Pago.objects.filter(
-        is_active=True,
-        registro_entrada__vehiculo__tipo_residencia__nombre='Residente',
-        registro_entrada__is_active=True
-    )
-
+class Get_Cuenta_Residente_ViewSet(viewsets.ModelViewSet):
     serializer_class = Registro_PagoSerializer
 
     def get_queryset(self):
-        placa = self.request.query_params.get('placa', None)
+        placa = self.request.query_params.get('placa')
         if placa:
-            queryset = self.queryset.filter(
-                registro_entrada__vehiculo__placa=placa)
-        else:
-            queryset = self.queryset
-        return queryset
+            return Registro_Pago.objects.filter(vehiculo__placa=placa, is_active=True, fin_mes=False)
 
 
 class Registro_Entrada_D_ActivoViewSet(generics.ListAPIView):
