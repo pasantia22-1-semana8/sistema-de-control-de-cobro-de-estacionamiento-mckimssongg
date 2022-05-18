@@ -113,17 +113,6 @@ export const mostrarAlerta = () => {
   setData(await response.json());
 };
 
-export const Cobro_Mes = async (item, setData) => {
-  const pagosData = await fetch(
-    `${URL}registros/cobro_mes?placa=${item.registro_entrada.vehiculo}`
-  );
-  const pagos = await pagosData.json();
-  const sumall = pagos
-    .map((item) => item.importe_total)
-    .reduce((prev, curr) => prev + curr, 0);
-  setData(sumall);
-};
-
 const getVehiculo = async (id) => {
   try{
     
