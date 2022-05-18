@@ -27,15 +27,15 @@ class Registro_EntradaSerializer(ModelSerializer):
 class Registro_EntradaListSerializer(ModelSerializer):
     class Meta:
         model = Registro_Entrada
-        fields = ('id', 'vehiculo', 'a_cargo_de', 'fecha_salida',)
+        fields = ('id', 'vehiculo', 'fecha_salida',)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['vehiculo'] = instance.vehiculo.placa
+        representation['fecha_entrada'] = instance.fecha_entrada.strftime(
+            "%d/%m/%Y %H:%M:%S")
         representation['fecha_salida'] = instance.fecha_salida.strftime(
             "%d/%m/%Y %H:%M:%S")
-        representation['tipo_residencia'] = instance.vehiculo.tipo_residencia.nombre
-        representation['a_cargo_de'] = instance.a_cargo_de.username if instance.a_cargo_de else 'No asignado'
         representation['importe_total'] = round(float(tiempo_estacionado_en_minutos(
             instance.fecha_salida, instance.fecha_entrada)) * float(instance.vehiculo.tipo_residencia.tarifa), 2)
         representation['tiempo_estacionado'] = (tiempo_estacionado_en_minutos(
@@ -60,7 +60,10 @@ class Registro_PagoSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['vehiculo'] = instance.vehiculo.placa
+        data['vehiculo'] = {
+            'id': instance.vehiculo.id,
+            'placa': instance.vehiculo.placa,
+        }
         data['fecha_pago'] = 'sin cobro' if instance.fecha_pago == instance.created else instance.fecha_pago.strftime(
             "%d/%m/%Y %H:%M:%S")
         registros = Registro_Entrada.objects.filter(

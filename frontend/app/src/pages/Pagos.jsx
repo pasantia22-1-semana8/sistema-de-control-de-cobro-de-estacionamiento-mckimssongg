@@ -5,6 +5,7 @@ import Search from "../components/Search";
 import { ContextGlobal } from "../context/Context";
 import ModalRegistros from "../components/pagos/modalRegistros";
 import { Modal } from "../modal/index";
+
 function Pagos() {
   const navigate = useNavigate();
   React.useEffect(() => {

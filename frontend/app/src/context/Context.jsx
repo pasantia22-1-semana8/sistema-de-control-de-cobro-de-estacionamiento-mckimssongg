@@ -234,7 +234,7 @@ function ContextGlobalProvider(props) {
 
   if (searchValue !== "") {
     pagos.map((item) => {
-      if (item.vehiculo.toLowerCase().includes(searchValue.toLowerCase())) {
+      if (item.vehiculo.placa.toLowerCase().includes(searchValue.toLowerCase())) {
         pagosSearch.push(item);
       }
     });

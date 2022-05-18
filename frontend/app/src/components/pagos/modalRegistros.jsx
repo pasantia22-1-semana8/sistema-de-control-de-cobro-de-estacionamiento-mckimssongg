@@ -30,8 +30,11 @@ function ModalRegistros() {
               <th scope="row" className="text-center text-white ">
                 {item.id}
               </th>
-              <td className="text-center text-white ">{item.fecha_salida}</td>
-              <td className="text-center text-white ">Q{item.importe}</td>
+              <td className="text-center text-white ">
+                {item.fecha_salida !== item.fecha_entrada && item.fecha_salida}
+                {item.fecha_salida == item.fecha_entrada && "sin salida"}
+              </td>
+              <td className="text-center text-white ">Q{item.importe_total}</td>
               <td className="text-center text-white ">
                 {item.tiempo_estacionado}
               </td>

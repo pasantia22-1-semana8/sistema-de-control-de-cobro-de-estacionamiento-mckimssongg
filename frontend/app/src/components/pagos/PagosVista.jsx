@@ -4,11 +4,10 @@ import { Aviso } from "../Aviso";
 import { ContextGlobal } from "../../context/Context";
 import { Link } from "react-router-dom";
 
-
 function PagosVista({ dataPagos }) {
   const [loading, setLoading] = React.useState(true);
 
-  const { setOnPrint, onChange, setOnChange, setOpenModal, setInfoPago} =
+  const { setOnPrint, onChange, setOnChange, setOpenModal, setInfoPago } =
     React.useContext(ContextGlobal);
 
   const put_is_activate = async (item) => {
@@ -19,7 +18,8 @@ function PagosVista({ dataPagos }) {
       },
       body: JSON.stringify({
         is_active: !item.is_active,
-        registro_entrada: item.registro_entrada.id,
+        registro_entrada: item.registro_entrada,
+        vehiculo: item.vehiculo.id,
       }),
     }).catch((err) => {
       console.log(err);
@@ -40,9 +40,9 @@ function PagosVista({ dataPagos }) {
     return <Loader />;
   } else {
     return (
-      <div className="table-responsive">
+      <div className="table-responsive overflow-auto heigthTableStandar">
         <table className="table table-striped text-center">
-          <thead>
+          <thead className="sticky-top table-dark menorZindex">
             <tr>
               <th scope="col">id</th>
               <th scope="col">Vehiculo</th>
@@ -56,9 +56,9 @@ function PagosVista({ dataPagos }) {
             {dataPagos.map((item) => (
               <tr key={item.id}>
                 <th scope="row">{item.id}</th>
-                <td>{item.vehiculo}</td>
+                <td>{item.vehiculo.placa}</td>
                 <td>{item.fecha_pago}</td>
-                <td>Q{item.importe}</td>
+                <td>Q{item.importe.toFixed(2)}</td>
                 <td>
                   {item.tiempo_estacionado &&
                     item.tiempo_estacionado.toFixed(2)}{" "}
@@ -66,25 +66,27 @@ function PagosVista({ dataPagos }) {
                 </td>
                 <td>
                   <div className="d-flex justify-content-center">
-                    <button
-                      className="btn btn-danger fs-6 m-1"
-                      onClick={() => {
-                        swal({
-                          title: "Estas seguro?",
-                          text: `Deseas eliminar el pago ${item.registro_entrada.vehiculo}`,
-                          buttons: true,
-                        }).then((willDelete) => {
-                          if (willDelete) {
-                            put_is_activate(item);
-                            swal("Eliminado!", "El pago ha sido eliminado");
-                          } else {
-                            swal("Cancelado", "El pago no ha sido eliminado");
-                          }
-                        });
-                      }}
-                    >
-                      Borrar
-                    </button>
+                    {item.fin_mes && (
+                      <button
+                        className="btn btn-danger fs-6 m-1"
+                        onClick={() => {
+                          swal({
+                            title: "Estas seguro?",
+                            text: `Deseas eliminar el pago ${item.vehiculo.placa}`,
+                            buttons: true,
+                          }).then((willDelete) => {
+                            if (willDelete) {
+                              put_is_activate(item);
+                              swal("Eliminado!", "El pago ha sido eliminado");
+                            } else {
+                              swal("Cancelado", "El pago no ha sido eliminado");
+                            }
+                          });
+                        }}
+                      >
+                        Borrar
+                      </button>
+                    )}
                     <button
                       className="btn btn-info fs-6 m-1"
                       onClick={async () => {
@@ -103,7 +105,6 @@ function PagosVista({ dataPagos }) {
             ))}
           </tbody>
         </table>
-        
       </div>
     );
   }
