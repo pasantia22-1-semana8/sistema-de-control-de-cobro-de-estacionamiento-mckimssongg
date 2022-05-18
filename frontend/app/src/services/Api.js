@@ -113,19 +113,23 @@ export const mostrarAlerta = () => {
   setData(await response.json());
 };
 
-const getVehiculo = async (id) => {
-  try{
-    
-  const response = await fetch(`${URL}vehiculos/vehiculos/${id}/`);
-  const res = await response.json();
-  return res.placa;
-  }
-  catch(err){
+/**
+ * @description Función que permite obtener la placa de un vehiculo por medio de un id
+ * @param {string} id - Id del vehiculo
+ */ const getVehiculo = async (id) => {
+  try {
+    const response = await fetch(`${URL}vehiculos/vehiculos/${id}/`);
+    const res = await response.json();
+    return res.placa;
+  } catch (err) {
     console.log(err);
   }
 };
 
-export const GetCuentaPorPlaca = async (id, setData) => {
+/**
+ * @description Función que permite obtener un vehiculo por medio de un id
+ * @param {string} id - Id del vehiculo
+ */ export const GetCuentaPorPlaca = async (id, setData) => {
   const placa = await getVehiculo(id);
   const response = await fetch(`${URL}registros/cuenta_pago?placa=${placa}`);
   const res = await response.json();

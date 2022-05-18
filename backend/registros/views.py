@@ -7,6 +7,10 @@ from .models import *
 
 
 class Get_Cuenta_Residente_ViewSet(viewsets.ModelViewSet):
+    '''
+    Por medio de esta vista se obtienen los registros de pago de un residente
+    y se obtendra el que coincidad con la placa y que este activo y que tenga un fin de mes en false
+    '''
     serializer_class = Registro_PagoSerializer
 
     def get_queryset(self):
@@ -54,6 +58,10 @@ class Registro_Pago_ActivoViewSet(generics.ListAPIView):
 
 
 class Registro_EntradaKeysViewSet(viewsets.ModelViewSet):
+    '''
+    Para obtener los registros de entrada y los id de las relaciones
+    para poder hacer un update
+    '''
     queryset = Registro_Entrada.objects.all()
     serializer_class = Registro_EntradaKeysSerializer
 

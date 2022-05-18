@@ -8,14 +8,19 @@ from .models import Tipo_Residencia, Vehiculo
 from .serializers import Tipo_ResidenciaSerializer, VehiculoSerializer
 
 
-# Query para obtener todos los vehiculos que tengan una relacion con un registro de entrada
 class VehiculosEntradaView(generics.ListAPIView):
+    '''
+    Query para obtener todos los vehiculos que tengan una relacion con un registro de entrada
+    '''
     queryset = Vehiculo.objects.filter(
         registro_entrada__estado_de_salida=False)
     serializer_class = VehiculoSerializer
 
 
 class Vehiculos_EstadoViewSet(generics.ListAPIView):
+    '''
+    Para obtener los vehiculos que estan activos o inactivos
+    '''
     queryset = Vehiculo.objects.all()
     serializer_class = VehiculoSerializer
 
