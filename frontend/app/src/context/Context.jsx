@@ -91,18 +91,28 @@ function ContextGlobalProvider(props) {
     message: "",
   });
 
-  // setTimeout(() => {
-  //   setError({
-  //     state: false,
-  //     message: "",
-  //   });
-  // }, 3000);
-
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const creatCuenta = async (data) => {
+    const res = await fetch(`http://localhost:8000/registros/registro_pago/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        importe: 0,
+        tiempo_estacionado: 0,
+        fin_mes: false,
+        is_active: true,
+        vehiculo: data.id,
+      }),
+    });
+    const response = await res.json();
   };
 
   const sendData = async (e) => {
@@ -128,6 +138,9 @@ function ContextGlobalProvider(props) {
       });
     } else {
       mostrarAlerta();
+      if (data.tipo_residencia === "residente") {
+        await creatCuenta(data);
+      }
       setOnChange(!onChange);
       return setError({
         state: false,
@@ -166,6 +179,7 @@ function ContextGlobalProvider(props) {
     estacionamiento: null,
     vehiculo: null,
     a_cargo_de: null,
+    cuenta_por_cobrar: null,
   });
 
   const handleChangeEntrada = (e) => {
@@ -176,21 +190,21 @@ function ContextGlobalProvider(props) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const DATA = fetch("http://127.0.0.1:8000/registros/registro_entrada/", {
+    const res = await fetch("http://127.0.0.1:8000/registros/registro_entrada/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formEntrada),
     });
-    DATA.then((res) => res.json())
-      .then((res) => {
+    const response = await res.json()
         if (
-          typeof res.estacionamiento != "string" ||
-          typeof res.vehiculo != "string"
+          typeof response.estacionamiento != "string" ||
+          typeof response.vehiculo != "string"
         ) {
+          console.log(response);
           return setError({
             state: true,
             message: "Invalid Credentials",
@@ -203,12 +217,8 @@ function ContextGlobalProvider(props) {
             message: "",
           });
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
-
+  
   //Tabla de pagos
 
   const [pagos, setPagos] = React.useState([]);

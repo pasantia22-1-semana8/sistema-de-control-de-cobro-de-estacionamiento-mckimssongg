@@ -54,33 +54,33 @@ function ChangeState({ item }) {
 
   // Resgistro de pago
 
-  const onSubmit = async () => {
-    await fetch(`http://127.0.0.1:8000/registros/registro_pago/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        registro_entrada: item.id,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (typeof res.registro_entrada.id === "number") {
-          mostrarAlerta();
-          setOnChange(!onChange);
-        }
-        if (typeof res.registro_entrada[0] == "string") {
-          setError({
-            state: true,
-            message: "El registro de entrada no existe",
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const onSubmit = async () => {
+  //   await fetch(`http://127.0.0.1:8000/registros/registro_pago/`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       registro_entrada: item.id,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       if (typeof res.registro_entrada.id === "number") {
+  //         mostrarAlerta();
+  //         setOnChange(!onChange);
+  //       }
+  //       if (typeof res.registro_entrada[0] == "string") {
+  //         setError({
+  //           state: true,
+  //           message: "El registro de entrada no existe",
+  //         });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   React.useEffect(() => {
     RegistosForm();
@@ -99,28 +99,30 @@ function ChangeState({ item }) {
               if (willDelete) {
                 swal("Hecho!", "El vehiculo ha sido dado de salida");
                 putRegistro();
-                onSubmit();
+                // onSubmit();
               } else {
                 swal("Cancelado", "El vehiculo no ha sido dado de salida");
               }
             });
           }}
         >
-          <p className=" badge btn btn-success fs-6 m-2">Ocupado</p>
+          <p className=" badge btn btn-warning fs-6 m-2">Ocupado</p>
         </button>
       )}
-      {!dataPut.estado_de_salida && (
+      {!dataPut.estado_de_salida &&(
+        item.tipo_residencia !== "residente" ? (
         <Link to={`/pagos/${item.id}/`}>
           <button
             className="badge btn btn-info fs-6 m-2"
             onClick={() => {
-              console.log(item)
               setOnPrint(item);
             }}
           >
             Ir a imprimir
-          </button>
-        </Link>
+          </button> 
+        </Link>): (
+        <span className="badge btn btn-success fs-6 m-2">success</span>
+      )
       )}
     </React.Fragment>
   );

@@ -1,5 +1,19 @@
 import React from 'react'
 
+
+function AvisoSinRegistros({ mensaje }) {
+  return (
+    //   aun no tienes registros aviso
+    <div className="alert alert-warning text-center w-50" role="alert">
+        <h4 className="alert-heading">Aviso</h4>
+        <p >
+            No tienes registros 
+        </p>
+        <hr />
+    </div>
+  )
+}
+
 function Aviso({ mensaje }) {
   return (
     //   aun no tienes registros aviso
@@ -27,4 +41,4 @@ function AvisoHome() {
   )
 }
 
-export  {Aviso, AvisoHome}
+export  {Aviso, AvisoHome, AvisoSinRegistros}

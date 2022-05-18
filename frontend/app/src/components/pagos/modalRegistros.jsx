@@ -1,8 +1,16 @@
 import React from "react";
+import { AvisoSinRegistros } from "../Aviso";
 import { ContextGlobal } from "../../context/Context";
 
 function ModalRegistros() {
   const { infoPago } = React.useContext(ContextGlobal);
+  if (infoPago.length === 0) {
+    return (
+      <div className="w-100 d-flex justify-content-center ">
+        <AvisoSinRegistros />
+      </div>
+    );
+  }
   return (
     <div className="table-responsive  bg-primary p-4">
       <h4 className="text-center">Registros de :{infoPago[0].vehiculo}</h4>

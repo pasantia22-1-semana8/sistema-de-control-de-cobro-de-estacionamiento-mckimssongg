@@ -23,10 +23,10 @@ function Pagos() {
       <PagosVista dataPagos={pagosSearch} />
       {!!openModal && (
         <Modal>
-          <div className="container d-flex flex-column">
+          <div className="container d-flex flex-column align-items-center">
             <ModalRegistros />
             <button
-              className="btn btn-danger fs-6 m-4"
+              className="btn btn-danger fs-6 m-4 w-50"
               onClick={() => {
                 setOpenModal(false);
               }}

@@ -46,7 +46,7 @@ class Registro_Entrada(models.Model):
     estado_de_salida = models.BooleanField(
         default=False, blank=True, null=True)
 
-    Cuenta_Por_Cobrar = models.ForeignKey(
+    cuenta_por_cobrar = models.ForeignKey(
         Registro_Pago, on_delete=models.CASCADE, null=True, blank=True)
 
     fecha_entrada = models.DateTimeField(auto_now_add=True)

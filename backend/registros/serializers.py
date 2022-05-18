@@ -64,7 +64,7 @@ class Registro_PagoSerializer(ModelSerializer):
         data['fecha_pago'] = 'sin cobro' if instance.fecha_pago == instance.created else instance.fecha_pago.strftime(
             "%d/%m/%Y %H:%M:%S")
         registros = Registro_Entrada.objects.filter(
-            Cuenta_Por_Cobrar=instance.id)
+            cuenta_por_cobrar=instance.id)
         data['registro_entrada'] = Registro_EntradaListSerializer(
             registros, many=True).data
         total = 0
