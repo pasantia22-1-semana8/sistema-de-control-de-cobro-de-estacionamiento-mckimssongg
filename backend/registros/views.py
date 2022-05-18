@@ -49,7 +49,7 @@ class Registro_Pago_ActivoViewSet(generics.ListAPIView):
     (que no han sido cancelados)
     '''
     queryset = Registro_Pago.objects.filter(
-        is_active=True, registro_entrada__is_active=True,)
+        is_active=True)
     serializer_class = Registro_PagoSerializer
 
 

@@ -12,25 +12,34 @@ import Layout from "./layouts/Layout";
 import Rregistro_Vehiculos from "./pages/Registro_Vehiculos";
 import Page_Fac from "./pages/Page_Fac";
 import Settings from "./pages/Settings";
-
+import Page_Fac_Mes from "./pages/Page_Fac_Mes";
 
 function App() {
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/vehiculos" element={<Vehiculos />} />
-          <Route path="/registros_vehiculos" element={<Rregistro_Vehiculos />} />
-          <Route path="/registros_entradas" element={<Registros_Entradas />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/vehiculos" element={<Vehiculos />} />
+          <Route
+            exact
+            path="/registros_vehiculos"
+            element={<Rregistro_Vehiculos />}
+          />
+          <Route
+            exact
+            path="/registros_entradas"
+            element={<Registros_Entradas />}
+          />
           <Route
             path="/registros_entradas/form"
             element={<RegistrosForm_Entradas />}
           />
-          <Route path="/pagos" element={<Pagos />} />
-          <Route path="/pagos/:id/" element={<Page_Fac />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route exact path="/pagos" element={<Pagos />} />
+          <Route exact path="/pagos/mes/:id" element={<Page_Fac_Mes />} />
+          <Route exact path="/pagos/:id/" element={<Page_Fac />} />
+          <Route exact path="/settings" element={<Settings />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </Layout>

@@ -36,7 +36,8 @@ function ModalRegistros() {
               </td>
               <td className="text-center text-white ">Q{item.importe_total}</td>
               <td className="text-center text-white ">
-                {item.tiempo_estacionado}
+                {item.tiempo_estacionado && item.tiempo_estacionado.toFixed(2)}{" "}
+                min
               </td>
               <td className="text-center text-white ">
                 <button

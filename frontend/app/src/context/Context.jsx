@@ -30,7 +30,16 @@ function ContextGlobalProvider(props) {
     importe_total: 0,
     registro_entrada: {},
   });
-
+  const [onPrintMes, setOnPrintMes] = React.useState({
+    id: null,
+    fecha_pago: "",
+    importe: 0,
+    tiempo_estacionado: 0,
+    vehiculo: {
+      id: null,
+      placa: "",
+    },
+  });
   const [actualizarVehiculo, setActualizarVehiculo] = React.useState({});
   const vehiculosSearch = [];
   if (searchValue !== "") {
@@ -115,7 +124,7 @@ function ContextGlobalProvider(props) {
     });
     const response = await res.json();
   };
-
+  
   const sendData = async (e) => {
     // enviar datos del formulario de registro de nuevo vehiculo
     e.preventDefault();
@@ -234,7 +243,9 @@ function ContextGlobalProvider(props) {
 
   if (searchValue !== "") {
     pagos.map((item) => {
-      if (item.vehiculo.placa.toLowerCase().includes(searchValue.toLowerCase())) {
+      if (
+        item.vehiculo.placa.toLowerCase().includes(searchValue.toLowerCase())
+      ) {
         pagosSearch.push(item);
       }
     });
@@ -272,6 +283,8 @@ function ContextGlobalProvider(props) {
         pagosSearch,
         setOnPrint,
         onPrint,
+        onPrintMes,
+        setOnPrintMes,
         infoPago,
         setInfoPago,
         openModal,
@@ -302,6 +315,7 @@ function ContextGlobalProvider(props) {
         // Update
         actualizarVehiculo,
         setActualizarVehiculo,
+        creatCuenta,
       }}
     >
       {props.children}

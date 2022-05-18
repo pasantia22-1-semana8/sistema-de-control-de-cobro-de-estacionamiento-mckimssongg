@@ -3,7 +3,7 @@ import React from "react";
 const Fac = React.forwardRef(({ onPrint }, ref) => {
   return (
     <React.Fragment>
-      <div className="container border border-primary" ref={ref}>
+      <div className="container p-4" ref={ref}>
         <div className="row border border-primary">
           <div className="col-12 border border-primary">
             <h1 className="text-center">Recibo de pago : 00{onPrint.id}</h1>

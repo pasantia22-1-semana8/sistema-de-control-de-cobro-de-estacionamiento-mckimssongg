@@ -7,9 +7,32 @@ import { Link } from "react-router-dom";
 function PagosVista({ dataPagos }) {
   const [loading, setLoading] = React.useState(true);
 
-  const { setOnPrint, onChange, setOnChange, setOpenModal, setInfoPago } =
-    React.useContext(ContextGlobal);
+  const {
+    setOnPrintMes,
+    onChange,
+    setOnChange,
+    setOpenModal,
+    setInfoPago,
+    creatCuenta,
+  } = React.useContext(ContextGlobal);
 
+  const fin_mes = async (item) => {
+    await fetch(`http://127.0.0.1:8000/registros/registro_pago/${item.id}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        is_active: item.is_active,
+        fin_mes: true,
+        registro_entrada: item.registro_entrada,
+        vehiculo: item.vehiculo.id,
+      }),
+    }).catch((err) => {
+      console.log(err);
+    });
+    setOnChange(!onChange);
+  };
   const put_is_activate = async (item) => {
     await fetch(`http://127.0.0.1:8000/registros/registro_pago/${item.id}/`, {
       method: "PUT",
@@ -17,7 +40,7 @@ function PagosVista({ dataPagos }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        is_active: !item.is_active,
+        is_active: false,
         registro_entrada: item.registro_entrada,
         vehiculo: item.vehiculo.id,
       }),
@@ -96,9 +119,32 @@ function PagosVista({ dataPagos }) {
                     >
                       listado de registros
                     </button>
-                    <button className="btn btn-success fs-6 m-1">
-                      Inicio mes
-                    </button>
+                    {!item.fin_mes && (
+                      <Link to={`/pagos/mes/${item.id}`}>
+                        <button
+                          className="btn btn-success fs-6 m-1"
+                          onClick={() => {
+                            fin_mes(item);
+                            setOnPrintMes(item);
+                            creatCuenta(item.vehiculo);
+                          }}
+                        >
+                          Inicio mes
+                        </button>
+                      </Link>
+                    )}
+                    {item.fin_mes && (
+                      <Link to={`/pagos/mes/${item.id}`}>
+                        <button
+                          className="btn btn-dark fs-6 m-1"
+                          onClick={() => {
+                            setOnPrintMes(item);
+                          }}
+                        >
+                          imprimir
+                        </button>
+                      </Link>
+                    )}
                   </div>
                 </td>
               </tr>

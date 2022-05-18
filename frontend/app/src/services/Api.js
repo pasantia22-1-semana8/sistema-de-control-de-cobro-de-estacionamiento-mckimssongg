@@ -101,7 +101,7 @@ export const mostrarAlerta = () => {
  * @description Función que permite obtener todos los registros de pagos activos en el sistema
  * @param {function} setData - Funcion para setear los datos en el state
  */ export const getPagos = async (setData) => {
-  const response = await fetch(`${URL}registros/registro_pago/`);
+  const response = await fetch(`${URL}registros/registro_pagos_activos`);
   setData((await response.json()).reverse());
 };
 

@@ -1,10 +1,10 @@
 import React from "react";
 
-const Fac_Mes = React.forwardRef(({ placa, cobroTotal }, ref) => {
+const Fac_Mes_Plantilla = React.forwardRef(({ onPrint }, ref) => {
   return (
     <React.Fragment>
-      <div className="container border border-primary" ref={ref}>
-        <div className="row border border-primary">
+      <div className="container p-4" ref={ref}>
+        <div className="row border border-primary ">
           <div className="col-12 border border-primary">
             <h1 className="text-center">Recibo de pago de mes </h1>
           </div>
@@ -20,10 +20,10 @@ const Fac_Mes = React.forwardRef(({ placa, cobroTotal }, ref) => {
         </div>
         <div className="row border border-primary">
           <div className="col-6 border border-primary">
-            <h4>{placa}</h4>
+            <h4>{onPrint.vehiculo.placa}</h4>
           </div>
           <div className="col-6 border border-primary">
-            <h4>Q{cobroTotal.toFixed(2)}</h4>
+            <h4>Q{onPrint.importe.toFixed(2)}</h4>
           </div>
         </div>
       </div>
@@ -31,4 +31,4 @@ const Fac_Mes = React.forwardRef(({ placa, cobroTotal }, ref) => {
   );
 });
 
-export default Fac_Mes;
+export default Fac_Mes_Plantilla;
